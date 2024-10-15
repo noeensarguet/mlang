@@ -16,6 +16,10 @@
 
 open Bir
 
+let format_variable fmt (v : variable) =
+  Format.fprintf fmt "%a -- %s %d" Format_mir.format_variable v.mir_var v.on_tgv
+    v.offset
+
 let format_expression fmt (e : expression) =
   Format_mir.format_expression fmt (Mir.map_expr_var Bir.var_to_mir e)
 

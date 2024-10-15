@@ -56,6 +56,10 @@ val exit_on_rte : bool ref
 val repl_debug : bool ref
 (** If set to true, prints the REPL debugger in case of runtime error *)
 
+module TRYGRAPH : Graph.Sig.P with type V.t = Bir.variable * var_literal
+
+module DBGGRAPH : Graph.Sig.P with type V.t = Bir.variable * Bir.variable_def option * var_literal
+
 (** {1 The interpreter functor}*)
 
 (** The intepreter is parametrized by the kind of floating-point values used for
@@ -131,7 +135,12 @@ module type S = sig
 
   val evaluate_expr : ctx -> Mir.program -> Bir.expression Pos.marked -> value
 
-  val evaluate_program : Bir.program -> ctx -> int -> ctx
+  val evaluate_program :
+    ?dbg:(TRYGRAPH.t * Bir.variable_def Bir.VariableMap.t) option ref ->
+    Bir.program ->
+    ctx ->
+    int ->
+    ctx
 end
 
 module FloatDefInterp :

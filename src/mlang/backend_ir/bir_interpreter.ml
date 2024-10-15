@@ -18,6 +18,16 @@ type var_literal =
   | SimpleVar of Mir.literal
   | TableVar of int * Mir.literal array
 
+let format_var_literal fmt v =
+  match v with
+  | SimpleVar l -> Format_mir.format_literal fmt l
+  | TableVar (_, es) ->
+      Format.fprintf fmt "[%a]"
+        (Format.pp_print_list
+           ~pp_sep:(fun fmt () -> Format.fprintf fmt "; ")
+           (fun fmt e -> Format.fprintf fmt "%a" Format_mir.format_literal e))
+        (Array.to_list es)
+
 type code_location_segment =
   | InsideBlock of int
   | ConditionalBranch of bool
@@ -46,6 +56,26 @@ let assign_hook :
 let exit_on_rte = ref true
 
 let repl_debug = ref false
+
+module TRYGRAPH = Graph.Persistent.Digraph.ConcreteBidirectional (struct
+  type t = Bir.variable * var_literal
+
+  let hash ((a, _) : t) = a.Bir.mir_var.Mir.id
+
+  let compare = compare
+
+  let equal = ( = )
+end)
+
+module DBGGRAPH = Graph.Persistent.Digraph.ConcreteBidirectional (struct
+  type t = Bir.variable * Bir.variable_def option * var_literal
+
+  let hash ((a, _, _) : t) = a.Bir.mir_var.Mir.id
+
+  let compare = compare
+
+  let equal = ( = )
+end)
 
 module type S = sig
   type custom_float
@@ -105,7 +135,12 @@ module type S = sig
 
   val evaluate_expr : ctx -> Mir.program -> Bir.expression Pos.marked -> value
 
-  val evaluate_program : Bir.program -> ctx -> int -> ctx
+  val evaluate_program :
+    ?dbg:(TRYGRAPH.t * Bir.variable_def Bir.VariableMap.t) option ref ->
+    Bir.program ->
+    ctx ->
+    int ->
+    ctx
 end
 
 module Make (N : Bir_number.NumberInterface) (RF : Bir_roundops.RoundOpsFunctor) =
@@ -660,7 +695,7 @@ struct
         ctx
 
   let evaluate_variable (p : Bir.program) (ctx : ctx) (curr_value : var_value)
-      (vdef : Bir.variable Mir.variable_def_) : var_value =
+      (vdef : Bir.variable_def) : var_value =
     match vdef with
     | Mir.SimpleVar e -> SimpleVar (evaluate_expr ctx p.mir_program e)
     | Mir.TableVar (size, es) ->
@@ -709,8 +744,50 @@ struct
                     evaluate_expr ctx p.mir_program e) )
     | Mir.InputVar -> assert false
 
-  let rec evaluate_stmt (p : Bir.program) (ctx : ctx) (stmt : Bir.stmt)
-      (loc : code_location) =
+  (** Add all the sucessors of [lvar] in the graph that are used by [e] *)
+  let rec get_used_variables_ (e : Bir.expression Pos.marked)
+      (acc : Bir.VariableSet.t) : Bir.VariableSet.t =
+    match Pos.unmark e with
+    | Mir.Comparison (_, e1, e2)
+    | Mir.Binop (_, e1, e2)
+    | Mir.LocalLet (_, e1, e2) ->
+        let acc = get_used_variables_ e1 acc in
+        let acc = get_used_variables_ e2 acc in
+        acc
+    | Mir.Unop (_, e) -> get_used_variables_ e acc
+    | Mir.Index ((var, _), e) ->
+        let acc = Bir.VariableSet.add var acc in
+        let acc = get_used_variables_ e acc in
+        acc
+    | Mir.Conditional (e1, e2, e3) ->
+        let acc = get_used_variables_ e1 acc in
+        let acc = get_used_variables_ e2 acc in
+        let acc = get_used_variables_ e3 acc in
+        acc
+    | Mir.FunctionCall (_, args) ->
+        List.fold_left (fun acc arg -> get_used_variables_ arg acc) acc args
+    | Mir.LocalVar _ | Mir.Literal _ | Mir.Error -> acc
+    | Mir.Var var -> Bir.VariableSet.add var acc
+
+  let get_used_variables (e : Bir.expression Pos.marked) : Bir.VariableSet.t =
+    get_used_variables_ e Bir.VariableSet.empty
+
+  let get_def_used_variables (def : Bir.variable_def) : Bir.VariableSet.t =
+    match def with
+    | Mir.InputVar -> Bir.VariableSet.empty
+    | Mir.SimpleVar e -> get_used_variables e
+    | Mir.TableVar (_, def) -> (
+        match def with
+        | Mir.IndexGeneric (v, e) ->
+            Bir.VariableSet.add v (get_used_variables e)
+        | Mir.IndexTable es ->
+            Mir.IndexMap.fold
+              (fun _ e acc -> Bir.VariableSet.union acc (get_used_variables e))
+              es Bir.VariableSet.empty)
+
+  let rec evaluate_stmt ?(dbg = ref None) (p : Bir.program) (ctx : ctx)
+      (stmt : Bir.stmt) (loc : code_location) =
+    Format.printf "%a\n" Bir_debug_graph.format_beg_stmt stmt;
     match Pos.unmark stmt with
     | Bir.SAssign (var, vdef) ->
         let value =
@@ -722,6 +799,25 @@ struct
         in
         let res = evaluate_variable p ctx value vdef in
         !assign_hook var (fun _ -> var_value_to_var_literal res) loc;
+        let resv =
+          try Bir.VariableMap.find var ctx.ctx_vars
+          with Not_found -> (
+            match (Bir.var_to_mir var).is_table with
+            | Some size -> TableVar (size, Array.make size Undefined)
+            | None -> SimpleVar Undefined)
+        in
+        dbg :=
+          Option.map
+            (fun (g, vdef_map) ->
+              let vl = get_def_used_variables vdef in
+              ( Bir.VariableSet.fold
+                  (fun v g ->
+                    TRYGRAPH.add_edge g
+                      (var, var_value_to_var_literal res)
+                      (v, var_value_to_var_literal resv))
+                  vl g,
+                Bir.VariableMap.add var vdef vdef_map ))
+            !dbg;
         { ctx with ctx_vars = Bir.VariableMap.add var res ctx.ctx_vars }
     | Bir.SConditional (b, t, f) -> (
         match
@@ -729,9 +825,9 @@ struct
             (SimpleVar (b, Pos.no_pos))
         with
         | SimpleVar (Number z) when N.(z =. zero ()) ->
-            evaluate_stmts p ctx f (ConditionalBranch false :: loc) 0
+            evaluate_stmts ~dbg p ctx f (ConditionalBranch false :: loc) 0
         | SimpleVar (Number _) ->
-            evaluate_stmts p ctx t (ConditionalBranch true :: loc) 0
+            evaluate_stmts ~dbg p ctx t (ConditionalBranch true :: loc) 0
         | SimpleVar Undefined -> ctx
         | _ -> assert false)
     | Bir.SVerif data -> (
@@ -740,30 +836,30 @@ struct
         | _ -> ctx)
     | Bir.SRovCall r ->
         let rule = Bir.ROVMap.find r p.rules_and_verifs in
-        evaluate_stmts p ctx
+        evaluate_stmts ~dbg p ctx
           (Bir.rule_or_verif_as_statements rule)
           (InsideRule r :: loc) 0
     | Bir.SFunctionCall (f, _args) ->
-        evaluate_stmts p ctx (Bir.FunctionMap.find f p.mpp_functions).mppf_stmts
-          loc 0
+        evaluate_stmts ~dbg p ctx
+          (Bir.FunctionMap.find f p.mpp_functions).mppf_stmts loc 0
   (* Mpp_function arguments seem to be used only to determine which variables
      are actually output. Does this actually make sense ? *)
 
-  and evaluate_stmts (p : Bir.program) (ctx : ctx) (stmts : Bir.stmt list)
-      (loc : code_location) (start_value : int) : ctx =
+  and evaluate_stmts ?(dbg = ref None) (p : Bir.program) (ctx : ctx)
+      (stmts : Bir.stmt list) (loc : code_location) (start_value : int) : ctx =
     let ctx, _ =
       List.fold_left
         (fun (ctx, i) stmt ->
-          (evaluate_stmt p ctx stmt (InsideBlock i :: loc), i + 1))
+          (evaluate_stmt ~dbg p ctx stmt (InsideBlock i :: loc), i + 1))
         (ctx, start_value) stmts
     in
     ctx
 
-  let evaluate_program (p : Bir.program) (ctx : ctx)
+  let evaluate_program ?(dbg = ref None) (p : Bir.program) (ctx : ctx)
       (code_loc_start_value : int) : ctx =
     try
       let ctx =
-        evaluate_stmts p ctx
+        evaluate_stmts ~dbg p ctx
           (Bir.main_statements_with_context_and_tgv_init p)
           [] code_loc_start_value
         (* For the interpreter to operate properly, all input variables must be
@@ -883,7 +979,27 @@ let evaluate_program (bir_func : Bir_interface.bir_function) (p : Bir.program)
   prepare_interp sort roundops;
   let module Interp = (val get_interp sort roundops : S) in
   let ctx = Interp.update_ctx_with_inputs Interp.empty_ctx inputs in
-  let ctx = Interp.evaluate_program p ctx code_loc_start_value in
+  let dbg = ref (Some (TRYGRAPH.empty, Bir.VariableMap.empty)) in
+  let ctx = Interp.evaluate_program ~dbg p ctx code_loc_start_value in
+  let dbg, vdef_map = Option.get !dbg in
+  TRYGRAPH.fold_edges
+    (fun (v1, vv1) (v2, vv2) () ->
+      Format.printf "%a = %a -- %a = %a\n\n" Format_bir.format_variable v1
+        format_var_literal vv1 Format_bir.format_variable v2 format_var_literal
+        vv2)
+    dbg ();
+  Format.printf "dbg : %d sommets et %d arêtes\n" (TRYGRAPH.nb_vertex dbg)
+    (TRYGRAPH.nb_edges dbg);
+  let dbg =
+    TRYGRAPH.fold_edges
+      (fun (v1, vv1) (v2, vv2) g ->
+        DBGGRAPH.add_edge g
+          (v1, Bir.VariableMap.find_opt v1 vdef_map, vv1)
+          (v2, Bir.VariableMap.find_opt v2 vdef_map, vv2))
+      dbg DBGGRAPH.empty
+  in
+  Format.printf "dbg : %d sommets et %d arêtes\n" (DBGGRAPH.nb_vertex dbg)
+    (DBGGRAPH.nb_edges dbg);
   fun () -> Interp.print_output bir_func ctx
 
 let evaluate_expr (p : Mir.program) (e : Bir.expression Pos.marked)
