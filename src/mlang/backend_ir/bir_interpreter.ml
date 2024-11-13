@@ -243,10 +243,10 @@ struct
           (fun var value ctx_vars ->
             Bir.VariableMap.add var (SimpleVar value) ctx_vars)
           (Bir.VariableMap.mapi
-             (fun v l ->
+             (fun _ l ->
                match l with
                | Mir.Undefined -> Undefined
-               | Mir.Float f -> Number (N.of_float_input (Bir.var_to_mir v) f))
+               | Mir.Float f -> Number (N.of_float_input f))
              inputs)
           ctx.ctx_vars;
     }
