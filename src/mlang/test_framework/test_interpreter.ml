@@ -86,9 +86,10 @@ let to_MIR_function_and_inputs (program : Bir.program) (t : Irj_ast.irj_file) :
   ( { func_variable_inputs; func_constant_inputs; func_outputs; func_conds },
     input_file )
 
-let check_test (combined_program : Bir.program) (test_name : string)
-    (optimize : bool) (code_coverage : bool) (value_sort : Cli.value_sort)
-    (round_ops : Cli.round_ops) : Bir_instrumentation.code_coverage_result =
+let check_test ?files (combined_program : Bir.program) (test_name : string)
+    (optimize : bool) (code_coverage : bool) (out_graph : bool)
+    (value_sort : Cli.value_sort) (round_ops : Cli.round_ops) :
+    Bir_instrumentation.code_coverage_result =
   Cli.debug_print "Parsing %s..." test_name;
   let t = Irj_file.parse_file test_name in
   Cli.debug_print "Running test %s..." t.nom;
@@ -112,6 +113,10 @@ let check_test (combined_program : Bir.program) (test_name : string)
     else combined_program
   in
   if code_coverage then Bir_instrumentation.code_coverage_init ();
+  (if out_graph then
+   let files = match files with Some files -> files | None -> assert false in
+   Bir_debug_graph.output_dot_eval_program files f combined_program input_file
+     (-code_loc_offset) value_sort round_ops ());
   let _print_outputs =
     Bir_interpreter.evaluate_program f combined_program input_file
       (-code_loc_offset) value_sort round_ops
@@ -179,7 +184,7 @@ let check_all_tests (p : Bir.program) (test_dir : string) (optimize : bool)
     try
       Cli.debug_flag := false;
       let code_coverage_result =
-        check_test p (test_dir ^ name) optimize code_coverage_activated
+        check_test p (test_dir ^ name) optimize code_coverage_activated false
           value_sort round_ops
       in
       Cli.debug_flag := true;

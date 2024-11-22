@@ -56,9 +56,17 @@ val exit_on_rte : bool ref
 val repl_debug : bool ref
 (** If set to true, prints the REPL debugger in case of runtime error *)
 
-module TRYGRAPH : Graph.Sig.P with type V.t = Bir.variable * var_literal
+module TRYGRAPH : Graph.Sig.P with type V.label = Bir.variable * var_literal
 
-module DBGGRAPH : Graph.Sig.P with type V.t = Bir.variable * Bir.variable_def option * var_literal
+module DBGGRAPH :
+  Graph.Sig.P with type V.label = string * string option * var_literal
+
+type ctx_dbg = {
+  ctxd_local_vars : TRYGRAPH.vertex Pos.marked Mir.LocalVariableMap.t;
+  ctxd_vars : TRYGRAPH.vertex StrMap.t;
+}
+
+val empty_ctxd : ctx_dbg
 
 (** {1 The interpreter functor}*)
 
@@ -102,6 +110,9 @@ module type S = sig
 
   val update_ctx_with_inputs : ctx -> Mir.literal Bir.VariableMap.t -> ctx
 
+  val update_ctxd_with_inputs :
+    ctx_dbg -> Mir.literal Bir.VariableMap.t -> ctx_dbg
+
   (** Interpreter runtime errors *)
   type run_error =
     | ErrorValue of string * Pos.t
@@ -137,10 +148,11 @@ module type S = sig
 
   val evaluate_program :
     ?dbg:(TRYGRAPH.t * Bir.variable_def Bir.VariableMap.t) option ref ->
+    ?ctxd:ctx_dbg ->
     Bir.program ->
     ctx ->
     int ->
-    ctx
+    ctx * ctx_dbg
 end
 
 module FloatDefInterp :
@@ -207,6 +219,17 @@ val evaluate_program :
   unit ->
   unit
 (** Main interpreter function *)
+
+(* TODO ideally not duplicate the evaluate_program function *)
+val evaluate_program_dbg :
+  Bir_interface.bir_function ->
+  Bir.program ->
+  Mir.literal Bir.VariableMap.t ->
+  int ->
+  Cli.value_sort ->
+  Cli.round_ops ->
+  unit ->
+  TRYGRAPH.t * ctx_dbg
 
 val evaluate_expr :
   Mir.program ->
