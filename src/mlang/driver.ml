@@ -271,9 +271,11 @@ let driver (files : string list) (without_dgfip_m : bool) (debug : bool)
       let test : string =
         match run_test with Some s -> s | _ -> assert false
       in
+      (* TODO add argument in driver and cli *)
+      let out_graph = true in
       ignore
-        (Test_interpreter.check_test combined_program test optimize false
-           value_sort round_ops);
+        (Test_interpreter.check_test ?files:(Some files) combined_program test
+           optimize false out_graph value_sort round_ops);
       Cli.result_print "Test passed!"
     end
     else begin
