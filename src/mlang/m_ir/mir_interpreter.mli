@@ -30,6 +30,11 @@ val exit_on_rte : bool ref
 val repl_debug : bool ref
 (** If set to true, prints the REPL debugger in case of runtime error *)
 
+module TRYGRAPH : Graph.Sig.P with type V.t = Com.Var.t * Com.literal
+
+module DBGGRAPH :
+  Graph.Sig.P with type V.t = Com.Var.t * Mir.expression option * Com.literal
+
 (** {1 The interpreter functor}*)
 
 (** The intepreter is parametrized by the kind of floating-point values used for
@@ -94,9 +99,18 @@ module type S = sig
   (** Returns the comparison between two numbers in the rounding and precision
       context of the interpreter. *)
 
-  val evaluate_expr : ctx -> Mir.program -> Mir.expression Pos.marked -> value
+  val evaluate_expr :
+    ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    ctx ->
+    Mir.program ->
+    Mir.expression Pos.marked ->
+    value
 
-  val evaluate_program : Mir.program -> ctx -> unit
+  val evaluate_program :
+    ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    Mir.program ->
+    ctx ->
+    unit
 end
 
 module FloatDefInterp :

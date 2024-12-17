@@ -24,4 +24,5 @@ let format_error fmt (err : Com.Error.t) =
     err
 
 let format_variable fmt (v : Com.Var.t) =
-  Format.fprintf fmt "%s: %s" (Pos.unmark v.name) (Com.Var.descr_str v)
+  Format.fprintf fmt "%s%s" (Pos.unmark v.name)
+    (try ": " ^ Com.Var.descr_str v with Errors.StructuredError _ -> "")
