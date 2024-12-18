@@ -214,7 +214,11 @@ let driver (files : string list) (application_names : string list)
       let test : string =
         match run_test with Some s -> s | _ -> assert false
       in
-      ignore (Test_interpreter.check_test m_program test value_sort round_ops);
+      (* TODO add argument in driver and cli *)
+      let out_graph = true in
+      ignore
+        (Test_interpreter.check_test ?files:(Some files) combined_program test
+           optimize false out_graph value_sort round_ops);
       Cli.result_print "Test passed!"
     end
     else begin
