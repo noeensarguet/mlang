@@ -57,8 +57,8 @@ let get_variable_def (files : string list) (var : Com.Var.t) =
            if String.length def > 16000 then String.sub def 0 16000 ^ "..."
            else def))
 
-let dbg_to_out_graph (files : string list) (prog : Mir.program)
-    (dbg : Mir_interpreter.TRYGRAPH.t) : Mir_interpreter.DBGGRAPH.t =
+let dbg_to_out_graph (files : string list) (dbg : Mir_interpreter.TRYGRAPH.t) :
+    Mir_interpreter.DBGGRAPH.t =
   let module EMAP =
     Graph.Gmap.Edge
       (Mir_interpreter.TRYGRAPH)
@@ -76,12 +76,10 @@ let dbg_to_out_graph (files : string list) (prog : Mir.program)
           try Hashtbl.find h v1
           with Not_found ->
             let var1, vv1 = Mir_interpreter.TRYGRAPH.V.label v1 in
-            let var1 = Bir.var_to_mir var1 in
-            let _, vdata1 = Mir.find_var_definition prog var1 in
-            let vdef1 = get_variable_def files var1 vdata1 in
+            let vdef1 = get_variable_def files var1 in
             let newvar =
               Mir_interpreter.DBGGRAPH.V.create
-                (Pos.unmark var1.Mir.name, vdef1, vv1)
+                (Pos.unmark var1.name, vdef1, vv1)
             in
             Hashtbl.add h v1 newvar;
             newvar
@@ -90,12 +88,10 @@ let dbg_to_out_graph (files : string list) (prog : Mir.program)
           try Hashtbl.find h v2
           with Not_found ->
             let var2, vv2 = Mir_interpreter.TRYGRAPH.V.label v2 in
-            let var2 = Bir.var_to_mir var2 in
-            let _, vdata2 = Mir.find_var_definition prog var2 in
-            let vdef2 = get_variable_def files var2 vdata2 in
+            let vdef2 = get_variable_def files var2 in
             let newvar =
               Mir_interpreter.DBGGRAPH.V.create
-                (Pos.unmark var2.Mir.name, vdef2, vv2)
+                (Pos.unmark var2.name, vdef2, vv2)
             in
             Hashtbl.add h v2 newvar;
             newvar
@@ -127,14 +123,8 @@ let to_dot (fmt : Format.formatter) (g : Mir_interpreter.DBGGRAPH.t) : unit =
 
     let default_vertex_attributes (_ : t) = []
 
-    let var_value_to_int (vv : var_literal) =
-      match vv with
-      | SimpleVar l -> begin
-          match l with Float f -> int_of_float f | Undefined -> 0
-        end
-      | TableVar (_, es) -> begin
-          match es.(0) with Float f -> int_of_float f | Undefined -> 0
-        end
+    let var_value_to_int (vv : Com.literal) =
+      match vv with Float f -> int_of_float f | Undefined -> 0
 
     let vertex_name (v : vertex) =
       let vhash = DBGGRAPH.V.hash v in
@@ -144,7 +134,7 @@ let to_dot (fmt : Format.formatter) (g : Mir_interpreter.DBGGRAPH.t) : unit =
       let var, vdef, vval = DBGGRAPH.V.label v in
       [
         `Label
-          (Format.asprintf "%s = %a@,%a" var format_var_literal vval
+          (Format.asprintf "%s = %a@,%a" var Com.format_literal vval
              (Format.pp_print_option
                 ~none:(fun fmt () -> Format.fprintf fmt "input var")
                 (fun fmt s -> Format.fprintf fmt "%s" s))
@@ -161,20 +151,18 @@ let to_dot (fmt : Format.formatter) (g : Mir_interpreter.DBGGRAPH.t) : unit =
   GPr.fprint_graph fmt g
 
 (* TODO add to a formatter rather than stdout *)
-let output_dot_eval_program (files : string list)
-    (f : Bir_interface.bir_function) (p : Bir.program)
-    (inputs : Mir.literal Bir.VariableMap.t) (code_loc_start_value : int)
-    (sort : Cli.value_sort) (roundops : Cli.round_ops) : unit -> unit =
+let output_dot_eval_program (files : string list) (p : Mir.program)
+    (inputs : Com.literal Com.Var.Map.t) (sort : Cli.value_sort)
+    (roundops : Cli.round_ops) : unit -> unit =
   let dbg, ctxd =
-    Mir_interpreter.evaluate_program_dbg f p inputs code_loc_start_value sort
-      roundops ()
+    Mir_interpreter.evaluate_program_dbg p inputs sort roundops ()
   in
-  let v = StrMap.find "NAPTIR" ctxd.ctxd_vars in
+  let v = StrMap.find "NAPTIR" ctxd.ctxd_tgv in
   let subdbg = subgraph_depth 3 dbg v in
   Format.printf "subdbg : %d vertices -- %d edges@."
     (Mir_interpreter.TRYGRAPH.nb_vertex subdbg)
     (Mir_interpreter.TRYGRAPH.nb_edges subdbg);
-  let out_graph = dbg_to_out_graph files p.Bir.mir_program subdbg in
+  let out_graph = dbg_to_out_graph files subdbg in
   Format.printf "out_graph : %d vertices -- %d edges@."
     (Mir_interpreter.DBGGRAPH.nb_vertex out_graph)
     (Mir_interpreter.DBGGRAPH.nb_edges out_graph);

@@ -30,10 +30,17 @@ val exit_on_rte : bool ref
 val repl_debug : bool ref
 (** If set to true, prints the REPL debugger in case of runtime error *)
 
-module TRYGRAPH : Graph.Sig.P with type V.t = Com.Var.t * Com.literal
+module TRYGRAPH : Graph.Sig.P with type V.label = Com.Var.t * Com.literal
 
 module DBGGRAPH :
-  Graph.Sig.P with type V.t = Com.Var.t * Mir.expression option * Com.literal
+  Graph.Sig.P with type V.label = string * string option * Com.literal
+
+type ctx_dbg = {
+  ctxd_tgv : TRYGRAPH.vertex StrMap.t;
+  ctxd_tmps : TRYGRAPH.vertex StrMap.t;
+}
+
+val empty_ctxd : ctx_dbg
 
 (** {1 The interpreter functor}*)
 
@@ -84,6 +91,8 @@ module type S = sig
 
   val update_ctx_with_inputs : ctx -> Com.literal Com.Var.Map.t -> unit
 
+  val update_ctxd_with_inputs : ctx_dbg -> Com.literal Com.Var.Map.t -> ctx_dbg
+
   (** Interpreter runtime errors *)
   type run_error =
     | NanOrInf of string * Mir.expression Pos.marked
@@ -101,6 +110,7 @@ module type S = sig
 
   val evaluate_expr :
     ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    ?ctxd:ctx_dbg ref ->
     ctx ->
     Mir.program ->
     Mir.expression Pos.marked ->
@@ -108,6 +118,7 @@ module type S = sig
 
   val evaluate_program :
     ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    ?ctxd:ctx_dbg ref ->
     Mir.program ->
     ctx ->
     unit
@@ -166,6 +177,15 @@ module RatMfInterp : S with type custom_float = Mir_number.RationalNumber.t
 (** {1 Generic interpretation API}*)
 
 val get_interp : Cli.value_sort -> Cli.round_ops -> (module S)
+
+(* TODO ideally not duplicate the evaluate_program function *)
+val evaluate_program_dbg :
+  Mir.program ->
+  Com.literal Com.Var.Map.t ->
+  Cli.value_sort ->
+  Cli.round_ops ->
+  unit ->
+  TRYGRAPH.t * ctx_dbg
 
 val evaluate_program :
   Mir.program ->

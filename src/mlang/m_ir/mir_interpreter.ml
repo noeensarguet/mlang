@@ -18,25 +18,37 @@ let exit_on_rte = ref true
 
 let repl_debug = ref false
 
-module TRYGRAPH = Graph.Persistent.Digraph.ConcreteBidirectional (struct
+module VTMP = struct
   type t = Com.Var.t * Com.literal
+  (* TODO arrange this so that tables are taken care of *)
 
-  let hash ((a, _) : t) = a.Com.Var.id
-
-  let compare = compare
-
-  let equal = ( = )
-end)
-
-module DBGGRAPH = Graph.Persistent.Digraph.ConcreteBidirectional (struct
-  type t = Com.Var.t * Mir.expression option * Com.literal
-
-  let hash ((a, _, _) : t) = a.Com.Var.id
+  let hash ((a, _) : t) = a.id
 
   let compare = compare
 
   let equal = ( = )
-end)
+end
+
+module TRYGRAPH = Graph.Persistent.Digraph.Abstract (VTMP)
+
+module V = struct
+  type t = string * string option * Com.literal
+
+  let hash ((_, _, _) : t) = 0
+
+  let compare = compare
+
+  let equal = ( = )
+end
+
+module DBGGRAPH = Graph.Persistent.Digraph.Abstract (V)
+
+type ctx_dbg = {
+  ctxd_tgv : TRYGRAPH.vertex StrMap.t;
+  ctxd_tmps : TRYGRAPH.vertex StrMap.t;
+}
+
+let empty_ctxd = { ctxd_tgv = StrMap.empty; ctxd_tmps = StrMap.empty }
 
 module type S = sig
   type custom_float
@@ -77,6 +89,8 @@ module type S = sig
 
   val update_ctx_with_inputs : ctx -> Com.literal Com.Var.Map.t -> unit
 
+  val update_ctxd_with_inputs : ctx_dbg -> Com.literal Com.Var.Map.t -> ctx_dbg
+
   type run_error =
     | NanOrInf of string * Mir.expression Pos.marked
     | StructuredError of
@@ -90,6 +104,7 @@ module type S = sig
 
   val evaluate_expr :
     ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    ?ctxd:ctx_dbg ref ->
     ctx ->
     Mir.program ->
     Mir.expression Pos.marked ->
@@ -97,6 +112,7 @@ module type S = sig
 
   val evaluate_program :
     ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    ?ctxd:ctx_dbg ref ->
     Mir.program ->
     ctx ->
     unit
@@ -208,6 +224,24 @@ struct
     | StructuredError of
         (string * (string option * Pos.t) list * (unit -> unit) option)
 
+  let update_ctxd_with_inputs (ctxd : ctx_dbg)
+      (inputs : Com.literal Com.Var.Map.t) : ctx_dbg =
+    {
+      ctxd with
+      ctxd_tgv =
+        Com.Var.Map.fold
+          (fun var value ctxd_vars ->
+            let vertex = TRYGRAPH.V.create (var, value_to_literal value) in
+            StrMap.add (Pos.unmark var.name) vertex ctxd_vars)
+          (Com.Var.Map.map
+             (fun l ->
+               match l with
+               | Com.Undefined -> Undefined
+               | Com.Float f -> Number (N.of_float_input f))
+             inputs)
+          ctxd.ctxd_tgv;
+    }
+
   exception RuntimeError of run_error * ctx
 
   let raise_runtime_as_structured (e : run_error) =
@@ -270,8 +304,8 @@ struct
 
   exception BlockingError
 
-  let rec evaluate_expr ?(dbg = ref None) (ctx : ctx) (p : Mir.program)
-      (e : Mir.expression Pos.marked) : value =
+  let rec evaluate_expr ?(dbg = ref None) ?(ctxd = ref empty_ctxd) (ctx : ctx)
+      (p : Mir.program) (e : Mir.expression Pos.marked) : value =
     let comparison op new_e1 new_e2 =
       match (op, new_e1, new_e2) with
       | Com.Gt, _, Undefined | Com.Gt, Undefined, _ -> Undefined
@@ -319,7 +353,7 @@ struct
       try
         match Pos.unmark e with
         | Com.TestInSet (positive, e0, values) ->
-            let new_e0 = evaluate_expr ~dbg ctx p e0 in
+            let new_e0 = evaluate_expr ~dbg ~ctxd ctx p e0 in
             let or_chain =
               List.fold_left
                 (fun or_chain set_value ->
@@ -349,60 +383,61 @@ struct
             in
             if positive then or_chain else unop Com.Not or_chain
         | Comparison (op, e1, e2) ->
-            let new_e1 = evaluate_expr ~dbg ctx p e1 in
-            let new_e2 = evaluate_expr ~dbg ctx p e2 in
+            let new_e1 = evaluate_expr ~dbg ~ctxd ctx p e1 in
+            let new_e2 = evaluate_expr ~dbg ~ctxd ctx p e2 in
             comparison (Pos.unmark op) new_e1 new_e2
         | Binop (op, e1, e2) ->
-            let new_e1 = evaluate_expr ~dbg ctx p e1 in
-            let new_e2 = evaluate_expr ~dbg ctx p e2 in
+            let new_e1 = evaluate_expr ~dbg ~ctxd ctx p e1 in
+            let new_e2 = evaluate_expr ~dbg ~ctxd ctx p e2 in
             binop (Pos.unmark op) new_e1 new_e2
         | Unop (op, e1) ->
-            let new_e1 = evaluate_expr ~dbg ctx p e1 in
+            let new_e1 = evaluate_expr ~dbg ~ctxd ctx p e1 in
             unop op new_e1
         | Conditional (e1, e2, e3_opt) -> (
-            let new_e1 = evaluate_expr ~dbg ctx p e1 in
+            let new_e1 = evaluate_expr ~dbg ~ctxd ctx p e1 in
             match new_e1 with
             | Number z when N.(z =. zero ()) -> (
                 match e3_opt with
                 | None -> Undefined
-                | Some e3 -> evaluate_expr ~dbg ctx p e3)
+                | Some e3 -> evaluate_expr ~dbg ~ctxd ctx p e3)
             | Number _ ->
-                evaluate_expr ~dbg ctx p e2 (* the float is not zero *)
+                evaluate_expr ~dbg ~ctxd ctx p e2 (* the float is not zero *)
             | Undefined -> Undefined)
         | Literal Undefined -> Undefined
         | Literal (Float f) -> Number (N.of_float f)
         | Index (var, e1) ->
-            let idx = evaluate_expr ~dbg ctx p e1 in
+            let idx = evaluate_expr ~dbg ~ctxd ctx p e1 in
             get_var_tab ctx var idx
         | Var var -> get_var_value ctx var 0
         | FuncCall ((ArrFunc, _), [ arg ]) -> (
-            let new_arg = evaluate_expr ~dbg ctx p arg in
+            let new_arg = evaluate_expr ~dbg ~ctxd ctx p arg in
             match new_arg with
             | Number x -> Number (roundf x)
             | Undefined -> Undefined
             (*nope:Float 0.*))
         | FuncCall ((InfFunc, _), [ arg ]) -> (
-            let new_arg = evaluate_expr ~dbg ctx p arg in
+            let new_arg = evaluate_expr ~dbg ~ctxd ctx p arg in
             match new_arg with
             | Number x -> Number (truncatef x)
             | Undefined -> Undefined
             (*Float 0.*))
         | FuncCall ((PresentFunc, _), [ arg ]) -> (
-            match evaluate_expr ~dbg ctx p arg with
+            match evaluate_expr ~dbg ~ctxd ctx p arg with
             | Undefined -> false_value ()
             | _ -> true_value ())
         | FuncCall ((Supzero, _), [ arg ]) -> (
-            match evaluate_expr ~dbg ctx p arg with
+            match evaluate_expr ~dbg ~ctxd ctx p arg with
             | Undefined -> Undefined
             | Number f as n ->
                 if compare_numbers Com.Lte f (N.zero ()) then Undefined else n)
         | FuncCall ((AbsFunc, _), [ arg ]) -> (
-            match evaluate_expr ~dbg ctx p arg with
+            match evaluate_expr ~dbg ~ctxd ctx p arg with
             | Undefined -> Undefined
             | Number f -> Number (N.abs f))
         | FuncCall ((MinFunc, _), [ arg1; arg2 ]) -> (
             match
-              (evaluate_expr ~dbg ctx p arg1, evaluate_expr ~dbg ctx p arg2)
+              ( evaluate_expr ~dbg ~ctxd ctx p arg1,
+                evaluate_expr ~dbg ~ctxd ctx p arg2 )
             with
             | Undefined, Undefined -> Undefined
             | Undefined, Number f | Number f, Undefined ->
@@ -410,14 +445,15 @@ struct
             | Number fl, Number fr -> Number (N.min fl fr))
         | FuncCall ((MaxFunc, _), [ arg1; arg2 ]) -> (
             match
-              (evaluate_expr ~dbg ctx p arg1, evaluate_expr ~dbg ctx p arg2)
+              ( evaluate_expr ~dbg ~ctxd ctx p arg1,
+                evaluate_expr ~dbg ~ctxd ctx p arg2 )
             with
             | Undefined, Undefined -> Undefined
             | Undefined, Number f | Number f, Undefined ->
                 Number (N.max (N.zero ()) f)
             | Number fl, Number fr -> Number (N.max fl fr))
         | FuncCall ((Multimax, _), [ arg1; arg2 ]) -> (
-            match evaluate_expr ~dbg ctx p arg1 with
+            match evaluate_expr ~dbg ~ctxd ctx p arg1 with
             | Undefined -> Undefined
             | Number f -> (
                 let up = N.to_int (roundf f) in
@@ -435,7 +471,7 @@ struct
                 let pos = Pos.get_position arg2 in
                 let access_index (i : int) : Int64.t option =
                   cast_to_int
-                  @@ evaluate_expr ~dbg ctx p
+                  @@ evaluate_expr ~dbg ~ctxd ctx p
                        ( Index
                            (var_arg2, (Literal (Float (float_of_int i)), pos)),
                          pos )
@@ -456,11 +492,11 @@ struct
         | FuncCall ((Func fn, _), args) ->
             let fd = Com.TargetMap.find fn p.program_functions in
             let atab =
-              Array.of_list (List.map (evaluate_expr ~dbg ctx p) args)
+              Array.of_list (List.map (evaluate_expr ~dbg ~ctxd ctx p) args)
             in
             ctx.ctx_args <- atab :: ctx.ctx_args;
             ctx.ctx_res <- Undefined :: ctx.ctx_res;
-            evaluate_target ~dbg false p ctx fn fd;
+            evaluate_target ~dbg ~ctxd false p ctx fn fd;
             ctx.ctx_args <- List.tl ctx.ctx_args;
             let res = List.hd ctx.ctx_res in
             ctx.ctx_res <- List.tl ctx.ctx_res;
@@ -511,9 +547,10 @@ struct
       else raise (RuntimeError (e, ctx))
     else out
 
-  and set_var_value ?(dbg = ref None) (p : Mir.program) (ctx : ctx)
-      ((var, vi) : Com.Var.t * int) (vexpr : Mir.expression Pos.marked) : unit =
-    let value = evaluate_expr ~dbg ctx p vexpr in
+  and set_var_value ?(dbg = ref None) ?(ctxd = ref empty_ctxd) (p : Mir.program)
+      (ctx : ctx) ((var, vi) : Com.Var.t * int)
+      (vexpr : Mir.expression Pos.marked) : unit =
+    let value = evaluate_expr ~dbg ~ctxd ctx p vexpr in
     match Com.Var.is_table var with
     | None -> (
         match var.scope with
@@ -536,16 +573,17 @@ struct
         | Com.Var.Arg -> (List.hd ctx.ctx_args).(vi) <- value
         | Com.Var.Res -> ctx.ctx_res <- value :: List.tl ctx.ctx_res)
 
-  and set_var_value_tab ?(dbg = ref None) (p : Mir.program) (ctx : ctx)
-      ((var, vi) : Com.Var.t * int) (ei : Mir.expression Pos.marked)
-      (vexpr : Mir.expression Pos.marked) : unit =
-    match evaluate_expr ~dbg ctx p ei with
+  and set_var_value_tab ?(dbg = ref None) ?(ctxd = ref empty_ctxd)
+      (p : Mir.program) (ctx : ctx) ((var, vi) : Com.Var.t * int)
+      (ei : Mir.expression Pos.marked) (vexpr : Mir.expression Pos.marked) :
+      unit =
+    match evaluate_expr ~dbg ~ctxd ctx p ei with
     | Undefined -> ()
     | Number f -> (
         let i = int_of_float (N.to_float f) in
         let sz = Com.Var.size var in
         if 0 <= i && i < sz then
-          let value = evaluate_expr ~dbg ctx p vexpr in
+          let value = evaluate_expr ~dbg ~ctxd ctx p vexpr in
           match var.scope with
           | Com.Var.Tgv _ -> ctx.ctx_tgv.(vi + i) <- value
           | Com.Var.Temp _ -> ctx.ctx_tmps.(vi + i) <- value
@@ -553,13 +591,15 @@ struct
           | Com.Var.Arg -> (List.hd ctx.ctx_args).(vi) <- value
           | Com.Var.Res -> ctx.ctx_res <- value :: List.tl ctx.ctx_res)
 
-  and evaluate_stmt ?(dbg = ref None) (canBlock : bool) (p : Mir.program)
-      (ctx : ctx) (stmt : Mir.m_instruction) : unit =
+  and evaluate_stmt ?(dbg = ref None) ?(ctxd = ref empty_ctxd) (canBlock : bool)
+      (p : Mir.program) (ctx : ctx) (stmt : Mir.m_instruction) : unit =
     match Pos.unmark stmt with
     | Com.Affectation (Com.SingleFormula (m_var, vidx_opt, vexpr), _) -> (
         let vari = get_var ctx (Pos.unmark m_var) in
-        let var, _ = get_var ctx (Pos.unmark m_var) in
+        let var, _idx = vari in
+        (* Format.eprintf "idx = %d@." _idx; *)
         let res = get_var_value ctx var 0 in
+        let vertex = TRYGRAPH.V.create (var, value_to_literal res) in
         dbg :=
           Option.map
             (fun (g, vdef_map) ->
@@ -567,29 +607,43 @@ struct
               ( List.fold_left
                   (fun g v ->
                     let resv = get_var_value ctx var 0 in
-                    TRYGRAPH.add_edge g
-                      (var, value_to_literal res)
-                      (v, value_to_literal resv))
+                    let dep_vertex =
+                      try StrMap.find (Pos.unmark v.Com.Var.name) !ctxd.ctxd_tgv
+                      with Not_found ->
+                        let new_vertex =
+                          TRYGRAPH.V.create (v, value_to_literal resv)
+                        in
+                        ctxd :=
+                          {
+                            !ctxd with
+                            ctxd_tgv =
+                              StrMap.add (Pos.unmark v.name) new_vertex
+                                !ctxd.ctxd_tgv;
+                          };
+                        new_vertex
+                    in
+                    TRYGRAPH.add_edge g vertex dep_vertex)
                   g vl,
                 Com.Var.Map.add var (Pos.unmark vexpr) vdef_map ))
             !dbg;
         match vidx_opt with
-        | None -> set_var_value ~dbg p ctx vari vexpr
-        | Some ei -> set_var_value_tab ~dbg p ctx vari ei vexpr)
+        | None -> set_var_value ~dbg ~ctxd p ctx vari vexpr
+        | Some ei -> set_var_value_tab ~dbg ~ctxd p ctx vari ei vexpr)
     | Com.Affectation _ -> assert false
     | Com.IfThenElse (b, t, f) -> (
-        match evaluate_expr ~dbg ctx p b with
-        | Number z when N.(z =. zero ()) -> evaluate_stmts ~dbg canBlock p ctx f
-        | Number _ -> evaluate_stmts ~dbg canBlock p ctx t
+        match evaluate_expr ~dbg ~ctxd ctx p b with
+        | Number z when N.(z =. zero ()) ->
+            evaluate_stmts ~dbg ~ctxd canBlock p ctx f
+        | Number _ -> evaluate_stmts ~dbg ~ctxd canBlock p ctx t
         | Undefined -> ())
     | Com.WhenDoElse (wdl, ed) ->
         let rec aux = function
           | (expr, dl, _) :: l -> (
-              match evaluate_expr ~dbg ctx p expr with
+              match evaluate_expr ~dbg ~ctxd ctx p expr with
               | Number z when N.(z =. zero ()) ->
-                  evaluate_stmts ~dbg canBlock p ctx (Pos.unmark ed)
+                  evaluate_stmts ~dbg ~ctxd canBlock p ctx (Pos.unmark ed)
               | Number _ ->
-                  evaluate_stmts ~dbg canBlock p ctx dl;
+                  evaluate_stmts ~dbg ~ctxd canBlock p ctx dl;
                   aux l
               | Undefined -> aux l)
           | [] -> ()
@@ -606,7 +660,7 @@ struct
               set_args (n + 1) al'
         in
         set_args 0 args;
-        evaluate_target ~dbg canBlock p ctx tn tf
+        evaluate_target ~dbg ~ctxd canBlock p ctx tn tf
     | Com.Print (std, args) -> begin
         let std_fmt, ctx_pr =
           match std with
@@ -649,13 +703,13 @@ struct
                 pr_raw ctx_pr (Com.Var.alias_str var)
             | PrintIndent e ->
                 let diff =
-                  match evaluate_expr ~dbg ctx p e with
+                  match evaluate_expr ~dbg ~ctxd ctx p e with
                   | Undefined -> 0
                   | Number x -> Int64.to_int (N.to_int (roundf x))
                 in
                 ctx_pr.indent <- max 0 (ctx_pr.indent + diff)
             | PrintExpr (e, mi, ma) ->
-                let value = evaluate_expr ~dbg ctx p e in
+                let value = evaluate_expr ~dbg ~ctxd ctx p e in
                 pr_indent ctx_pr;
                 format_value_prec mi ma std_fmt value)
           args;
@@ -671,7 +725,7 @@ struct
         List.iter
           (fun (v, _) ->
             ctx.ctx_ref.(ctx.ctx_ref_org + var_i) <- get_var ctx v;
-            evaluate_stmts ~dbg canBlock p ctx stmts)
+            evaluate_stmts ~dbg ~ctxd canBlock p ctx stmts)
           vars;
         List.iter
           (fun (vcs, expr) ->
@@ -680,9 +734,9 @@ struct
                 (fun _ v ->
                   if Com.CatVar.compare (Com.Var.cat v) vc = 0 then (
                     ctx.ctx_ref.(ctx.ctx_ref_org + var_i) <- get_var ctx v;
-                    match evaluate_expr ~dbg ctx p expr with
+                    match evaluate_expr ~dbg ~ctxd ctx p expr with
                     | Number z when N.(z =. one ()) ->
-                        evaluate_stmts ~dbg canBlock p ctx stmts
+                        evaluate_stmts ~dbg ~ctxd canBlock p ctx stmts
                     | _ -> ()))
                 p.program_vars
             in
@@ -716,7 +770,7 @@ struct
                       if Com.CatVar.compare (Com.Var.cat v) vc = 0 then (
                         let var, vi = get_var ctx v in
                         ctx.ctx_ref.(ctx.ctx_ref_org + var_i) <- (var, vi);
-                        match evaluate_expr ~dbg ctx p expr with
+                        match evaluate_expr ~dbg ~ctxd ctx p expr with
                         | Number z when N.(z =. one ()) ->
                             let rec aux backup i =
                               if i = Com.Var.size var then backup
@@ -731,7 +785,7 @@ struct
                 vcs backup)
             backup var_params
         in
-        evaluate_stmts ~dbg canBlock p ctx stmts;
+        evaluate_stmts ~dbg ~ctxd canBlock p ctx stmts;
         List.iter
           (fun ((v : Com.Var.t), i, value) ->
             match v.scope with
@@ -785,23 +839,25 @@ struct
     | Com.ComputeDomain _ | Com.ComputeChaining _ | Com.ComputeVerifs _ ->
         assert false
 
-  and evaluate_stmts ?(dbg = ref None) canBlock (p : Mir.program) (ctx : ctx)
-      (stmts : Mir.m_instruction list) : unit =
-    try List.iter (evaluate_stmt ~dbg canBlock p ctx) stmts
+  and evaluate_stmts ?(dbg = ref None) ?(ctxd = ref empty_ctxd) canBlock
+      (p : Mir.program) (ctx : ctx) (stmts : Mir.m_instruction list) : unit =
+    try List.iter (evaluate_stmt ~dbg ~ctxd canBlock p ctx) stmts
     with BlockingError as b_err -> if canBlock then raise b_err
 
-  and evaluate_target ?(dbg = ref None) canBlock (p : Mir.program) (ctx : ctx)
-      (_tn : string) (tf : Mir.target_data) : unit =
+  and evaluate_target ?(dbg = ref None) ?(ctxd = ref empty_ctxd) canBlock
+      (p : Mir.program) (ctx : ctx) (_tn : string) (tf : Mir.target_data) : unit
+      =
     for i = 0 to tf.target_sz_tmps - 1 do
       ctx.ctx_tmps.(ctx.ctx_tmps_org + i) <- Undefined
     done;
     ctx.ctx_tmps_org <- ctx.ctx_tmps_org + tf.target_sz_tmps;
     ctx.ctx_ref_org <- ctx.ctx_ref_org + tf.target_nb_refs;
-    evaluate_stmts ~dbg canBlock p ctx tf.target_prog;
+    evaluate_stmts ~dbg ~ctxd canBlock p ctx tf.target_prog;
     ctx.ctx_ref_org <- ctx.ctx_ref_org - tf.target_nb_refs;
     ctx.ctx_tmps_org <- ctx.ctx_tmps_org - tf.target_sz_tmps
 
-  let evaluate_program ?(dbg = ref None) (p : Mir.program) (ctx : ctx) : unit =
+  let evaluate_program ?(dbg = ref None) ?(ctxd = ref empty_ctxd)
+      (p : Mir.program) (ctx : ctx) : unit =
     try
       let main_target =
         match
@@ -811,7 +867,7 @@ struct
         | None ->
             Errors.raise_error "Unable to find main function of Bir program"
       in
-      evaluate_target ~dbg false p ctx p.program_main_target main_target;
+      evaluate_target ~dbg ~ctxd false p ctx p.program_main_target main_target;
       evaluate_stmt false p ctx (Com.ExportErrors, Pos.no_pos)
     with RuntimeError (e, ctx) ->
       if !exit_on_rte then raise_runtime_as_structured e
@@ -911,6 +967,19 @@ let prepare_interp (sort : Cli.value_sort) (roundops : Cli.round_ops) : unit =
       MainframeLongSize.max_long := max_long
   | _ -> ()
 
+let evaluate_program_dbg (p : Mir.program) (inputs : Com.literal Com.Var.Map.t)
+    (sort : Cli.value_sort) (roundops : Cli.round_ops) :
+    unit -> TRYGRAPH.t * ctx_dbg =
+  prepare_interp sort roundops;
+  let module Interp = (val get_interp sort roundops : S) in
+  let ctx = Interp.empty_ctx p in
+  Interp.update_ctx_with_inputs ctx inputs;
+  let ctxd = ref (Interp.update_ctxd_with_inputs empty_ctxd inputs) in
+  let dbg = ref (Some (TRYGRAPH.empty, Com.Var.Map.empty)) in
+  let () = Interp.evaluate_program ~dbg ~ctxd p ctx in
+  let dbg, _vdef_map = Option.get !dbg in
+  fun () -> (dbg, !ctxd)
+
 let evaluate_program (p : Mir.program) (inputs : Com.literal Com.Var.Map.t)
     (sort : Cli.value_sort) (roundops : Cli.round_ops) :
     Com.literal StrMap.t * StrSet.t =
@@ -919,27 +988,27 @@ let evaluate_program (p : Mir.program) (inputs : Com.literal Com.Var.Map.t)
   let ctx = Interp.empty_ctx p in
   Interp.update_ctx_with_inputs ctx inputs;
   let dbg = ref (Some (TRYGRAPH.empty, Com.Var.Map.empty)) in
-  let () = Interp.evaluate_program ~dbg p ctx in
-  let dbg, vdef_map = Option.get !dbg in
-  TRYGRAPH.fold_edges
-    (fun (v1, vv1) (v2, vv2) () ->
-      Format.printf "%a = %a -- %a = %a@." Format_mir.format_variable v1
-        Com.format_literal vv1 Format_mir.format_variable v2 Com.format_literal
-        vv2)
-    dbg ();
-  Format.printf "dbg : %d sommets et %d arêtes\n" (TRYGRAPH.nb_vertex dbg)
-    (TRYGRAPH.nb_edges dbg);
-  let dbg =
-    TRYGRAPH.fold_edges
-      (fun (v1, vv1) (v2, vv2) g ->
-        DBGGRAPH.add_edge g
-          (v1, Com.Var.Map.find_opt v1 vdef_map, vv1)
-          (v2, Com.Var.Map.find_opt v2 vdef_map, vv2))
-      dbg DBGGRAPH.empty
-  in
-  Format.printf "dbg : %d sommets et %d arêtes\n" (DBGGRAPH.nb_vertex dbg)
-    (DBGGRAPH.nb_edges dbg);
+  let () = Interp.evaluate_program p ctx in
 
+  (* let dbg, vdef_map = Option.get !dbg in
+        TRYGRAPH.fold_edges
+          (fun (v1, vv1) (v2, vv2) () ->
+            Format.printf "%a = %a -- %a = %a@." Format_mir.format_variable v1
+              Com.format_literal vv1 Format_mir.format_variable v2 Com.format_literal
+              vv2)
+          dbg ();
+        Format.printf "dbg : %d sommets et %d arêtes\n" (TRYGRAPH.nb_vertex dbg)
+          (TRYGRAPH.nb_edges dbg);
+        let dbg =
+          TRYGRAPH.fold_edges
+            (fun (v1, vv1) (v2, vv2) g ->
+              DBGGRAPH.add_edge g
+                (v1, Com.Var.Map.find_opt v1 vdef_map, vv1)
+                (v2, Com.Var.Map.find_opt v2 vdef_map, vv2))
+            dbg DBGGRAPH.empty
+        in
+     Format.printf "dbg : %d sommets et %d arêtes\n" (DBGGRAPH.nb_vertex dbg)
+       (DBGGRAPH.nb_edges dbg); *)
   let varMap =
     let fold name (var : Com.Var.t) res =
       if Com.Var.is_given_back var then

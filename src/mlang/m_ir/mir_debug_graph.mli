@@ -20,7 +20,6 @@ val output_dot_eval_program :
   string list ->
   Mir.program ->
   Com.literal Com.Var.Map.t ->
-  int ->
   Cli.value_sort ->
   Cli.round_ops ->
   unit ->
