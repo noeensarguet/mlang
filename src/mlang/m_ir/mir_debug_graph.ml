@@ -28,17 +28,19 @@ let get_variable_def (files : string list) (var : Com.Var.t) =
   in
   let in_channel = Unix.open_process_in grep_command in
   let rec aux l =
-    match (l, Com.Var.cat var) with
-    | [], Input _ -> None
-    | [ t ], Computed _ -> Some t
-    | t :: l, Computed _ ->
-        if List.mem var_name [ "VARTMP1"; "VARTMP2" ] then
-          Some "Variable def not supported for VARTMP* at the moment"
-        else begin
-          Format.eprintf "%s defined in %s@." var_name t;
-          aux l
-        end
-    | _ -> assert false
+    try
+      match (l, Com.Var.cat var) with
+      | [], Input _ -> None
+      | [ t ], Computed _ -> Some t
+      | t :: l, Computed _ ->
+          if List.mem var_name [ "VARTMP1"; "VARTMP2" ] then
+            Some "Variable def not supported for VARTMP* at the moment"
+          else begin
+            Format.eprintf "%s defined in %s@." var_name t;
+            aux l
+          end
+      | _ -> assert false
+    with _ -> None
   in
   let file_o = aux (read_lines [] in_channel) in
   Option.bind file_o (fun file ->
@@ -112,7 +114,8 @@ let rec subgraph_depth n (g : Mir_interpreter.TRYGRAPH.t)
         (fun v2 sg ->
           let comp = subgraph_depth (n - 1) g v2 in
           TRYGRAPH.add_edge (O.union comp sg) v v2)
-        g v TRYGRAPH.empty
+        g v
+        (TRYGRAPH.add_vertex TRYGRAPH.empty v)
 
 let to_dot (fmt : Format.formatter) (g : Mir_interpreter.DBGGRAPH.t) : unit =
   let open Mir_interpreter in
