@@ -61,6 +61,15 @@ let get_variable_def (files : string list) (var : Com.Var.t) =
 
 let dbg_to_out_graph (files : string list) (dbg : Mir_interpreter.TRYGRAPH.t) :
     Mir_interpreter.DBGGRAPH.t =
+  let module VMAP =
+    Graph.Gmap.Vertex
+      (Mir_interpreter.TRYGRAPH)
+      (struct
+        include Mir_interpreter.DBGGRAPH
+
+        let empty () = empty
+      end)
+  in
   let module EMAP =
     Graph.Gmap.Edge
       (Mir_interpreter.TRYGRAPH)
@@ -72,34 +81,22 @@ let dbg_to_out_graph (files : string list) (dbg : Mir_interpreter.TRYGRAPH.t) :
   in
   let outgraph =
     let h = Hashtbl.create (Mir_interpreter.TRYGRAPH.nb_vertex dbg) in
-    Mir_interpreter.TRYGRAPH.fold_edges
-      (fun v1 v2 g ->
-        let newv1 =
-          try Hashtbl.find h v1
-          with Not_found ->
-            let var1, vv1 = Mir_interpreter.TRYGRAPH.V.label v1 in
-            let vdef1 = get_variable_def files var1 in
-            let newvar =
-              Mir_interpreter.DBGGRAPH.V.create
-                (Pos.unmark var1.name, vdef1, vv1)
-            in
-            Hashtbl.add h v1 newvar;
-            newvar
+    Mir_interpreter.TRYGRAPH.fold_vertex
+      (fun v g ->
+        let var, vv = Mir_interpreter.TRYGRAPH.V.label v in
+        let vdef = get_variable_def files var in
+        let newvar =
+          Mir_interpreter.DBGGRAPH.V.create (Pos.unmark var.name, vdef, vv)
         in
-        let newv2 =
-          try Hashtbl.find h v2
-          with Not_found ->
-            let var2, vv2 = Mir_interpreter.TRYGRAPH.V.label v2 in
-            let vdef2 = get_variable_def files var2 in
-            let newvar =
-              Mir_interpreter.DBGGRAPH.V.create
-                (Pos.unmark var2.name, vdef2, vv2)
-            in
-            Hashtbl.add h v2 newvar;
-            newvar
-        in
-        Mir_interpreter.DBGGRAPH.add_edge g newv1 newv2)
+        Hashtbl.add h v newvar;
+        Mir_interpreter.DBGGRAPH.add_vertex g newvar)
       dbg Mir_interpreter.DBGGRAPH.empty
+    |> Mir_interpreter.TRYGRAPH.fold_edges
+         (fun v1 v2 g ->
+           let newv1 = try Hashtbl.find h v1 with Not_found -> assert false in
+           let newv2 = try Hashtbl.find h v2 with Not_found -> assert false in
+           Mir_interpreter.DBGGRAPH.add_edge g newv1 newv2)
+         dbg
   in
   outgraph
 
