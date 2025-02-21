@@ -61,26 +61,8 @@ let get_variable_def (files : string list) (var : Com.Var.t) =
 
 let dbg_to_out_graph (files : string list) (dbg : Mir_interpreter.TRYGRAPH.t) :
     Mir_interpreter.DBGGRAPH.t =
-  let module VMAP =
-    Graph.Gmap.Vertex
-      (Mir_interpreter.TRYGRAPH)
-      (struct
-        include Mir_interpreter.DBGGRAPH
-
-        let empty () = empty
-      end)
-  in
-  let module EMAP =
-    Graph.Gmap.Edge
-      (Mir_interpreter.TRYGRAPH)
-      (struct
-        include Mir_interpreter.DBGGRAPH
-
-        let empty () = empty
-      end)
-  in
+  let h = Hashtbl.create (Mir_interpreter.TRYGRAPH.nb_vertex dbg) in
   let outgraph =
-    let h = Hashtbl.create (Mir_interpreter.TRYGRAPH.nb_vertex dbg) in
     Mir_interpreter.TRYGRAPH.fold_vertex
       (fun v g ->
         let var, vv = Mir_interpreter.TRYGRAPH.V.label v in
