@@ -18,37 +18,51 @@ let exit_on_rte = ref true
 
 let repl_debug = ref false
 
-module VTMP = struct
-  type t = Com.Var.t * Com.literal
-  (* TODO arrange this so that tables are taken care of *)
+module TRYGRAPH = struct
+  include Graph.Persistent.Digraph.Abstract (struct
+    type t = Com.Var.t * Com.literal
+  end)
 
-  let hash ((a, _) : t) = a.id
-
-  let compare = compare
-
-  let equal = ( = )
+  let pp_vertex fmt (v : vertex) =
+    let var, lit = V.label v in
+    let var_name = Pos.unmark var.Com.Var.name in
+    Format.fprintf fmt "%s - %a" var_name Com.format_literal lit
 end
 
-module TRYGRAPH = Graph.Persistent.Digraph.Abstract (VTMP)
+module DBGGRAPH = struct
+  include Graph.Persistent.Digraph.Abstract (struct
+    type t = string * string option * Com.literal
+  end)
 
-module V = struct
-  type t = string * string option * Com.literal
-
-  let hash ((_, _, _) : t) = 0
-
-  let compare = compare
-
-  let equal = ( = )
+  let pp_vertex fmt (v : vertex) =
+    let vn, vdef, lit = V.label v in
+    Format.fprintf fmt "%s - %a@,%a" vn Com.format_literal lit
+      (Format.pp_print_option
+         ~none:(fun fmt () -> Format.fprintf fmt "input var")
+         (fun fmt s -> Format.fprintf fmt "%s" s))
+      vdef
 end
 
-module DBGGRAPH = Graph.Persistent.Digraph.Abstract (V)
+module StrMapOverride = struct
+  include StrMap
+
+  let add key data m =
+    (match find_opt key m with
+    | Some _ when not (String.length key >= 6 && String.sub key 0 6 = "VARTMP")
+      ->
+        Cli.warning_print "Overriding with a new vertex on variable %s" key
+    | _ -> ());
+    add key data m
+end
 
 type ctx_dbg = {
-  ctxd_tgv : TRYGRAPH.vertex StrMap.t;
-  ctxd_tmps : TRYGRAPH.vertex StrMap.t;
+  ctxd_tgv : TRYGRAPH.vertex StrMapOverride.t;
+  (* StrMap because we're only keeping track of the last vertex seen with a given name for now *)
+  ctxd_tmps : TRYGRAPH.vertex StrMapOverride.t;
 }
 
-let empty_ctxd = { ctxd_tgv = StrMap.empty; ctxd_tmps = StrMap.empty }
+let empty_ctxd =
+  { ctxd_tgv = StrMapOverride.empty; ctxd_tmps = StrMapOverride.empty }
 
 module type S = sig
   type custom_float
@@ -89,7 +103,8 @@ module type S = sig
 
   val update_ctx_with_inputs : ctx -> Com.literal Com.Var.Map.t -> unit
 
-  val update_ctxd_with_inputs : ctx_dbg -> Com.literal Com.Var.Map.t -> ctx_dbg
+  val update_ctxd_with_inputs :
+    ctx_dbg -> Com.literal Com.Var.Map.t -> ctx_dbg * TRYGRAPH.t
 
   type run_error =
     | NanOrInf of string * Mir.expression Pos.marked
@@ -104,7 +119,7 @@ module type S = sig
 
   val evaluate_expr :
     ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
-    ?ctxd:ctx_dbg ref ->
+    ?ctxd:ctx_dbg option ref ->
     ctx ->
     Mir.program ->
     Mir.expression Pos.marked ->
@@ -112,7 +127,7 @@ module type S = sig
 
   val evaluate_program :
     ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
-    ?ctxd:ctx_dbg ref ->
+    ?ctxd:ctx_dbg option ref ->
     Mir.program ->
     ctx ->
     unit
@@ -225,22 +240,25 @@ struct
         (string * (string option * Pos.t) list * (unit -> unit) option)
 
   let update_ctxd_with_inputs (ctxd : ctx_dbg)
-      (inputs : Com.literal Com.Var.Map.t) : ctx_dbg =
-    {
-      ctxd with
-      ctxd_tgv =
-        Com.Var.Map.fold
-          (fun var value ctxd_vars ->
-            let vertex = TRYGRAPH.V.create (var, value_to_literal value) in
-            StrMap.add (Pos.unmark var.name) vertex ctxd_vars)
-          (Com.Var.Map.map
-             (fun l ->
-               match l with
-               | Com.Undefined -> Undefined
-               | Com.Float f -> Number (N.of_float_input f))
-             inputs)
-          ctxd.ctxd_tgv;
-    }
+      (inputs : Com.literal Com.Var.Map.t) : ctx_dbg * TRYGRAPH.t =
+    let dbg = ref TRYGRAPH.empty in
+    ( {
+        ctxd with
+        ctxd_tgv =
+          Com.Var.Map.fold
+            (fun var value ctxd_vars ->
+              let vertex = TRYGRAPH.V.create (var, value_to_literal value) in
+              dbg := TRYGRAPH.add_vertex !dbg vertex;
+              StrMapOverride.add (Pos.unmark var.name) vertex ctxd_vars)
+            (Com.Var.Map.map
+               (fun l ->
+                 match l with
+                 | Com.Undefined -> Undefined
+                 | Com.Float f -> Number (N.of_float_input f))
+               inputs)
+            ctxd.ctxd_tgv;
+      },
+      !dbg )
 
   exception RuntimeError of run_error * ctx
 
@@ -304,7 +322,7 @@ struct
 
   exception BlockingError
 
-  let rec evaluate_expr ?(dbg = ref None) ?(ctxd = ref empty_ctxd) (ctx : ctx)
+  let rec evaluate_expr ?(dbg = ref None) ?(ctxd = ref None) (ctx : ctx)
       (p : Mir.program) (e : Mir.expression Pos.marked) : value =
     let comparison op new_e1 new_e2 =
       match (op, new_e1, new_e2) with
@@ -547,15 +565,42 @@ struct
       else raise (RuntimeError (e, ctx))
     else out
 
-  and set_var_value ?(dbg = ref None) ?(ctxd = ref empty_ctxd) (p : Mir.program)
+  and set_var_value ?(dbg = ref None) ?(ctxd = ref None) (p : Mir.program)
       (ctx : ctx) ((var, vi) : Com.Var.t * int)
       (vexpr : Mir.expression Pos.marked) : unit =
     let value = evaluate_expr ~dbg ~ctxd ctx p vexpr in
-    match Com.Var.is_table var with
+    let vertex = TRYGRAPH.V.create (var, value_to_literal value) in
+    dbg :=
+      Option.map
+        (fun (g, vdef_map) -> (TRYGRAPH.add_vertex g vertex, vdef_map))
+        !dbg;
+    (match Com.Var.is_table var with
     | None -> (
         match var.scope with
-        | Com.Var.Tgv _ -> ctx.ctx_tgv.(vi) <- value
-        | Com.Var.Temp _ -> ctx.ctx_tmps.(vi) <- value
+        | Com.Var.Tgv _ ->
+            ctx.ctx_tgv.(vi) <- value;
+            ctxd :=
+              Option.map
+                (fun ctxd ->
+                  {
+                    ctxd with
+                    ctxd_tgv =
+                      StrMapOverride.add (Pos.unmark var.name) vertex
+                        ctxd.ctxd_tgv;
+                  })
+                !ctxd
+        | Com.Var.Temp _ ->
+            ctx.ctx_tmps.(vi) <- value;
+            ctxd :=
+              Option.map
+                (fun ctxd ->
+                  {
+                    ctxd with
+                    ctxd_tgv =
+                      StrMapOverride.add (Pos.unmark var.name) vertex
+                        ctxd.ctxd_tgv;
+                  })
+                !ctxd
         | Com.Var.Ref -> assert false
         | Com.Var.Arg -> (List.hd ctx.ctx_args).(vi) <- value
         | Com.Var.Res -> ctx.ctx_res <- value :: List.tl ctx.ctx_res)
@@ -571,12 +616,43 @@ struct
             done
         | Com.Var.Ref -> assert false
         | Com.Var.Arg -> (List.hd ctx.ctx_args).(vi) <- value
-        | Com.Var.Res -> ctx.ctx_res <- value :: List.tl ctx.ctx_res)
+        | Com.Var.Res -> ctx.ctx_res <- value :: List.tl ctx.ctx_res));
+    dbg :=
+      Option.map
+        (fun (g, vdef_map) ->
+          let vl = Com.get_used_variables (Pos.unmark vexpr) in
+          ( List.fold_right
+              (fun v g ->
+                let dep_vertex =
+                  try
+                    StrMapOverride.find
+                      (Pos.unmark v.Com.Var.name)
+                      (Option.get !ctxd).ctxd_tgv
+                  with Not_found ->
+                    let resv = get_var_value ctx v 0 in
+                    let new_vertex =
+                      TRYGRAPH.V.create (v, value_to_literal resv)
+                    in
+                    ctxd :=
+                      Option.map
+                        (fun ctxd ->
+                          {
+                            ctxd with
+                            ctxd_tgv =
+                              StrMapOverride.add (Pos.unmark v.name) new_vertex
+                                ctxd.ctxd_tgv;
+                          })
+                        !ctxd;
+                    new_vertex
+                in
+                TRYGRAPH.add_edge g vertex dep_vertex)
+              vl g,
+            Com.Var.Map.add var (Pos.unmark vexpr) vdef_map ))
+        !dbg
 
-  and set_var_value_tab ?(dbg = ref None) ?(ctxd = ref empty_ctxd)
-      (p : Mir.program) (ctx : ctx) ((var, vi) : Com.Var.t * int)
-      (ei : Mir.expression Pos.marked) (vexpr : Mir.expression Pos.marked) :
-      unit =
+  and set_var_value_tab ?(dbg = ref None) ?(ctxd = ref None) (p : Mir.program)
+      (ctx : ctx) ((var, vi) : Com.Var.t * int) (ei : Mir.expression Pos.marked)
+      (vexpr : Mir.expression Pos.marked) : unit =
     match evaluate_expr ~dbg ~ctxd ctx p ei with
     | Undefined -> ()
     | Number f -> (
@@ -591,7 +667,7 @@ struct
           | Com.Var.Arg -> (List.hd ctx.ctx_args).(vi) <- value
           | Com.Var.Res -> ctx.ctx_res <- value :: List.tl ctx.ctx_res)
 
-  and evaluate_stmt ?(dbg = ref None) ?(ctxd = ref empty_ctxd) (canBlock : bool)
+  and evaluate_stmt ?(dbg = ref None) ?(ctxd = ref None) (canBlock : bool)
       (p : Mir.program) (ctx : ctx) (stmt : Mir.m_instruction) : unit =
     match Pos.unmark stmt with
     | Com.Affectation (Com.SingleFormula (m_var, vidx_opt, vexpr), _) -> (
@@ -608,18 +684,25 @@ struct
                   (fun g v ->
                     let resv = get_var_value ctx var 0 in
                     let dep_vertex =
-                      try StrMap.find (Pos.unmark v.Com.Var.name) !ctxd.ctxd_tgv
+                      try
+                        StrMap.find
+                          (Pos.unmark v.Com.Var.name)
+                          (Option.get !ctxd).ctxd_tgv
+                        (* TODO couple dbg and ctxd under the same option *)
                       with Not_found ->
                         let new_vertex =
                           TRYGRAPH.V.create (v, value_to_literal resv)
                         in
                         ctxd :=
-                          {
-                            !ctxd with
-                            ctxd_tgv =
-                              StrMap.add (Pos.unmark v.name) new_vertex
-                                !ctxd.ctxd_tgv;
-                          };
+                          Option.map
+                            (fun ctxd ->
+                              {
+                                ctxd with
+                                ctxd_tgv =
+                                  StrMapOverride.add (Pos.unmark v.name)
+                                    new_vertex ctxd.ctxd_tgv;
+                              })
+                            !ctxd;
                         new_vertex
                     in
                     TRYGRAPH.add_edge g vertex dep_vertex)
@@ -839,12 +922,12 @@ struct
     | Com.ComputeDomain _ | Com.ComputeChaining _ | Com.ComputeVerifs _ ->
         assert false
 
-  and evaluate_stmts ?(dbg = ref None) ?(ctxd = ref empty_ctxd) canBlock
+  and evaluate_stmts ?(dbg = ref None) ?(ctxd = ref None) canBlock
       (p : Mir.program) (ctx : ctx) (stmts : Mir.m_instruction list) : unit =
     try List.iter (evaluate_stmt ~dbg ~ctxd canBlock p ctx) stmts
     with BlockingError as b_err -> if canBlock then raise b_err
 
-  and evaluate_target ?(dbg = ref None) ?(ctxd = ref empty_ctxd) canBlock
+  and evaluate_target ?(dbg = ref None) ?(ctxd = ref None) canBlock
       (p : Mir.program) (ctx : ctx) (_tn : string) (tf : Mir.target_data) : unit
       =
     for i = 0 to tf.target_sz_tmps - 1 do
@@ -856,8 +939,8 @@ struct
     ctx.ctx_ref_org <- ctx.ctx_ref_org - tf.target_nb_refs;
     ctx.ctx_tmps_org <- ctx.ctx_tmps_org - tf.target_sz_tmps
 
-  let evaluate_program ?(dbg = ref None) ?(ctxd = ref empty_ctxd)
-      (p : Mir.program) (ctx : ctx) : unit =
+  let evaluate_program ?(dbg = ref None) ?(ctxd = ref None) (p : Mir.program)
+      (ctx : ctx) : unit =
     try
       let main_target =
         match
@@ -974,11 +1057,12 @@ let evaluate_program_dbg (p : Mir.program) (inputs : Com.literal Com.Var.Map.t)
   let module Interp = (val get_interp sort roundops : S) in
   let ctx = Interp.empty_ctx p in
   Interp.update_ctx_with_inputs ctx inputs;
-  let ctxd = ref (Interp.update_ctxd_with_inputs empty_ctxd inputs) in
-  let dbg = ref (Some (TRYGRAPH.empty, Com.Var.Map.empty)) in
+  let ctxd, g = Interp.update_ctxd_with_inputs empty_ctxd inputs in
+  let ctxd = ref (Some ctxd) in
+  let dbg = ref (Some (g, Com.Var.Map.empty)) in
   let () = Interp.evaluate_program ~dbg ~ctxd p ctx in
   let dbg, _vdef_map = Option.get !dbg in
-  fun () -> (dbg, !ctxd)
+  fun () -> (dbg, Option.get !ctxd)
 
 let evaluate_program (p : Mir.program) (inputs : Com.literal Com.Var.Map.t)
     (sort : Cli.value_sort) (roundops : Cli.round_ops) :

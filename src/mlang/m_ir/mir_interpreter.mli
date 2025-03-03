@@ -91,7 +91,8 @@ module type S = sig
 
   val update_ctx_with_inputs : ctx -> Com.literal Com.Var.Map.t -> unit
 
-  val update_ctxd_with_inputs : ctx_dbg -> Com.literal Com.Var.Map.t -> ctx_dbg
+  val update_ctxd_with_inputs :
+    ctx_dbg -> Com.literal Com.Var.Map.t -> ctx_dbg * TRYGRAPH.t
 
   (** Interpreter runtime errors *)
   type run_error =
@@ -110,7 +111,7 @@ module type S = sig
 
   val evaluate_expr :
     ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
-    ?ctxd:ctx_dbg ref ->
+    ?ctxd:ctx_dbg option ref ->
     ctx ->
     Mir.program ->
     Mir.expression Pos.marked ->
@@ -118,7 +119,7 @@ module type S = sig
 
   val evaluate_program :
     ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
-    ?ctxd:ctx_dbg ref ->
+    ?ctxd:ctx_dbg option ref ->
     Mir.program ->
     ctx ->
     unit
