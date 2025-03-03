@@ -1,0 +1,4397 @@
+source_file: WITH
+##
+## Ends in an error in state: 0.
+##
+## source_file' -> . source_file [ # ]
+##
+## The known suffix of the stack is as follows:
+##
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL WITH
+##
+## Ends in an error in state: 1.
+##
+## comp_variable_name -> SYMBOL . COLON [ TABLE COMPUTED ]
+## const_variable_name -> SYMBOL . COLON CONST [ EQUALS ]
+## error_name -> SYMBOL . COLON [ INFORMATIVE DISCORDANCE ANOMALY ]
+## fonction -> SYMBOL . COLON FONCTION SYMBOL SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+## input_variable_name -> SYMBOL . COLON [ INPUT ]
+##
+## The known suffix of the stack is as follows:
+## SYMBOL
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON WITH
+##
+## Ends in an error in state: 2.
+##
+## comp_variable_name -> SYMBOL COLON . [ TABLE COMPUTED ]
+## const_variable_name -> SYMBOL COLON . CONST [ EQUALS ]
+## error_name -> SYMBOL COLON . [ INFORMATIVE DISCORDANCE ANOMALY ]
+## fonction -> SYMBOL COLON . FONCTION SYMBOL SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+## input_variable_name -> SYMBOL COLON . [ INPUT ]
+##
+## The known suffix of the stack is as follows:
+## SYMBOL COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON FONCTION WITH
+##
+## Ends in an error in state: 3.
+##
+## fonction -> SYMBOL COLON FONCTION . SYMBOL SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## SYMBOL COLON FONCTION
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON FONCTION SYMBOL WITH
+##
+## Ends in an error in state: 4.
+##
+## fonction -> SYMBOL COLON FONCTION SYMBOL . SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## SYMBOL COLON FONCTION SYMBOL
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON FONCTION SYMBOL SEMICOLON WITH
+##
+## Ends in an error in state: 8.
+##
+## list(with_pos(symbol_colon_etc)) -> symbol_colon_etc . list(with_pos(symbol_colon_etc)) [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## symbol_colon_etc
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON INPUT WITH
+##
+## Ends in an error in state: 11.
+##
+## input_variable -> input_variable_name INPUT . list(input_attr_or_category) input_variable_alias COLON input_descr option(value_type) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## input_variable_name INPUT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON INPUT SYMBOL WITH
+##
+## Ends in an error in state: 15.
+##
+## input_attr_or_category -> symbol_with_pos . [ SYMBOL GIVEN_BACK ALIAS ]
+## variable_attribute -> symbol_with_pos . EQUALS variable_attribute_value [ SYMBOL GIVEN_BACK ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON INPUT SYMBOL EQUALS WITH
+##
+## Ends in an error in state: 16.
+##
+## variable_attribute -> symbol_with_pos EQUALS . variable_attribute_value [ SYMBOL GIVEN_BACK COLON BASE ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## symbol_with_pos EQUALS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON INPUT ALIAS WITH
+##
+## Ends in an error in state: 20.
+##
+## input_variable_alias -> ALIAS . SYMBOL [ COLON ]
+##
+## The known suffix of the stack is as follows:
+## ALIAS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON INPUT ALIAS SYMBOL WITH
+##
+## Ends in an error in state: 22.
+##
+## input_variable -> input_variable_name INPUT list(input_attr_or_category) input_variable_alias . COLON input_descr option(value_type) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## input_variable_name INPUT list(input_attr_or_category) input_variable_alias
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON INPUT ALIAS SYMBOL COLON WITH
+##
+## Ends in an error in state: 23.
+##
+## input_variable -> input_variable_name INPUT list(input_attr_or_category) input_variable_alias COLON . input_descr option(value_type) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## input_variable_name INPUT list(input_attr_or_category) input_variable_alias COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON INPUT ALIAS SYMBOL COLON STRING WITH
+##
+## Ends in an error in state: 25.
+##
+## input_variable -> input_variable_name INPUT list(input_attr_or_category) input_variable_alias COLON input_descr . option(value_type) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## input_variable_name INPUT list(input_attr_or_category) input_variable_alias COLON input_descr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON COMPUTED COLON STRING TYPE WITH
+##
+## Ends in an error in state: 26.
+##
+## value_type -> TYPE . value_type_prim [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## TYPE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON INPUT ALIAS SYMBOL COLON STRING TYPE BOOLEAN WITH
+##
+## Ends in an error in state: 35.
+##
+## input_variable -> input_variable_name INPUT list(input_attr_or_category) input_variable_alias COLON input_descr option(value_type) . SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## input_variable_name INPUT list(input_attr_or_category) input_variable_alias COLON input_descr option(value_type)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON INPUT GIVEN_BACK WITH
+##
+## Ends in an error in state: 37.
+##
+## list(input_attr_or_category) -> input_attr_or_category . list(input_attr_or_category) [ ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## input_attr_or_category
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON ANOMALY WITH
+##
+## Ends in an error in state: 45.
+##
+## error_ -> error_name type_error . COLON error_descr COLON error_descr COLON error_descr COLON error_descr option(error_message) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## error_name type_error
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON ANOMALY COLON WITH
+##
+## Ends in an error in state: 46.
+##
+## error_ -> error_name type_error COLON . error_descr COLON error_descr COLON error_descr COLON error_descr option(error_message) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## error_name type_error COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON ANOMALY COLON STRING WITH
+##
+## Ends in an error in state: 48.
+##
+## error_ -> error_name type_error COLON error_descr . COLON error_descr COLON error_descr COLON error_descr option(error_message) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## error_name type_error COLON error_descr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON ANOMALY COLON STRING COLON WITH
+##
+## Ends in an error in state: 49.
+##
+## error_ -> error_name type_error COLON error_descr COLON . error_descr COLON error_descr COLON error_descr option(error_message) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## error_name type_error COLON error_descr COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON ANOMALY COLON STRING COLON STRING WITH
+##
+## Ends in an error in state: 50.
+##
+## error_ -> error_name type_error COLON error_descr COLON error_descr . COLON error_descr COLON error_descr option(error_message) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## error_name type_error COLON error_descr COLON error_descr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON ANOMALY COLON STRING COLON STRING COLON WITH
+##
+## Ends in an error in state: 51.
+##
+## error_ -> error_name type_error COLON error_descr COLON error_descr COLON . error_descr COLON error_descr option(error_message) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## error_name type_error COLON error_descr COLON error_descr COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON ANOMALY COLON STRING COLON STRING COLON STRING WITH
+##
+## Ends in an error in state: 52.
+##
+## error_ -> error_name type_error COLON error_descr COLON error_descr COLON error_descr . COLON error_descr option(error_message) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## error_name type_error COLON error_descr COLON error_descr COLON error_descr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON ANOMALY COLON STRING COLON STRING COLON STRING COLON WITH
+##
+## Ends in an error in state: 53.
+##
+## error_ -> error_name type_error COLON error_descr COLON error_descr COLON error_descr COLON . error_descr option(error_message) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## error_name type_error COLON error_descr COLON error_descr COLON error_descr COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON ANOMALY COLON STRING COLON STRING COLON STRING COLON STRING WITH
+##
+## Ends in an error in state: 54.
+##
+## error_ -> error_name type_error COLON error_descr COLON error_descr COLON error_descr COLON error_descr . option(error_message) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## error_name type_error COLON error_descr COLON error_descr COLON error_descr COLON error_descr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON ANOMALY COLON STRING COLON STRING COLON STRING COLON STRING COLON WITH
+##
+## Ends in an error in state: 55.
+##
+## error_message -> COLON . error_descr [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON ANOMALY COLON STRING COLON STRING COLON STRING COLON STRING COLON STRING WITH
+##
+## Ends in an error in state: 57.
+##
+## error_ -> error_name type_error COLON error_descr COLON error_descr COLON error_descr COLON error_descr option(error_message) . SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## error_name type_error COLON error_descr COLON error_descr COLON error_descr COLON error_descr option(error_message)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON CONST WITH
+##
+## Ends in an error in state: 61.
+##
+## const_variable -> const_variable_name . EQUALS const_value SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## const_variable_name
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON CONST EQUALS WITH
+##
+## Ends in an error in state: 62.
+##
+## const_variable -> const_variable_name EQUALS . const_value SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## const_variable_name EQUALS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON CONST EQUALS SYMBOL WITH
+##
+## Ends in an error in state: 64.
+##
+## const_variable -> const_variable_name EQUALS const_value . SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## const_variable_name EQUALS const_value
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON TABLE WITH
+##
+## Ends in an error in state: 68.
+##
+## comp_variable_table -> TABLE . LBRACKET SYMBOL RBRACKET [ SEMICOLON COMPUTED COMMA ]
+##
+## The known suffix of the stack is as follows:
+## TABLE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON TABLE LBRACKET WITH
+##
+## Ends in an error in state: 69.
+##
+## comp_variable_table -> TABLE LBRACKET . SYMBOL RBRACKET [ SEMICOLON COMPUTED COMMA ]
+##
+## The known suffix of the stack is as follows:
+## TABLE LBRACKET
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON TABLE LBRACKET SYMBOL WITH
+##
+## Ends in an error in state: 70.
+##
+## comp_variable_table -> TABLE LBRACKET SYMBOL . RBRACKET [ SEMICOLON COMPUTED COMMA ]
+##
+## The known suffix of the stack is as follows:
+## TABLE LBRACKET SYMBOL
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON TABLE LBRACKET SYMBOL RBRACKET WITH
+##
+## Ends in an error in state: 72.
+##
+## comp_variable -> comp_variable_name option(with_pos(comp_variable_table)) . COMPUTED list(comp_attr_or_subtyp) COLON comp_variable_descr option(value_type) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## comp_variable_name option(with_pos(comp_variable_table))
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON COMPUTED WITH
+##
+## Ends in an error in state: 73.
+##
+## comp_variable -> comp_variable_name option(with_pos(comp_variable_table)) COMPUTED . list(comp_attr_or_subtyp) COLON comp_variable_descr option(value_type) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## comp_variable_name option(with_pos(comp_variable_table)) COMPUTED
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON COMPUTED SYMBOL WITH
+##
+## Ends in an error in state: 77.
+##
+## variable_attribute -> symbol_with_pos . EQUALS variable_attribute_value [ SYMBOL GIVEN_BACK COLON BASE ]
+##
+## The known suffix of the stack is as follows:
+## symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON COMPUTED COLON WITH
+##
+## Ends in an error in state: 79.
+##
+## comp_variable -> comp_variable_name option(with_pos(comp_variable_table)) COMPUTED list(comp_attr_or_subtyp) COLON . comp_variable_descr option(value_type) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## comp_variable_name option(with_pos(comp_variable_table)) COMPUTED list(comp_attr_or_subtyp) COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON COMPUTED COLON STRING WITH
+##
+## Ends in an error in state: 81.
+##
+## comp_variable -> comp_variable_name option(with_pos(comp_variable_table)) COMPUTED list(comp_attr_or_subtyp) COLON comp_variable_descr . option(value_type) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## comp_variable_name option(with_pos(comp_variable_table)) COMPUTED list(comp_attr_or_subtyp) COLON comp_variable_descr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON COMPUTED COLON STRING TYPE BOOLEAN WITH
+##
+## Ends in an error in state: 82.
+##
+## comp_variable -> comp_variable_name option(with_pos(comp_variable_table)) COMPUTED list(comp_attr_or_subtyp) COLON comp_variable_descr option(value_type) . SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## comp_variable_name option(with_pos(comp_variable_table)) COMPUTED list(comp_attr_or_subtyp) COLON comp_variable_descr option(value_type)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: SYMBOL COLON COMPUTED BASE WITH
+##
+## Ends in an error in state: 84.
+##
+## list(comp_attr_or_subtyp) -> comp_attr_or_subtyp . list(comp_attr_or_subtyp) [ COLON ]
+##
+## The known suffix of the stack is as follows:
+## comp_attr_or_subtyp
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION WITH
+##
+## Ends in an error in state: 92.
+##
+## verification -> VERIFICATION . symbol_list_with_pos COLON APPLICATION COLON symbol_enumeration SEMICOLON nonempty_list(with_pos(verification_condition)) [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VERIFICATION
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE SYMBOL WITH
+##
+## Ends in an error in state: 93.
+##
+## nonempty_list(symbol_with_pos) -> symbol_with_pos . [ SEMICOLON RPAREN COMMA COLON ]
+## nonempty_list(symbol_with_pos) -> symbol_with_pos . nonempty_list(symbol_with_pos) [ SEMICOLON RPAREN COMMA COLON ]
+##
+## The known suffix of the stack is as follows:
+## symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION SYMBOL SEMICOLON
+##
+## Ends in an error in state: 95.
+##
+## verification -> VERIFICATION symbol_list_with_pos . COLON APPLICATION COLON symbol_enumeration SEMICOLON nonempty_list(with_pos(verification_condition)) [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VERIFICATION symbol_list_with_pos
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 93, spurious reduction of production nonempty_list(symbol_with_pos) -> symbol_with_pos
+## In state 263, spurious reduction of production symbol_list_with_pos -> nonempty_list(symbol_with_pos)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION SYMBOL COLON WITH
+##
+## Ends in an error in state: 96.
+##
+## verification -> VERIFICATION symbol_list_with_pos COLON . APPLICATION COLON symbol_enumeration SEMICOLON nonempty_list(with_pos(verification_condition)) [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VERIFICATION symbol_list_with_pos COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION SYMBOL COLON APPLICATION WITH
+##
+## Ends in an error in state: 97.
+##
+## verification -> VERIFICATION symbol_list_with_pos COLON APPLICATION . COLON symbol_enumeration SEMICOLON nonempty_list(with_pos(verification_condition)) [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VERIFICATION symbol_list_with_pos COLON APPLICATION
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION SYMBOL COLON APPLICATION COLON WITH
+##
+## Ends in an error in state: 98.
+##
+## verification -> VERIFICATION symbol_list_with_pos COLON APPLICATION COLON . symbol_enumeration SEMICOLON nonempty_list(with_pos(verification_condition)) [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VERIFICATION symbol_list_with_pos COLON APPLICATION COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: CHAINING SYMBOL APPLICATION COLON SYMBOL WITH
+##
+## Ends in an error in state: 99.
+##
+## separated_nonempty_list(COMMA,symbol_with_pos) -> symbol_with_pos . [ SEMICOLON COLON ]
+## separated_nonempty_list(COMMA,symbol_with_pos) -> symbol_with_pos . COMMA separated_nonempty_list(COMMA,symbol_with_pos) [ SEMICOLON COLON ]
+##
+## The known suffix of the stack is as follows:
+## symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: CHAINING SYMBOL APPLICATION COLON SYMBOL COMMA WITH
+##
+## Ends in an error in state: 100.
+##
+## separated_nonempty_list(COMMA,symbol_with_pos) -> symbol_with_pos COMMA . separated_nonempty_list(COMMA,symbol_with_pos) [ SEMICOLON COLON ]
+##
+## The known suffix of the stack is as follows:
+## symbol_with_pos COMMA
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION SYMBOL COLON APPLICATION COLON SYMBOL COLON
+##
+## Ends in an error in state: 102.
+##
+## verification -> VERIFICATION symbol_list_with_pos COLON APPLICATION COLON symbol_enumeration . SEMICOLON nonempty_list(with_pos(verification_condition)) [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VERIFICATION symbol_list_with_pos COLON APPLICATION COLON symbol_enumeration
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 99, spurious reduction of production separated_nonempty_list(COMMA,symbol_with_pos) -> symbol_with_pos
+## In state 262, spurious reduction of production symbol_enumeration -> separated_nonempty_list(COMMA,symbol_with_pos)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WITH
+##
+## Ends in an error in state: 103.
+##
+## verification -> VERIFICATION symbol_list_with_pos COLON APPLICATION COLON symbol_enumeration SEMICOLON . nonempty_list(with_pos(verification_condition)) [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VERIFICATION symbol_list_with_pos COLON APPLICATION COLON symbol_enumeration SEMICOLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF WITH
+##
+## Ends in an error in state: 104.
+##
+## verification_condition -> IF . expression THEN ERROR symbol_with_pos option(with_pos(variable_name)) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT IF FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## IF
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL WITH
+##
+## Ends in an error in state: 107.
+##
+## factor_atom -> SYMBOL . [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+## function_name -> SYMBOL . [ LPAREN ]
+## table_index_name -> SYMBOL . [ LBRACKET ]
+##
+## The known suffix of the stack is as follows:
+## SYMBOL
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SIZE WITH
+##
+## Ends in an error in state: 108.
+##
+## function_call -> SIZE . LPAREN symbol_with_pos RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## SIZE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SIZE LPAREN WITH
+##
+## Ends in an error in state: 109.
+##
+## function_call -> SIZE LPAREN . symbol_with_pos RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## SIZE LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SIZE LPAREN SYMBOL WITH
+##
+## Ends in an error in state: 110.
+##
+## function_call -> SIZE LPAREN symbol_with_pos . RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## SIZE LPAREN symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF NOT WITH
+##
+## Ends in an error in state: 112.
+##
+## expression -> NOT . expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## NOT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF NB_INFORMATIVES WITH
+##
+## Ends in an error in state: 113.
+##
+## function_call -> NB_INFORMATIVES . LPAREN RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## NB_INFORMATIVES
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF NB_INFORMATIVES LPAREN WITH
+##
+## Ends in an error in state: 114.
+##
+## function_call -> NB_INFORMATIVES LPAREN . RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## NB_INFORMATIVES LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF NB_DISCORDANCES WITH
+##
+## Ends in an error in state: 116.
+##
+## function_call -> NB_DISCORDANCES . LPAREN RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## NB_DISCORDANCES
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF NB_DISCORDANCES LPAREN WITH
+##
+## Ends in an error in state: 117.
+##
+## function_call -> NB_DISCORDANCES LPAREN . RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## NB_DISCORDANCES LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF NB_CATEGORY WITH
+##
+## Ends in an error in state: 119.
+##
+## function_call -> NB_CATEGORY . LPAREN var_category_id RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## NB_CATEGORY
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF NB_CATEGORY LPAREN WITH
+##
+## Ends in an error in state: 120.
+##
+## function_call -> NB_CATEGORY LPAREN . var_category_id RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## NB_CATEGORY LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN VERIFICATION AUTHORIZE INPUT WITH
+##
+## Ends in an error in state: 122.
+##
+## var_category_id -> INPUT . TIMES [ SEMICOLON RPAREN COMMA COLON ]
+## var_category_id -> INPUT . nonempty_list(symbol_with_pos) [ SEMICOLON RPAREN COMMA COLON ]
+##
+## The known suffix of the stack is as follows:
+## INPUT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN VERIFICATION AUTHORIZE COMPUTED WITH
+##
+## Ends in an error in state: 125.
+##
+## var_category_id -> COMPUTED . TIMES [ SEMICOLON RPAREN COMMA COLON ]
+## var_category_id -> COMPUTED . BASE [ SEMICOLON RPAREN COMMA COLON ]
+## var_category_id -> COMPUTED . [ SEMICOLON RPAREN COMMA COLON ]
+##
+## The known suffix of the stack is as follows:
+## COMPUTED
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF NB_CATEGORY LPAREN TIMES WITH
+##
+## Ends in an error in state: 128.
+##
+## function_call -> NB_CATEGORY LPAREN var_category_id . RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## NB_CATEGORY LPAREN var_category_id
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF NB_BLOCKING WITH
+##
+## Ends in an error in state: 130.
+##
+## function_call -> NB_BLOCKING . LPAREN RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## NB_BLOCKING
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF NB_BLOCKING LPAREN WITH
+##
+## Ends in an error in state: 131.
+##
+## function_call -> NB_BLOCKING LPAREN . RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## NB_BLOCKING LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF NB_ANOMALIES WITH
+##
+## Ends in an error in state: 133.
+##
+## function_call -> NB_ANOMALIES . LPAREN RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## NB_ANOMALIES
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF NB_ANOMALIES LPAREN WITH
+##
+## Ends in an error in state: 134.
+##
+## function_call -> NB_ANOMALIES LPAREN . RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## NB_ANOMALIES LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF MINUS WITH
+##
+## Ends in an error in state: 136.
+##
+## factor -> MINUS . factor [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## MINUS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF LPAREN WITH
+##
+## Ends in an error in state: 137.
+##
+## factor -> LPAREN . expression RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF IF WITH
+##
+## Ends in an error in state: 138.
+##
+## ternary_operator -> IF . expression THEN expression option(else_branch) ENDIF [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## IF
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF FOR WITH
+##
+## Ends in an error in state: 139.
+##
+## expression -> FOR . loop_expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## FOR
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR ONE WITH
+##
+## Ends in an error in state: 141.
+##
+## loop_variables_range -> ONE . loop_variable_value_name IN enumeration_loop [ COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## ONE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR ONE SYMBOL WITH
+##
+## Ends in an error in state: 142.
+##
+## loop_variables_range -> ONE loop_variable_value_name . IN enumeration_loop [ COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## ONE loop_variable_value_name
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR ONE SYMBOL IN WITH
+##
+## Ends in an error in state: 143.
+##
+## loop_variables_range -> ONE loop_variable_value_name IN . enumeration_loop [ COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## ONE loop_variable_value_name IN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR SYMBOL EQUALS SYMBOL WITH
+##
+## Ends in an error in state: 144.
+##
+## enumeration_loop_item -> SYMBOL . [ SEMICOLON COMMA COLON AND ]
+## interval_loop -> SYMBOL . range_or_minus SYMBOL [ SEMICOLON COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## SYMBOL
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR SYMBOL EQUALS SYMBOL MINUS WITH
+##
+## Ends in an error in state: 147.
+##
+## interval_loop -> SYMBOL range_or_minus . SYMBOL [ SEMICOLON COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## SYMBOL range_or_minus
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR SYMBOL EQUALS SYMBOL MINUS SYMBOL WITH
+##
+## Ends in an error in state: 150.
+##
+## enumeration_loop -> enumeration_loop_item . [ SEMICOLON COLON AND ]
+## enumeration_loop -> enumeration_loop_item . COMMA enumeration_loop [ SEMICOLON COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## enumeration_loop_item
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR SYMBOL EQUALS SYMBOL COMMA WITH
+##
+## Ends in an error in state: 151.
+##
+## enumeration_loop -> enumeration_loop_item COMMA . enumeration_loop [ SEMICOLON COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## enumeration_loop_item COMMA
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR SYMBOL EQUALS SYMBOL AND
+##
+## Ends in an error in state: 156.
+##
+## separated_nonempty_list(SEMICOLON,loop_variables_value) -> loop_variables_value . [ COLON ]
+## separated_nonempty_list(SEMICOLON,loop_variables_value) -> loop_variables_value . SEMICOLON separated_nonempty_list(SEMICOLON,loop_variables_value) [ COLON ]
+##
+## The known suffix of the stack is as follows:
+## loop_variables_value
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 144, spurious reduction of production enumeration_loop_item -> SYMBOL
+## In state 150, spurious reduction of production enumeration_loop -> enumeration_loop_item
+## In state 161, spurious reduction of production loop_variables_value -> loop_variable_value_name EQUALS enumeration_loop
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR SYMBOL EQUALS SYMBOL SEMICOLON WITH
+##
+## Ends in an error in state: 157.
+##
+## separated_nonempty_list(SEMICOLON,loop_variables_value) -> loop_variables_value SEMICOLON . separated_nonempty_list(SEMICOLON,loop_variables_value) [ COLON ]
+##
+## The known suffix of the stack is as follows:
+## loop_variables_value SEMICOLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR SYMBOL WITH
+##
+## Ends in an error in state: 159.
+##
+## loop_variables_value -> loop_variable_value_name . EQUALS enumeration_loop [ SEMICOLON COLON ]
+##
+## The known suffix of the stack is as follows:
+## loop_variable_value_name
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR SYMBOL EQUALS WITH
+##
+## Ends in an error in state: 160.
+##
+## loop_variables_value -> loop_variable_value_name EQUALS . enumeration_loop [ SEMICOLON COLON ]
+##
+## The known suffix of the stack is as follows:
+## loop_variable_value_name EQUALS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR ONE SYMBOL IN SYMBOL SEMICOLON
+##
+## Ends in an error in state: 163.
+##
+## loop_variables_ranges -> loop_variables_range . [ COLON ]
+## loop_variables_ranges -> loop_variables_range . AND loop_variables_ranges [ COLON ]
+##
+## The known suffix of the stack is as follows:
+## loop_variables_range
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 144, spurious reduction of production enumeration_loop_item -> SYMBOL
+## In state 150, spurious reduction of production enumeration_loop -> enumeration_loop_item
+## In state 153, spurious reduction of production loop_variables_range -> ONE loop_variable_value_name IN enumeration_loop
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR ONE SYMBOL IN SYMBOL AND WITH
+##
+## Ends in an error in state: 164.
+##
+## loop_variables_ranges -> loop_variables_range AND . loop_variables_ranges [ COLON ]
+##
+## The known suffix of the stack is as follows:
+## loop_variables_range AND
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF FOR SYMBOL EQUALS SYMBOL COLON WITH
+##
+## Ends in an error in state: 167.
+##
+## loop_expression -> loop_variables COLON . expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## loop_variables COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF ATTRIBUT WITH
+##
+## Ends in an error in state: 169.
+##
+## function_call -> ATTRIBUT . LPAREN symbol_with_pos COMMA symbol_with_pos RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## ATTRIBUT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF ATTRIBUT LPAREN WITH
+##
+## Ends in an error in state: 170.
+##
+## function_call -> ATTRIBUT LPAREN . symbol_with_pos COMMA symbol_with_pos RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## ATTRIBUT LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF ATTRIBUT LPAREN SYMBOL WITH
+##
+## Ends in an error in state: 171.
+##
+## function_call -> ATTRIBUT LPAREN symbol_with_pos . COMMA symbol_with_pos RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## ATTRIBUT LPAREN symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF ATTRIBUT LPAREN SYMBOL COMMA WITH
+##
+## Ends in an error in state: 172.
+##
+## function_call -> ATTRIBUT LPAREN symbol_with_pos COMMA . symbol_with_pos RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## ATTRIBUT LPAREN symbol_with_pos COMMA
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF ATTRIBUT LPAREN SYMBOL COMMA SYMBOL WITH
+##
+## Ends in an error in state: 173.
+##
+## function_call -> ATTRIBUT LPAREN symbol_with_pos COMMA symbol_with_pos . RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## ATTRIBUT LPAREN symbol_with_pos COMMA symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON SYMBOL LBRACKET WITH
+##
+## Ends in an error in state: 177.
+##
+## brackets -> LBRACKET . expression RBRACKET [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LBRACKET
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL COMMA
+##
+## Ends in an error in state: 178.
+##
+## expression -> sum_expression . NOT IN LPAREN enumeration RPAREN [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## expression -> sum_expression . IN LPAREN enumeration RPAREN [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## expression -> sum_expression . GTE sum_expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## expression -> sum_expression . LTE sum_expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## expression -> sum_expression . LT sum_expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## expression -> sum_expression . GT sum_expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## expression -> sum_expression . NEQ sum_expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## expression -> sum_expression . EQUALS sum_expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## expression -> sum_expression . [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . PLUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . MINUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL PLUS WITH
+##
+## Ends in an error in state: 179.
+##
+## sum_expression -> sum_expression PLUS . product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression PLUS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL PLUS UNDEFINED WITH
+##
+## Ends in an error in state: 180.
+##
+## product_expression -> product_expression . TIMES factor [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+## product_expression -> product_expression . DIV factor [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+## sum_expression -> sum_expression PLUS product_expression . [ THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression PLUS product_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL TIMES WITH
+##
+## Ends in an error in state: 181.
+##
+## product_expression -> product_expression TIMES . factor [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## product_expression TIMES
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF COMPL_NUMBER WITH
+##
+## Ends in an error in state: 182.
+##
+## function_call -> function_name . LPAREN RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+## function_call -> function_name . LPAREN function_call_args RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## function_name
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF COMPL_NUMBER LPAREN WITH
+##
+## Ends in an error in state: 183.
+##
+## function_call -> function_name LPAREN . RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+## function_call -> function_name LPAREN . function_call_args RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## function_name LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF COMPL_NUMBER LPAREN SYMBOL WITH
+##
+## Ends in an error in state: 184.
+##
+## factor_atom -> SYMBOL . [ TIMES RPAREN PLUS MINUS DIV COMMA ]
+## function_name -> SYMBOL . [ LPAREN ]
+## loop_variable_value_name -> SYMBOL . [ EQUALS ]
+## table_index_name -> SYMBOL . [ LBRACKET ]
+##
+## The known suffix of the stack is as follows:
+## SYMBOL
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF COMPL_NUMBER LPAREN UNDEFINED THEN
+##
+## Ends in an error in state: 186.
+##
+## function_arguments -> sum_expression . [ RPAREN ]
+## function_arguments -> sum_expression . COMMA function_arguments [ RPAREN ]
+## sum_expression -> sum_expression . PLUS product_expression [ RPAREN PLUS MINUS COMMA ]
+## sum_expression -> sum_expression . MINUS product_expression [ RPAREN PLUS MINUS COMMA ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 195, spurious reduction of production sum_expression -> product_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL MINUS WITH
+##
+## Ends in an error in state: 187.
+##
+## sum_expression -> sum_expression MINUS . product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression MINUS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL MINUS UNDEFINED WITH
+##
+## Ends in an error in state: 188.
+##
+## product_expression -> product_expression . TIMES factor [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+## product_expression -> product_expression . DIV factor [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+## sum_expression -> sum_expression MINUS product_expression . [ THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression MINUS product_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL DIV WITH
+##
+## Ends in an error in state: 189.
+##
+## product_expression -> product_expression DIV . factor [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## product_expression DIV
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF COMPL_NUMBER LPAREN SYMBOL COMMA WITH
+##
+## Ends in an error in state: 194.
+##
+## function_arguments -> sum_expression COMMA . function_arguments [ RPAREN ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression COMMA
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF UNDEFINED WITH
+##
+## Ends in an error in state: 195.
+##
+## product_expression -> product_expression . TIMES factor [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+## product_expression -> product_expression . DIV factor [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+## sum_expression -> product_expression . [ THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## product_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF COMPL_NUMBER LPAREN SYMBOL EQUALS SYMBOL COLON SYMBOL THEN
+##
+## Ends in an error in state: 198.
+##
+## function_call -> function_name LPAREN function_call_args . RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## function_name LPAREN function_call_args
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+## In state 237, spurious reduction of production loop_expression -> loop_variables COLON expression
+## In state 197, spurious reduction of production function_call_args -> loop_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL NOT WITH
+##
+## Ends in an error in state: 202.
+##
+## expression -> sum_expression NOT . IN LPAREN enumeration RPAREN [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression NOT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL NOT IN WITH
+##
+## Ends in an error in state: 203.
+##
+## expression -> sum_expression NOT IN . LPAREN enumeration RPAREN [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression NOT IN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL NOT IN LPAREN WITH
+##
+## Ends in an error in state: 204.
+##
+## expression -> sum_expression NOT IN LPAREN . enumeration RPAREN [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression NOT IN LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL IN LPAREN SYMBOL WITH
+##
+## Ends in an error in state: 205.
+##
+## enumeration_item -> SYMBOL . [ RPAREN COMMA ]
+## interval -> SYMBOL . RANGE SYMBOL [ RPAREN COMMA ]
+##
+## The known suffix of the stack is as follows:
+## SYMBOL
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL IN LPAREN SYMBOL RANGE WITH
+##
+## Ends in an error in state: 206.
+##
+## interval -> SYMBOL RANGE . SYMBOL [ RPAREN COMMA ]
+##
+## The known suffix of the stack is as follows:
+## SYMBOL RANGE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL IN LPAREN SYMBOL RANGE SYMBOL WITH
+##
+## Ends in an error in state: 209.
+##
+## enumeration -> enumeration_item . [ RPAREN ]
+## enumeration -> enumeration_item . COMMA enumeration [ RPAREN ]
+##
+## The known suffix of the stack is as follows:
+## enumeration_item
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL IN LPAREN SYMBOL COMMA WITH
+##
+## Ends in an error in state: 210.
+##
+## enumeration -> enumeration_item COMMA . enumeration [ RPAREN ]
+##
+## The known suffix of the stack is as follows:
+## enumeration_item COMMA
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL NEQ WITH
+##
+## Ends in an error in state: 214.
+##
+## expression -> sum_expression NEQ . sum_expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression NEQ
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL NEQ SYMBOL NOT
+##
+## Ends in an error in state: 215.
+##
+## expression -> sum_expression NEQ sum_expression . [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . PLUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR MINUS ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . MINUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR MINUS ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression NEQ sum_expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL LTE WITH
+##
+## Ends in an error in state: 216.
+##
+## expression -> sum_expression LTE . sum_expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression LTE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL LTE SYMBOL NOT
+##
+## Ends in an error in state: 217.
+##
+## expression -> sum_expression LTE sum_expression . [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . PLUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR MINUS ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . MINUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR MINUS ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression LTE sum_expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL LT WITH
+##
+## Ends in an error in state: 218.
+##
+## expression -> sum_expression LT . sum_expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression LT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL LT SYMBOL NOT
+##
+## Ends in an error in state: 219.
+##
+## expression -> sum_expression LT sum_expression . [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . PLUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR MINUS ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . MINUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR MINUS ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression LT sum_expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL IN WITH
+##
+## Ends in an error in state: 220.
+##
+## expression -> sum_expression IN . LPAREN enumeration RPAREN [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression IN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL IN LPAREN WITH
+##
+## Ends in an error in state: 221.
+##
+## expression -> sum_expression IN LPAREN . enumeration RPAREN [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression IN LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL GTE WITH
+##
+## Ends in an error in state: 224.
+##
+## expression -> sum_expression GTE . sum_expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression GTE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL GTE SYMBOL NOT
+##
+## Ends in an error in state: 225.
+##
+## expression -> sum_expression GTE sum_expression . [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . PLUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR MINUS ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . MINUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR MINUS ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression GTE sum_expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL GT WITH
+##
+## Ends in an error in state: 226.
+##
+## expression -> sum_expression GT . sum_expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression GT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL GT SYMBOL NOT
+##
+## Ends in an error in state: 227.
+##
+## expression -> sum_expression GT sum_expression . [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . PLUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR MINUS ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . MINUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR MINUS ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression GT sum_expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL EQUALS WITH
+##
+## Ends in an error in state: 228.
+##
+## expression -> sum_expression EQUALS . sum_expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression EQUALS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL EQUALS SYMBOL NOT
+##
+## Ends in an error in state: 229.
+##
+## expression -> sum_expression EQUALS sum_expression . [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . PLUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR MINUS ENDIF ELSE DO COLON AND ]
+## sum_expression -> sum_expression . MINUS product_expression [ THEN SEMICOLON RPAREN RBRACKET PLUS OR MINUS ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## sum_expression EQUALS sum_expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON SYMBOL LBRACKET SYMBOL THEN
+##
+## Ends in an error in state: 230.
+##
+## brackets -> LBRACKET expression . RBRACKET [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+## expression -> expression . AND expression [ RBRACKET OR AND ]
+## expression -> expression . OR expression [ RBRACKET OR AND ]
+##
+## The known suffix of the stack is as follows:
+## LBRACKET expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL OR WITH
+##
+## Ends in an error in state: 232.
+##
+## expression -> expression OR . expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expression OR
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL OR SYMBOL IN LPAREN SYMBOL RPAREN WITH
+##
+## Ends in an error in state: 233.
+##
+## expression -> expression . AND expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## expression -> expression . OR expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## expression -> expression OR expression . [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expression OR expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL AND WITH
+##
+## Ends in an error in state: 234.
+##
+## expression -> expression AND . expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expression AND
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF FOR SYMBOL EQUALS SYMBOL COLON SYMBOL IN LPAREN SYMBOL RPAREN WITH
+##
+## Ends in an error in state: 237.
+##
+## expression -> expression . AND expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## expression -> expression . OR expression [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+## loop_expression -> loop_variables COLON expression . [ THEN SEMICOLON RPAREN RBRACKET OR ENDIF ELSE DO COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## loop_variables COLON expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF IF SYMBOL SEMICOLON
+##
+## Ends in an error in state: 239.
+##
+## expression -> expression . AND expression [ THEN OR AND ]
+## expression -> expression . OR expression [ THEN OR AND ]
+## ternary_operator -> IF expression . THEN expression option(else_branch) ENDIF [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## IF expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF IF SYMBOL THEN WITH
+##
+## Ends in an error in state: 240.
+##
+## ternary_operator -> IF expression THEN . expression option(else_branch) ENDIF [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## IF expression THEN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF IF SYMBOL THEN SYMBOL THEN
+##
+## Ends in an error in state: 241.
+##
+## expression -> expression . AND expression [ OR ENDIF ELSE AND ]
+## expression -> expression . OR expression [ OR ENDIF ELSE AND ]
+## ternary_operator -> IF expression THEN expression . option(else_branch) ENDIF [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## IF expression THEN expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF IF SYMBOL THEN SYMBOL ELSE WITH
+##
+## Ends in an error in state: 242.
+##
+## else_branch -> ELSE . expression [ ENDIF ]
+##
+## The known suffix of the stack is as follows:
+## ELSE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF IF SYMBOL THEN SYMBOL ELSE SYMBOL THEN
+##
+## Ends in an error in state: 243.
+##
+## else_branch -> ELSE expression . [ ENDIF ]
+## expression -> expression . AND expression [ OR ENDIF AND ]
+## expression -> expression . OR expression [ OR ENDIF AND ]
+##
+## The known suffix of the stack is as follows:
+## ELSE expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF LPAREN SYMBOL THEN
+##
+## Ends in an error in state: 247.
+##
+## expression -> expression . AND expression [ RPAREN OR AND ]
+## expression -> expression . OR expression [ RPAREN OR AND ]
+## factor -> LPAREN expression . RPAREN [ TIMES THEN SEMICOLON RPAREN RBRACKET PLUS OR NOT NEQ MINUS LTE LT IN GTE GT EQUALS ENDIF ELSE DO DIV COMMA COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL SEMICOLON
+##
+## Ends in an error in state: 251.
+##
+## expression -> expression . AND expression [ THEN OR AND ]
+## expression -> expression . OR expression [ THEN OR AND ]
+## verification_condition -> IF expression . THEN ERROR symbol_with_pos option(with_pos(variable_name)) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT IF FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## IF expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL THEN WITH
+##
+## Ends in an error in state: 252.
+##
+## verification_condition -> IF expression THEN . ERROR symbol_with_pos option(with_pos(variable_name)) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT IF FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## IF expression THEN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL THEN ERROR WITH
+##
+## Ends in an error in state: 253.
+##
+## verification_condition -> IF expression THEN ERROR . symbol_with_pos option(with_pos(variable_name)) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT IF FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## IF expression THEN ERROR
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL THEN ERROR SYMBOL WITH
+##
+## Ends in an error in state: 254.
+##
+## verification_condition -> IF expression THEN ERROR symbol_with_pos . option(with_pos(variable_name)) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT IF FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## IF expression THEN ERROR symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL THEN ERROR SYMBOL SYMBOL WITH
+##
+## Ends in an error in state: 257.
+##
+## verification_condition -> IF expression THEN ERROR symbol_with_pos option(with_pos(variable_name)) . SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT IF FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## IF expression THEN ERROR symbol_with_pos option(with_pos(variable_name))
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VERIFICATION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL THEN ERROR SYMBOL SEMICOLON WITH
+##
+## Ends in an error in state: 259.
+##
+## nonempty_list(with_pos(verification_condition)) -> verification_condition . [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+## nonempty_list(with_pos(verification_condition)) -> verification_condition . nonempty_list(with_pos(verification_condition)) [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## verification_condition
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VARIABLE WITH
+##
+## Ends in an error in state: 264.
+##
+## var_category_decl -> VARIABLE . var_typ list(symbol_with_pos) COLON ATTRIBUT separated_nonempty_list(COMMA,symbol_with_pos) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VARIABLE COMPUTED WITH
+##
+## Ends in an error in state: 267.
+##
+## var_category_decl -> VARIABLE var_typ . list(symbol_with_pos) COLON ATTRIBUT separated_nonempty_list(COMMA,symbol_with_pos) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE var_typ
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VARIABLE COMPUTED SYMBOL WITH
+##
+## Ends in an error in state: 268.
+##
+## list(symbol_with_pos) -> symbol_with_pos . list(symbol_with_pos) [ COLON ]
+##
+## The known suffix of the stack is as follows:
+## symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VARIABLE COMPUTED COLON WITH
+##
+## Ends in an error in state: 271.
+##
+## var_category_decl -> VARIABLE var_typ list(symbol_with_pos) COLON . ATTRIBUT separated_nonempty_list(COMMA,symbol_with_pos) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE var_typ list(symbol_with_pos) COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VARIABLE COMPUTED COLON ATTRIBUT WITH
+##
+## Ends in an error in state: 272.
+##
+## var_category_decl -> VARIABLE var_typ list(symbol_with_pos) COLON ATTRIBUT . separated_nonempty_list(COMMA,symbol_with_pos) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE var_typ list(symbol_with_pos) COLON ATTRIBUT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VARIABLE COMPUTED COLON ATTRIBUT SYMBOL COLON
+##
+## Ends in an error in state: 273.
+##
+## var_category_decl -> VARIABLE var_typ list(symbol_with_pos) COLON ATTRIBUT separated_nonempty_list(COMMA,symbol_with_pos) . SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE var_typ list(symbol_with_pos) COLON ATTRIBUT separated_nonempty_list(COMMA,symbol_with_pos)
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 99, spurious reduction of production separated_nonempty_list(COMMA,symbol_with_pos) -> symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: TARGET WITH
+##
+## Ends in an error in state: 275.
+##
+## target_etc -> TARGET . symbol_with_pos COLON nonempty_list(with_pos(target_header_elt)) instruction_list_etc [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## TARGET
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: TARGET SYMBOL WITH
+##
+## Ends in an error in state: 276.
+##
+## target_etc -> TARGET symbol_with_pos . COLON nonempty_list(with_pos(target_header_elt)) instruction_list_etc [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## TARGET symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: TARGET SYMBOL COLON WITH
+##
+## Ends in an error in state: 277.
+##
+## target_etc -> TARGET symbol_with_pos COLON . nonempty_list(with_pos(target_header_elt)) instruction_list_etc [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## TARGET symbol_with_pos COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: TARGET SYMBOL COLON VARIABLE WITH
+##
+## Ends in an error in state: 278.
+##
+## target_header_elt -> VARIABLE . TEMPORARY COLON separated_nonempty_list(COMMA,temporary_variable_name) SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: TARGET SYMBOL COLON VARIABLE TEMPORARY WITH
+##
+## Ends in an error in state: 279.
+##
+## target_header_elt -> VARIABLE TEMPORARY . COLON separated_nonempty_list(COMMA,temporary_variable_name) SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE TEMPORARY
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: TARGET SYMBOL COLON VARIABLE TEMPORARY COLON WITH
+##
+## Ends in an error in state: 280.
+##
+## target_header_elt -> VARIABLE TEMPORARY COLON . separated_nonempty_list(COMMA,temporary_variable_name) SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE TEMPORARY COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON VARIABLE TEMPORARY COLON SYMBOL TABLE LBRACKET SYMBOL RBRACKET WITH
+##
+## Ends in an error in state: 281.
+##
+## separated_nonempty_list(COMMA,temporary_variable_name) -> temporary_variable_name . [ SEMICOLON ]
+## separated_nonempty_list(COMMA,temporary_variable_name) -> temporary_variable_name . COMMA separated_nonempty_list(COMMA,temporary_variable_name) [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## temporary_variable_name
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON VARIABLE TEMPORARY COLON SYMBOL COMMA WITH
+##
+## Ends in an error in state: 282.
+##
+## separated_nonempty_list(COMMA,temporary_variable_name) -> temporary_variable_name COMMA . separated_nonempty_list(COMMA,temporary_variable_name) [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## temporary_variable_name COMMA
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON VARIABLE TEMPORARY COLON SYMBOL WITH
+##
+## Ends in an error in state: 283.
+##
+## temporary_variable_name -> symbol_with_pos . option(with_pos(comp_variable_table)) [ SEMICOLON COMMA ]
+##
+## The known suffix of the stack is as follows:
+## symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: TARGET SYMBOL COLON INPUT_ARG WITH
+##
+## Ends in an error in state: 288.
+##
+## target_header_elt -> INPUT_ARG . COLON separated_nonempty_list(COMMA,with_pos(variable_name)) SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## INPUT_ARG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: TARGET SYMBOL COLON INPUT_ARG COLON WITH
+##
+## Ends in an error in state: 289.
+##
+## target_header_elt -> INPUT_ARG COLON . separated_nonempty_list(COMMA,with_pos(variable_name)) SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## INPUT_ARG COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON INPUT_ARG COLON SYMBOL WITH
+##
+## Ends in an error in state: 290.
+##
+## separated_nonempty_list(COMMA,with_pos(variable_name)) -> variable_name . [ SEMICOLON ]
+## separated_nonempty_list(COMMA,with_pos(variable_name)) -> variable_name . COMMA separated_nonempty_list(COMMA,with_pos(variable_name)) [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## variable_name
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON INPUT_ARG COLON SYMBOL COMMA WITH
+##
+## Ends in an error in state: 291.
+##
+## separated_nonempty_list(COMMA,with_pos(variable_name)) -> variable_name COMMA . separated_nonempty_list(COMMA,with_pos(variable_name)) [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## variable_name COMMA
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: TARGET SYMBOL COLON APPLICATION WITH
+##
+## Ends in an error in state: 295.
+##
+## target_header_elt -> APPLICATION . COLON symbol_enumeration SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## APPLICATION
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: TARGET SYMBOL COLON APPLICATION COLON WITH
+##
+## Ends in an error in state: 296.
+##
+## target_header_elt -> APPLICATION COLON . symbol_enumeration SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## APPLICATION COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: TARGET SYMBOL COLON APPLICATION COLON SYMBOL COLON
+##
+## Ends in an error in state: 297.
+##
+## target_header_elt -> APPLICATION COLON symbol_enumeration . SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## APPLICATION COLON symbol_enumeration
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 99, spurious reduction of production separated_nonempty_list(COMMA,symbol_with_pos) -> symbol_with_pos
+## In state 262, spurious reduction of production symbol_enumeration -> separated_nonempty_list(COMMA,symbol_with_pos)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: TARGET SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WITH
+##
+## Ends in an error in state: 299.
+##
+## nonempty_list(with_pos(target_header_elt)) -> target_header_elt . [ WHEN VERIFY SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS ]
+## nonempty_list(with_pos(target_header_elt)) -> target_header_elt . nonempty_list(with_pos(target_header_elt)) [ WHEN VERIFY SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS ]
+##
+## The known suffix of the stack is as follows:
+## target_header_elt
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WHEN WITH
+##
+## Ends in an error in state: 302.
+##
+## instruction -> WHEN . expression DO instruction_list_rev instruction_then_when_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## WHEN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WHEN SYMBOL THEN
+##
+## Ends in an error in state: 303.
+##
+## expression -> expression . AND expression [ OR DO AND ]
+## expression -> expression . OR expression [ OR DO AND ]
+## instruction -> WHEN expression . DO instruction_list_rev instruction_then_when_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## WHEN expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WHEN SYMBOL DO WITH
+##
+## Ends in an error in state: 304.
+##
+## instruction -> WHEN expression DO . instruction_list_rev instruction_then_when_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## WHEN expression DO
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON VERIFY WITH
+##
+## Ends in an error in state: 305.
+##
+## instruction -> VERIFY . DOMAIN symbol_list_with_pos SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+## instruction -> VERIFY . DOMAIN symbol_list_with_pos COLON WITH expression SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VERIFY
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON VERIFY DOMAIN WITH
+##
+## Ends in an error in state: 306.
+##
+## instruction -> VERIFY DOMAIN . symbol_list_with_pos SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+## instruction -> VERIFY DOMAIN . symbol_list_with_pos COLON WITH expression SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VERIFY DOMAIN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON VERIFY DOMAIN SYMBOL RPAREN
+##
+## Ends in an error in state: 307.
+##
+## instruction -> VERIFY DOMAIN symbol_list_with_pos . SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+## instruction -> VERIFY DOMAIN symbol_list_with_pos . COLON WITH expression SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VERIFY DOMAIN symbol_list_with_pos
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 93, spurious reduction of production nonempty_list(symbol_with_pos) -> symbol_with_pos
+## In state 263, spurious reduction of production symbol_list_with_pos -> nonempty_list(symbol_with_pos)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON VERIFY DOMAIN SYMBOL COLON WHEN
+##
+## Ends in an error in state: 309.
+##
+## instruction -> VERIFY DOMAIN symbol_list_with_pos COLON . WITH expression SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VERIFY DOMAIN symbol_list_with_pos COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON VERIFY DOMAIN SYMBOL COLON WITH WITH
+##
+## Ends in an error in state: 310.
+##
+## instruction -> VERIFY DOMAIN symbol_list_with_pos COLON WITH . expression SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VERIFY DOMAIN symbol_list_with_pos COLON WITH
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON VERIFY DOMAIN SYMBOL COLON WITH SYMBOL THEN
+##
+## Ends in an error in state: 311.
+##
+## expression -> expression . AND expression [ SEMICOLON OR AND ]
+## expression -> expression . OR expression [ SEMICOLON OR AND ]
+## instruction -> VERIFY DOMAIN symbol_list_with_pos COLON WITH expression . SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VERIFY DOMAIN symbol_list_with_pos COLON WITH expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE WITH
+##
+## Ends in an error in state: 314.
+##
+## instruction -> RESTORE . COLON nonempty_list(rest_param) AFTER LPAREN instruction_list_rev RPAREN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## RESTORE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON WITH
+##
+## Ends in an error in state: 315.
+##
+## instruction -> RESTORE COLON . nonempty_list(rest_param) AFTER LPAREN instruction_list_rev RPAREN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## RESTORE COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON VARIABLE WITH
+##
+## Ends in an error in state: 316.
+##
+## rest_param -> VARIABLE . symbol_with_pos COLON nonempty_list(rest_param_category) [ VARIABLE SYMBOL AFTER ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON VARIABLE SYMBOL WITH
+##
+## Ends in an error in state: 317.
+##
+## rest_param -> VARIABLE symbol_with_pos . COLON nonempty_list(rest_param_category) [ VARIABLE SYMBOL AFTER ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON VARIABLE SYMBOL COLON WITH
+##
+## Ends in an error in state: 318.
+##
+## rest_param -> VARIABLE symbol_with_pos COLON . nonempty_list(rest_param_category) [ VARIABLE SYMBOL AFTER ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE symbol_with_pos COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON VARIABLE SYMBOL COLON CATEGORY WITH
+##
+## Ends in an error in state: 319.
+##
+## rest_param_category -> CATEGORY . separated_nonempty_list(COMMA,with_pos(var_category_id)) COLON option(rest_param_with_expr) [ VARIABLE SYMBOL CATEGORY AFTER ]
+##
+## The known suffix of the stack is as follows:
+## CATEGORY
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN VERIFICATION AUTHORIZE TIMES WITH
+##
+## Ends in an error in state: 320.
+##
+## separated_nonempty_list(COMMA,with_pos(var_category_id)) -> var_category_id . [ SEMICOLON COLON ]
+## separated_nonempty_list(COMMA,with_pos(var_category_id)) -> var_category_id . COMMA separated_nonempty_list(COMMA,with_pos(var_category_id)) [ SEMICOLON COLON ]
+##
+## The known suffix of the stack is as follows:
+## var_category_id
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN VERIFICATION AUTHORIZE COMPUTED COMMA WITH
+##
+## Ends in an error in state: 321.
+##
+## separated_nonempty_list(COMMA,with_pos(var_category_id)) -> var_category_id COMMA . separated_nonempty_list(COMMA,with_pos(var_category_id)) [ SEMICOLON COLON ]
+##
+## The known suffix of the stack is as follows:
+## var_category_id COMMA
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON VARIABLE SYMBOL COLON CATEGORY COMPUTED SEMICOLON
+##
+## Ends in an error in state: 323.
+##
+## rest_param_category -> CATEGORY separated_nonempty_list(COMMA,with_pos(var_category_id)) . COLON option(rest_param_with_expr) [ VARIABLE SYMBOL CATEGORY AFTER ]
+##
+## The known suffix of the stack is as follows:
+## CATEGORY separated_nonempty_list(COMMA,with_pos(var_category_id))
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 125, spurious reduction of production var_category_id -> COMPUTED
+## In state 320, spurious reduction of production separated_nonempty_list(COMMA,with_pos(var_category_id)) -> var_category_id
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON VARIABLE SYMBOL COLON CATEGORY COMPUTED COLON WHEN
+##
+## Ends in an error in state: 324.
+##
+## rest_param_category -> CATEGORY separated_nonempty_list(COMMA,with_pos(var_category_id)) COLON . option(rest_param_with_expr) [ VARIABLE SYMBOL CATEGORY AFTER ]
+##
+## The known suffix of the stack is as follows:
+## CATEGORY separated_nonempty_list(COMMA,with_pos(var_category_id)) COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON VARIABLE SYMBOL COLON CATEGORY COMPUTED COLON WITH WITH
+##
+## Ends in an error in state: 325.
+##
+## rest_param_with_expr -> WITH . expression COLON [ VARIABLE SYMBOL CATEGORY AFTER ]
+##
+## The known suffix of the stack is as follows:
+## WITH
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON VARIABLE SYMBOL COLON CATEGORY COMPUTED COLON WITH SYMBOL THEN
+##
+## Ends in an error in state: 326.
+##
+## expression -> expression . AND expression [ OR COLON AND ]
+## expression -> expression . OR expression [ OR COLON AND ]
+## rest_param_with_expr -> WITH expression . COLON [ VARIABLE SYMBOL CATEGORY AFTER ]
+##
+## The known suffix of the stack is as follows:
+## WITH expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON VARIABLE SYMBOL COLON CATEGORY COMPUTED COLON WITH SYMBOL COLON WITH
+##
+## Ends in an error in state: 330.
+##
+## nonempty_list(rest_param_category) -> rest_param_category . [ VARIABLE SYMBOL AFTER ]
+## nonempty_list(rest_param_category) -> rest_param_category . nonempty_list(rest_param_category) [ VARIABLE SYMBOL AFTER ]
+##
+## The known suffix of the stack is as follows:
+## rest_param_category
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON SYMBOL SEMICOLON
+##
+## Ends in an error in state: 333.
+##
+## rest_param -> separated_nonempty_list(COMMA,symbol_with_pos) . COLON [ VARIABLE SYMBOL AFTER ]
+##
+## The known suffix of the stack is as follows:
+## separated_nonempty_list(COMMA,symbol_with_pos)
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 99, spurious reduction of production separated_nonempty_list(COMMA,symbol_with_pos) -> symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON SYMBOL COLON WITH
+##
+## Ends in an error in state: 335.
+##
+## nonempty_list(rest_param) -> rest_param . [ AFTER ]
+## nonempty_list(rest_param) -> rest_param . nonempty_list(rest_param) [ AFTER ]
+##
+## The known suffix of the stack is as follows:
+## rest_param
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON SYMBOL COLON AFTER WITH
+##
+## Ends in an error in state: 338.
+##
+## instruction -> RESTORE COLON nonempty_list(rest_param) AFTER . LPAREN instruction_list_rev RPAREN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## RESTORE COLON nonempty_list(rest_param) AFTER
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON SYMBOL COLON AFTER LPAREN WITH
+##
+## Ends in an error in state: 339.
+##
+## instruction -> RESTORE COLON nonempty_list(rest_param) AFTER LPAREN . instruction_list_rev RPAREN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## RESTORE COLON nonempty_list(rest_param) AFTER LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RAISE_ERROR WITH
+##
+## Ends in an error in state: 340.
+##
+## instruction -> RAISE_ERROR . symbol_with_pos option(with_pos(variable_name)) SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## RAISE_ERROR
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RAISE_ERROR SYMBOL WITH
+##
+## Ends in an error in state: 341.
+##
+## instruction -> RAISE_ERROR symbol_with_pos . option(with_pos(variable_name)) SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## RAISE_ERROR symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RAISE_ERROR SYMBOL SYMBOL WITH
+##
+## Ends in an error in state: 342.
+##
+## instruction -> RAISE_ERROR symbol_with_pos option(with_pos(variable_name)) . SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## RAISE_ERROR symbol_with_pos option(with_pos(variable_name))
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT_ERR WITH
+##
+## Ends in an error in state: 344.
+##
+## instruction -> PRINT_ERR . list(with_pos(print_argument)) SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## PRINT_ERR
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT LPAREN WITH
+##
+## Ends in an error in state: 347.
+##
+## print_argument -> LPAREN . expression RPAREN option(print_precision) [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT LPAREN SYMBOL THEN
+##
+## Ends in an error in state: 348.
+##
+## expression -> expression . AND expression [ RPAREN OR AND ]
+## expression -> expression . OR expression [ RPAREN OR AND ]
+## print_argument -> LPAREN expression . RPAREN option(print_precision) [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT LPAREN SYMBOL RPAREN WITH
+##
+## Ends in an error in state: 349.
+##
+## print_argument -> LPAREN expression RPAREN . option(print_precision) [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN expression RPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT LPAREN SYMBOL RPAREN COLON WITH
+##
+## Ends in an error in state: 350.
+##
+## print_precision -> COLON . symbol_with_pos [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+## print_precision -> COLON . symbol_with_pos RANGE symbol_with_pos [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT LPAREN SYMBOL RPAREN COLON SYMBOL WITH
+##
+## Ends in an error in state: 351.
+##
+## print_precision -> COLON symbol_with_pos . [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+## print_precision -> COLON symbol_with_pos . RANGE symbol_with_pos [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## COLON symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT LPAREN SYMBOL RPAREN COLON SYMBOL RANGE WITH
+##
+## Ends in an error in state: 352.
+##
+## print_precision -> COLON symbol_with_pos RANGE . symbol_with_pos [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## COLON symbol_with_pos RANGE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT INDENT WITH
+##
+## Ends in an error in state: 356.
+##
+## print_argument -> INDENT . LPAREN expression RPAREN [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## INDENT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT INDENT LPAREN WITH
+##
+## Ends in an error in state: 357.
+##
+## print_argument -> INDENT LPAREN . expression RPAREN [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## INDENT LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT INDENT LPAREN SYMBOL THEN
+##
+## Ends in an error in state: 358.
+##
+## expression -> expression . AND expression [ RPAREN OR AND ]
+## expression -> expression . OR expression [ RPAREN OR AND ]
+## print_argument -> INDENT LPAREN expression . RPAREN [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## INDENT LPAREN expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT ALIAS WITH
+##
+## Ends in an error in state: 361.
+##
+## print_argument -> print_function . LPAREN symbol_with_pos RPAREN [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## print_function
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT ALIAS LPAREN WITH
+##
+## Ends in an error in state: 362.
+##
+## print_argument -> print_function LPAREN . symbol_with_pos RPAREN [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## print_function LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT ALIAS LPAREN SYMBOL WITH
+##
+## Ends in an error in state: 363.
+##
+## print_argument -> print_function LPAREN symbol_with_pos . RPAREN [ STRING SEMICOLON NAME LPAREN INDENT ALIAS ]
+##
+## The known suffix of the stack is as follows:
+## print_function LPAREN symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT STRING WITH
+##
+## Ends in an error in state: 365.
+##
+## list(with_pos(print_argument)) -> print_argument . list(with_pos(print_argument)) [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## print_argument
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON PRINT WITH
+##
+## Ends in an error in state: 369.
+##
+## instruction -> PRINT . list(with_pos(print_argument)) SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## PRINT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON NOTHING WITH
+##
+## Ends in an error in state: 372.
+##
+## instruction -> NOTHING . SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## NOTHING
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE WITH
+##
+## Ends in an error in state: 374.
+##
+## instruction -> ITERATE . COLON VARIABLE symbol_with_pos COLON nonempty_list(it_param) IN LPAREN instruction_list_rev RPAREN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## ITERATE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON WITH
+##
+## Ends in an error in state: 375.
+##
+## instruction -> ITERATE COLON . VARIABLE symbol_with_pos COLON nonempty_list(it_param) IN LPAREN instruction_list_rev RPAREN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## ITERATE COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON VARIABLE WITH
+##
+## Ends in an error in state: 376.
+##
+## instruction -> ITERATE COLON VARIABLE . symbol_with_pos COLON nonempty_list(it_param) IN LPAREN instruction_list_rev RPAREN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## ITERATE COLON VARIABLE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON VARIABLE SYMBOL WITH
+##
+## Ends in an error in state: 377.
+##
+## instruction -> ITERATE COLON VARIABLE symbol_with_pos . COLON nonempty_list(it_param) IN LPAREN instruction_list_rev RPAREN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## ITERATE COLON VARIABLE symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON VARIABLE SYMBOL COLON WITH
+##
+## Ends in an error in state: 378.
+##
+## instruction -> ITERATE COLON VARIABLE symbol_with_pos COLON . nonempty_list(it_param) IN LPAREN instruction_list_rev RPAREN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## ITERATE COLON VARIABLE symbol_with_pos COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON VARIABLE SYMBOL COLON CATEGORY WITH
+##
+## Ends in an error in state: 379.
+##
+## it_param -> CATEGORY . separated_nonempty_list(COMMA,with_pos(var_category_id)) COLON option(it_param_with_expr) [ SYMBOL IN CATEGORY ]
+##
+## The known suffix of the stack is as follows:
+## CATEGORY
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON VARIABLE SYMBOL COLON CATEGORY COMPUTED SEMICOLON
+##
+## Ends in an error in state: 380.
+##
+## it_param -> CATEGORY separated_nonempty_list(COMMA,with_pos(var_category_id)) . COLON option(it_param_with_expr) [ SYMBOL IN CATEGORY ]
+##
+## The known suffix of the stack is as follows:
+## CATEGORY separated_nonempty_list(COMMA,with_pos(var_category_id))
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 125, spurious reduction of production var_category_id -> COMPUTED
+## In state 320, spurious reduction of production separated_nonempty_list(COMMA,with_pos(var_category_id)) -> var_category_id
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON VARIABLE SYMBOL COLON CATEGORY COMPUTED COLON WHEN
+##
+## Ends in an error in state: 381.
+##
+## it_param -> CATEGORY separated_nonempty_list(COMMA,with_pos(var_category_id)) COLON . option(it_param_with_expr) [ SYMBOL IN CATEGORY ]
+##
+## The known suffix of the stack is as follows:
+## CATEGORY separated_nonempty_list(COMMA,with_pos(var_category_id)) COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON VARIABLE SYMBOL COLON CATEGORY COMPUTED COLON WITH WITH
+##
+## Ends in an error in state: 382.
+##
+## it_param_with_expr -> WITH . expression COLON [ SYMBOL IN CATEGORY ]
+##
+## The known suffix of the stack is as follows:
+## WITH
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON VARIABLE SYMBOL COLON CATEGORY COMPUTED COLON WITH SYMBOL THEN
+##
+## Ends in an error in state: 383.
+##
+## expression -> expression . AND expression [ OR COLON AND ]
+## expression -> expression . OR expression [ OR COLON AND ]
+## it_param_with_expr -> WITH expression . COLON [ SYMBOL IN CATEGORY ]
+##
+## The known suffix of the stack is as follows:
+## WITH expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON VARIABLE SYMBOL COLON SYMBOL SEMICOLON
+##
+## Ends in an error in state: 387.
+##
+## it_param -> separated_nonempty_list(COMMA,symbol_with_pos) . COLON [ SYMBOL IN CATEGORY ]
+##
+## The known suffix of the stack is as follows:
+## separated_nonempty_list(COMMA,symbol_with_pos)
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 99, spurious reduction of production separated_nonempty_list(COMMA,symbol_with_pos) -> symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON VARIABLE SYMBOL COLON SYMBOL COLON IN WITH
+##
+## Ends in an error in state: 390.
+##
+## instruction -> ITERATE COLON VARIABLE symbol_with_pos COLON nonempty_list(it_param) IN . LPAREN instruction_list_rev RPAREN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## ITERATE COLON VARIABLE symbol_with_pos COLON nonempty_list(it_param) IN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON VARIABLE SYMBOL COLON SYMBOL COLON IN LPAREN WITH
+##
+## Ends in an error in state: 391.
+##
+## instruction -> ITERATE COLON VARIABLE symbol_with_pos COLON nonempty_list(it_param) IN LPAREN . instruction_list_rev RPAREN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## ITERATE COLON VARIABLE symbol_with_pos COLON nonempty_list(it_param) IN LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF WITH
+##
+## Ends in an error in state: 392.
+##
+## instruction -> IF . expression THEN instruction_list_rev instruction_else_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## IF
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL SEMICOLON
+##
+## Ends in an error in state: 393.
+##
+## expression -> expression . AND expression [ THEN OR AND ]
+## expression -> expression . OR expression [ THEN OR AND ]
+## instruction -> IF expression . THEN instruction_list_rev instruction_else_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## IF expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL THEN WITH
+##
+## Ends in an error in state: 394.
+##
+## instruction -> IF expression THEN . instruction_list_rev instruction_else_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## IF expression THEN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR WITH
+##
+## Ends in an error in state: 395.
+##
+## for_formula -> FOR . loop_variables COLON formula [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## FOR
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FOR SYMBOL EQUALS SYMBOL COLON WITH
+##
+## Ends in an error in state: 397.
+##
+## for_formula -> FOR loop_variables COLON . formula [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## FOR loop_variables COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON SYMBOL WITH
+##
+## Ends in an error in state: 398.
+##
+## lvalue -> lvalue_name . option(with_pos(brackets)) [ EQUALS ]
+##
+## The known suffix of the stack is as follows:
+## lvalue_name
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON SYMBOL LBRACKET SYMBOL RBRACKET WITH
+##
+## Ends in an error in state: 401.
+##
+## formula -> lvalue . EQUALS expression [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## lvalue
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON SYMBOL EQUALS WITH
+##
+## Ends in an error in state: 402.
+##
+## formula -> lvalue EQUALS . expression [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## lvalue EQUALS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON SYMBOL EQUALS SYMBOL THEN
+##
+## Ends in an error in state: 403.
+##
+## expression -> expression . AND expression [ SEMICOLON OR AND ]
+## expression -> expression . OR expression [ SEMICOLON OR AND ]
+## formula -> lvalue EQUALS expression . [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## lvalue EQUALS expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON FINALIZE_ERRORS WITH
+##
+## Ends in an error in state: 405.
+##
+## instruction -> FINALIZE_ERRORS . SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## FINALIZE_ERRORS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON EXPORT_ERRORS WITH
+##
+## Ends in an error in state: 407.
+##
+## instruction -> EXPORT_ERRORS . SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## EXPORT_ERRORS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON COMPUTE WITH
+##
+## Ends in an error in state: 409.
+##
+## instruction -> COMPUTE . DOMAIN symbol_list_with_pos SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+## instruction -> COMPUTE . CHAINING symbol_with_pos SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+## instruction -> COMPUTE . TARGET symbol_with_pos option(target_args) SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## COMPUTE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON COMPUTE TARGET WITH
+##
+## Ends in an error in state: 410.
+##
+## instruction -> COMPUTE TARGET . symbol_with_pos option(target_args) SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## COMPUTE TARGET
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON COMPUTE TARGET SYMBOL WITH
+##
+## Ends in an error in state: 411.
+##
+## instruction -> COMPUTE TARGET symbol_with_pos . option(target_args) SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## COMPUTE TARGET symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON COMPUTE TARGET SYMBOL COLON WHEN
+##
+## Ends in an error in state: 412.
+##
+## target_args -> COLON . WITH separated_nonempty_list(COMMA,arg_variable) [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON COMPUTE TARGET SYMBOL COLON WITH WITH
+##
+## Ends in an error in state: 413.
+##
+## target_args -> COLON WITH . separated_nonempty_list(COMMA,arg_variable) [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## COLON WITH
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON COMPUTE TARGET SYMBOL COLON WITH SYMBOL WITH
+##
+## Ends in an error in state: 416.
+##
+## separated_nonempty_list(COMMA,arg_variable) -> arg_variable . [ SEMICOLON ]
+## separated_nonempty_list(COMMA,arg_variable) -> arg_variable . COMMA separated_nonempty_list(COMMA,arg_variable) [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## arg_variable
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON COMPUTE TARGET SYMBOL COLON WITH SYMBOL COMMA WITH
+##
+## Ends in an error in state: 417.
+##
+## separated_nonempty_list(COMMA,arg_variable) -> arg_variable COMMA . separated_nonempty_list(COMMA,arg_variable) [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## arg_variable COMMA
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON COMPUTE DOMAIN WITH
+##
+## Ends in an error in state: 422.
+##
+## instruction -> COMPUTE DOMAIN . symbol_list_with_pos SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## COMPUTE DOMAIN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON COMPUTE DOMAIN SYMBOL RPAREN
+##
+## Ends in an error in state: 423.
+##
+## instruction -> COMPUTE DOMAIN symbol_list_with_pos . SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## COMPUTE DOMAIN symbol_list_with_pos
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 93, spurious reduction of production nonempty_list(symbol_with_pos) -> symbol_with_pos
+## In state 263, spurious reduction of production symbol_list_with_pos -> nonempty_list(symbol_with_pos)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON COMPUTE CHAINING WITH
+##
+## Ends in an error in state: 425.
+##
+## instruction -> COMPUTE CHAINING . symbol_with_pos SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## COMPUTE CHAINING
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON COMPUTE CHAINING SYMBOL WITH
+##
+## Ends in an error in state: 426.
+##
+## instruction -> COMPUTE CHAINING symbol_with_pos . SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## COMPUTE CHAINING symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON CLEAN_ERRORS WITH
+##
+## Ends in an error in state: 428.
+##
+## instruction -> CLEAN_ERRORS . SEMICOLON [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## CLEAN_ERRORS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL THEN CLEAN_ERRORS SEMICOLON WITH
+##
+## Ends in an error in state: 430.
+##
+## instruction -> IF expression THEN instruction_list_rev . instruction_else_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+## instruction_list_rev -> instruction_list_rev . instruction [ WHEN VERIFY SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS ENDIF ELSEIF ELSE COMPUTE CLEAN_ERRORS ]
+##
+## The known suffix of the stack is as follows:
+## IF expression THEN instruction_list_rev
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL THEN CLEAN_ERRORS SEMICOLON ELSEIF WITH
+##
+## Ends in an error in state: 432.
+##
+## instruction_else_branch -> ELSEIF . expression THEN instruction_list_rev instruction_else_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## ELSEIF
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL THEN CLEAN_ERRORS SEMICOLON ELSEIF SYMBOL SEMICOLON
+##
+## Ends in an error in state: 433.
+##
+## expression -> expression . AND expression [ THEN OR AND ]
+## expression -> expression . OR expression [ THEN OR AND ]
+## instruction_else_branch -> ELSEIF expression . THEN instruction_list_rev instruction_else_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## ELSEIF expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL THEN CLEAN_ERRORS SEMICOLON ELSEIF SYMBOL THEN WITH
+##
+## Ends in an error in state: 434.
+##
+## instruction_else_branch -> ELSEIF expression THEN . instruction_list_rev instruction_else_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## ELSEIF expression THEN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL THEN CLEAN_ERRORS SEMICOLON ELSEIF SYMBOL THEN CLEAN_ERRORS SEMICOLON WITH
+##
+## Ends in an error in state: 435.
+##
+## instruction_else_branch -> ELSEIF expression THEN instruction_list_rev . instruction_else_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+## instruction_list_rev -> instruction_list_rev . instruction [ WHEN VERIFY SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS ENDIF ELSEIF ELSE COMPUTE CLEAN_ERRORS ]
+##
+## The known suffix of the stack is as follows:
+## ELSEIF expression THEN instruction_list_rev
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL THEN CLEAN_ERRORS SEMICOLON ELSE WITH
+##
+## Ends in an error in state: 436.
+##
+## instruction_else_branch -> ELSE . instruction_list_rev ENDIF [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## ELSE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON IF SYMBOL THEN CLEAN_ERRORS SEMICOLON ELSE CLEAN_ERRORS SEMICOLON WITH
+##
+## Ends in an error in state: 437.
+##
+## instruction_else_branch -> ELSE instruction_list_rev . ENDIF [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+## instruction_list_rev -> instruction_list_rev . instruction [ WHEN VERIFY SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS ENDIF COMPUTE CLEAN_ERRORS ]
+##
+## The known suffix of the stack is as follows:
+## ELSE instruction_list_rev
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON VARIABLE SYMBOL COLON SYMBOL COLON IN LPAREN CLEAN_ERRORS SEMICOLON WITH
+##
+## Ends in an error in state: 447.
+##
+## instruction -> ITERATE COLON VARIABLE symbol_with_pos COLON nonempty_list(it_param) IN LPAREN instruction_list_rev . RPAREN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+## instruction_list_rev -> instruction_list_rev . instruction [ WHEN VERIFY SYMBOL RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS ]
+##
+## The known suffix of the stack is as follows:
+## ITERATE COLON VARIABLE symbol_with_pos COLON nonempty_list(it_param) IN LPAREN instruction_list_rev
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON ITERATE COLON VARIABLE SYMBOL COLON SYMBOL COLON WITH
+##
+## Ends in an error in state: 449.
+##
+## nonempty_list(it_param) -> it_param . [ IN ]
+## nonempty_list(it_param) -> it_param . nonempty_list(it_param) [ IN ]
+##
+## The known suffix of the stack is as follows:
+## it_param
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON RESTORE COLON SYMBOL COLON AFTER LPAREN CLEAN_ERRORS SEMICOLON WITH
+##
+## Ends in an error in state: 451.
+##
+## instruction -> RESTORE COLON nonempty_list(rest_param) AFTER LPAREN instruction_list_rev . RPAREN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+## instruction_list_rev -> instruction_list_rev . instruction [ WHEN VERIFY SYMBOL RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS ]
+##
+## The known suffix of the stack is as follows:
+## RESTORE COLON nonempty_list(rest_param) AFTER LPAREN instruction_list_rev
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WHEN SYMBOL DO CLEAN_ERRORS SEMICOLON WITH
+##
+## Ends in an error in state: 453.
+##
+## instruction -> WHEN expression DO instruction_list_rev . instruction_then_when_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+## instruction_list_rev -> instruction_list_rev . instruction [ WHEN VERIFY THEN_WHEN SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS ENDWHEN ELSE_DO COMPUTE CLEAN_ERRORS ]
+##
+## The known suffix of the stack is as follows:
+## WHEN expression DO instruction_list_rev
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WHEN SYMBOL DO CLEAN_ERRORS SEMICOLON THEN_WHEN WITH
+##
+## Ends in an error in state: 454.
+##
+## instruction_then_when_branch -> THEN_WHEN . expression DO instruction_list_rev instruction_then_when_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## THEN_WHEN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WHEN SYMBOL DO CLEAN_ERRORS SEMICOLON THEN_WHEN SYMBOL THEN
+##
+## Ends in an error in state: 455.
+##
+## expression -> expression . AND expression [ OR DO AND ]
+## expression -> expression . OR expression [ OR DO AND ]
+## instruction_then_when_branch -> THEN_WHEN expression . DO instruction_list_rev instruction_then_when_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## THEN_WHEN expression
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 107, spurious reduction of production factor_atom -> SYMBOL
+## In state 191, spurious reduction of production factor -> factor_atom
+## In state 193, spurious reduction of production product_expression -> factor
+## In state 195, spurious reduction of production sum_expression -> product_expression
+## In state 178, spurious reduction of production expression -> sum_expression
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WHEN SYMBOL DO CLEAN_ERRORS SEMICOLON THEN_WHEN SYMBOL DO WITH
+##
+## Ends in an error in state: 456.
+##
+## instruction_then_when_branch -> THEN_WHEN expression DO . instruction_list_rev instruction_then_when_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## THEN_WHEN expression DO
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WHEN SYMBOL DO CLEAN_ERRORS SEMICOLON THEN_WHEN SYMBOL DO CLEAN_ERRORS SEMICOLON WITH
+##
+## Ends in an error in state: 457.
+##
+## instruction_list_rev -> instruction_list_rev . instruction [ WHEN VERIFY THEN_WHEN SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS ENDWHEN ELSE_DO COMPUTE CLEAN_ERRORS ]
+## instruction_then_when_branch -> THEN_WHEN expression DO instruction_list_rev . instruction_then_when_branch [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## THEN_WHEN expression DO instruction_list_rev
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WHEN SYMBOL DO CLEAN_ERRORS SEMICOLON ELSE_DO WITH
+##
+## Ends in an error in state: 459.
+##
+## instruction_then_when_branch -> ELSE_DO . instruction_list_rev ENDWHEN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## ELSE_DO
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WHEN SYMBOL DO CLEAN_ERRORS SEMICOLON ELSE_DO CLEAN_ERRORS SEMICOLON WITH
+##
+## Ends in an error in state: 460.
+##
+## instruction_list_rev -> instruction_list_rev . instruction [ WHEN VERIFY SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS ENDWHEN COMPUTE CLEAN_ERRORS ]
+## instruction_then_when_branch -> ELSE_DO instruction_list_rev . ENDWHEN [ WHEN VERIFY VERIFICATION VARIABLE THEN_WHEN TARGET SYMBOL RULE RPAREN RESTORE RAISE_ERROR PRINT_ERR PRINT OUTPUT NOTHING ITERATE IF FOR FONCTION FINALIZE_ERRORS EXPORT_ERRORS EOF ENDWHEN ENDIF ELSE_DO ELSEIF ELSE DOMAIN COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## ELSE_DO instruction_list_rev
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON CLEAN_ERRORS SEMICOLON WITH
+##
+## Ends in an error in state: 465.
+##
+## instruction_list_etc -> instruction . list(with_pos(symbol_colon_etc)) [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+## instruction_list_etc -> instruction . instruction_list_etc [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## instruction
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON CLEAN_ERRORS SEMICOLON SYMBOL WITH
+##
+## Ends in an error in state: 466.
+##
+## comp_variable_name -> SYMBOL . COLON [ TABLE COMPUTED ]
+## const_variable_name -> SYMBOL . COLON CONST [ EQUALS ]
+## error_name -> SYMBOL . COLON [ INFORMATIVE DISCORDANCE ANOMALY ]
+## fonction -> SYMBOL . COLON FONCTION SYMBOL SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+## input_variable_name -> SYMBOL . COLON [ INPUT ]
+## lvalue_name -> SYMBOL . [ LBRACKET EQUALS ]
+##
+## The known suffix of the stack is as follows:
+## SYMBOL
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE WITH
+##
+## Ends in an error in state: 469.
+##
+## rule_etc -> RULE . symbol_list_with_pos COLON nonempty_list(with_pos(rule_header_elt)) instruction_list_etc [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## RULE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE SYMBOL SEMICOLON
+##
+## Ends in an error in state: 470.
+##
+## rule_etc -> RULE symbol_list_with_pos . COLON nonempty_list(with_pos(rule_header_elt)) instruction_list_etc [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## RULE symbol_list_with_pos
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 93, spurious reduction of production nonempty_list(symbol_with_pos) -> symbol_with_pos
+## In state 263, spurious reduction of production symbol_list_with_pos -> nonempty_list(symbol_with_pos)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE SYMBOL COLON WITH
+##
+## Ends in an error in state: 471.
+##
+## rule_etc -> RULE symbol_list_with_pos COLON . nonempty_list(with_pos(rule_header_elt)) instruction_list_etc [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## RULE symbol_list_with_pos COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE SYMBOL COLON VARIABLE WITH
+##
+## Ends in an error in state: 472.
+##
+## rule_header_elt -> VARIABLE . TEMPORARY COLON separated_nonempty_list(COMMA,temporary_variable_name) SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE SYMBOL COLON VARIABLE TEMPORARY WITH
+##
+## Ends in an error in state: 473.
+##
+## rule_header_elt -> VARIABLE TEMPORARY . COLON separated_nonempty_list(COMMA,temporary_variable_name) SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE TEMPORARY
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE SYMBOL COLON VARIABLE TEMPORARY COLON WITH
+##
+## Ends in an error in state: 474.
+##
+## rule_header_elt -> VARIABLE TEMPORARY COLON . separated_nonempty_list(COMMA,temporary_variable_name) SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE TEMPORARY COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE SYMBOL COLON CHAINING WITH
+##
+## Ends in an error in state: 477.
+##
+## rule_header_elt -> CHAINING . COLON symbol_enumeration SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## CHAINING
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE SYMBOL COLON CHAINING COLON WITH
+##
+## Ends in an error in state: 478.
+##
+## rule_header_elt -> CHAINING COLON . symbol_enumeration SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## CHAINING COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE SYMBOL COLON CHAINING COLON SYMBOL COLON
+##
+## Ends in an error in state: 479.
+##
+## rule_header_elt -> CHAINING COLON symbol_enumeration . SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## CHAINING COLON symbol_enumeration
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 99, spurious reduction of production separated_nonempty_list(COMMA,symbol_with_pos) -> symbol_with_pos
+## In state 262, spurious reduction of production symbol_enumeration -> separated_nonempty_list(COMMA,symbol_with_pos)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE SYMBOL COLON APPLICATION WITH
+##
+## Ends in an error in state: 481.
+##
+## rule_header_elt -> APPLICATION . COLON symbol_enumeration SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## APPLICATION
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE SYMBOL COLON APPLICATION COLON WITH
+##
+## Ends in an error in state: 482.
+##
+## rule_header_elt -> APPLICATION COLON . symbol_enumeration SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## APPLICATION COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE SYMBOL COLON APPLICATION COLON SYMBOL COLON
+##
+## Ends in an error in state: 483.
+##
+## rule_header_elt -> APPLICATION COLON symbol_enumeration . SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## APPLICATION COLON symbol_enumeration
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 99, spurious reduction of production separated_nonempty_list(COMMA,symbol_with_pos) -> symbol_with_pos
+## In state 262, spurious reduction of production symbol_enumeration -> separated_nonempty_list(COMMA,symbol_with_pos)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: RULE SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WITH
+##
+## Ends in an error in state: 485.
+##
+## nonempty_list(with_pos(rule_header_elt)) -> rule_header_elt . [ WHEN VERIFY SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS ]
+## nonempty_list(with_pos(rule_header_elt)) -> rule_header_elt . nonempty_list(with_pos(rule_header_elt)) [ WHEN VERIFY SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS ]
+##
+## The known suffix of the stack is as follows:
+## rule_header_elt
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: OUTPUT WITH
+##
+## Ends in an error in state: 489.
+##
+## output -> OUTPUT . LPAREN variable_name RPAREN SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## OUTPUT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: OUTPUT LPAREN WITH
+##
+## Ends in an error in state: 490.
+##
+## output -> OUTPUT LPAREN . variable_name RPAREN SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## OUTPUT LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: OUTPUT LPAREN SYMBOL WITH
+##
+## Ends in an error in state: 491.
+##
+## output -> OUTPUT LPAREN variable_name . RPAREN SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## OUTPUT LPAREN variable_name
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: OUTPUT LPAREN SYMBOL RPAREN WITH
+##
+## Ends in an error in state: 492.
+##
+## output -> OUTPUT LPAREN variable_name RPAREN . SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## OUTPUT LPAREN variable_name RPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION WITH
+##
+## Ends in an error in state: 494.
+##
+## function_etc -> FONCTION . symbol_with_pos COLON nonempty_list(with_pos(function_header_elt)) instruction_list_etc [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## FONCTION
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL WITH
+##
+## Ends in an error in state: 495.
+##
+## function_etc -> FONCTION symbol_with_pos . COLON nonempty_list(with_pos(function_header_elt)) instruction_list_etc [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## FONCTION symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON WITH
+##
+## Ends in an error in state: 496.
+##
+## function_etc -> FONCTION symbol_with_pos COLON . nonempty_list(with_pos(function_header_elt)) instruction_list_etc [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## FONCTION symbol_with_pos COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON VARIABLE WITH
+##
+## Ends in an error in state: 497.
+##
+## function_header_elt -> VARIABLE . TEMPORARY COLON separated_nonempty_list(COMMA,temporary_variable_name) SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESULT RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON VARIABLE TEMPORARY WITH
+##
+## Ends in an error in state: 498.
+##
+## function_header_elt -> VARIABLE TEMPORARY . COLON separated_nonempty_list(COMMA,temporary_variable_name) SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESULT RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE TEMPORARY
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON VARIABLE TEMPORARY COLON WITH
+##
+## Ends in an error in state: 499.
+##
+## function_header_elt -> VARIABLE TEMPORARY COLON . separated_nonempty_list(COMMA,temporary_variable_name) SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESULT RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## VARIABLE TEMPORARY COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON RESULT WITH
+##
+## Ends in an error in state: 502.
+##
+## function_header_elt -> RESULT . COLON variable_name SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESULT RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## RESULT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON RESULT COLON WITH
+##
+## Ends in an error in state: 503.
+##
+## function_header_elt -> RESULT COLON . variable_name SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESULT RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## RESULT COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON RESULT COLON SYMBOL WITH
+##
+## Ends in an error in state: 504.
+##
+## function_header_elt -> RESULT COLON variable_name . SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESULT RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## RESULT COLON variable_name
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON INPUT_ARG WITH
+##
+## Ends in an error in state: 506.
+##
+## function_header_elt -> INPUT_ARG . COLON separated_nonempty_list(COMMA,with_pos(variable_name)) SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESULT RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## INPUT_ARG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON INPUT_ARG COLON WITH
+##
+## Ends in an error in state: 507.
+##
+## function_header_elt -> INPUT_ARG COLON . separated_nonempty_list(COMMA,with_pos(variable_name)) SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESULT RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## INPUT_ARG COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION WITH
+##
+## Ends in an error in state: 510.
+##
+## function_header_elt -> APPLICATION . COLON symbol_enumeration SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESULT RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## APPLICATION
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON WITH
+##
+## Ends in an error in state: 511.
+##
+## function_header_elt -> APPLICATION COLON . symbol_enumeration SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESULT RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## APPLICATION COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL COLON
+##
+## Ends in an error in state: 512.
+##
+## function_header_elt -> APPLICATION COLON symbol_enumeration . SEMICOLON [ WHEN VERIFY VARIABLE SYMBOL RESULT RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE INPUT_ARG IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## APPLICATION COLON symbol_enumeration
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 99, spurious reduction of production separated_nonempty_list(COMMA,symbol_with_pos) -> symbol_with_pos
+## In state 262, spurious reduction of production symbol_enumeration -> separated_nonempty_list(COMMA,symbol_with_pos)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: FONCTION SYMBOL COLON APPLICATION COLON SYMBOL SEMICOLON WITH
+##
+## Ends in an error in state: 516.
+##
+## nonempty_list(with_pos(function_header_elt)) -> function_header_elt . [ WHEN VERIFY SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS ]
+## nonempty_list(with_pos(function_header_elt)) -> function_header_elt . nonempty_list(with_pos(function_header_elt)) [ WHEN VERIFY SYMBOL RESTORE RAISE_ERROR PRINT_ERR PRINT NOTHING ITERATE IF FOR FINALIZE_ERRORS EXPORT_ERRORS COMPUTE CLEAN_ERRORS ]
+##
+## The known suffix of the stack is as follows:
+## function_header_elt
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN WITH
+##
+## Ends in an error in state: 519.
+##
+## rule_domain_decl -> DOMAIN . RULE separated_nonempty_list(COLON,with_pos(rdom_param)) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+## verif_domain_decl -> DOMAIN . VERIFICATION separated_nonempty_list(COLON,with_pos(vdom_param)) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## DOMAIN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN VERIFICATION WITH
+##
+## Ends in an error in state: 520.
+##
+## verif_domain_decl -> DOMAIN VERIFICATION . separated_nonempty_list(COLON,with_pos(vdom_param)) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## DOMAIN VERIFICATION
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN VERIFICATION SPECIALIZE WITH
+##
+## Ends in an error in state: 522.
+##
+## vdom_param -> SPECIALIZE . separated_nonempty_list(COMMA,symbol_list_with_pos) [ SEMICOLON COLON ]
+##
+## The known suffix of the stack is as follows:
+## SPECIALIZE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN RULE SYMBOL RPAREN
+##
+## Ends in an error in state: 523.
+##
+## separated_nonempty_list(COMMA,symbol_list_with_pos) -> symbol_list_with_pos . [ SEMICOLON COLON ]
+## separated_nonempty_list(COMMA,symbol_list_with_pos) -> symbol_list_with_pos . COMMA separated_nonempty_list(COMMA,symbol_list_with_pos) [ SEMICOLON COLON ]
+##
+## The known suffix of the stack is as follows:
+## symbol_list_with_pos
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 93, spurious reduction of production nonempty_list(symbol_with_pos) -> symbol_with_pos
+## In state 263, spurious reduction of production symbol_list_with_pos -> nonempty_list(symbol_with_pos)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN RULE SYMBOL COMMA WITH
+##
+## Ends in an error in state: 524.
+##
+## separated_nonempty_list(COMMA,symbol_list_with_pos) -> symbol_list_with_pos COMMA . separated_nonempty_list(COMMA,symbol_list_with_pos) [ SEMICOLON COLON ]
+##
+## The known suffix of the stack is as follows:
+## symbol_list_with_pos COMMA
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN VERIFICATION AUTHORIZE WITH
+##
+## Ends in an error in state: 528.
+##
+## vdom_param -> AUTHORIZE . separated_nonempty_list(COMMA,with_pos(var_category_id)) [ SEMICOLON COLON ]
+##
+## The known suffix of the stack is as follows:
+## AUTHORIZE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN VERIFICATION BY_DEFAULT WITH
+##
+## Ends in an error in state: 530.
+##
+## separated_nonempty_list(COLON,with_pos(vdom_param)) -> vdom_param . [ SEMICOLON ]
+## separated_nonempty_list(COLON,with_pos(vdom_param)) -> vdom_param . COLON separated_nonempty_list(COLON,with_pos(vdom_param)) [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## vdom_param
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN VERIFICATION SYMBOL COLON WITH
+##
+## Ends in an error in state: 531.
+##
+## separated_nonempty_list(COLON,with_pos(vdom_param)) -> vdom_param COLON . separated_nonempty_list(COLON,with_pos(vdom_param)) [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## vdom_param COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN RULE WITH
+##
+## Ends in an error in state: 536.
+##
+## rule_domain_decl -> DOMAIN RULE . separated_nonempty_list(COLON,with_pos(rdom_param)) SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## DOMAIN RULE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN RULE SPECIALIZE WITH
+##
+## Ends in an error in state: 537.
+##
+## rdom_param -> SPECIALIZE . separated_nonempty_list(COMMA,symbol_list_with_pos) [ SEMICOLON COLON ]
+##
+## The known suffix of the stack is as follows:
+## SPECIALIZE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN RULE BY_DEFAULT WITH
+##
+## Ends in an error in state: 544.
+##
+## separated_nonempty_list(COLON,with_pos(rdom_param)) -> rdom_param . [ SEMICOLON ]
+## separated_nonempty_list(COLON,with_pos(rdom_param)) -> rdom_param . COLON separated_nonempty_list(COLON,with_pos(rdom_param)) [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## rdom_param
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN RULE SYMBOL COLON WITH
+##
+## Ends in an error in state: 545.
+##
+## separated_nonempty_list(COLON,with_pos(rdom_param)) -> rdom_param COLON . separated_nonempty_list(COLON,with_pos(rdom_param)) [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## rdom_param COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: CHAINING WITH
+##
+## Ends in an error in state: 547.
+##
+## chaining -> CHAINING . symbol_with_pos application_reference SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## CHAINING
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: CHAINING SYMBOL WITH
+##
+## Ends in an error in state: 548.
+##
+## chaining -> CHAINING symbol_with_pos . application_reference SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## CHAINING symbol_with_pos
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: CHAINING SYMBOL APPLICATION WITH
+##
+## Ends in an error in state: 549.
+##
+## application_reference -> APPLICATION . COLON symbol_enumeration [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## APPLICATION
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: CHAINING SYMBOL APPLICATION COLON WITH
+##
+## Ends in an error in state: 550.
+##
+## application_reference -> APPLICATION COLON . symbol_enumeration [ SEMICOLON ]
+##
+## The known suffix of the stack is as follows:
+## APPLICATION COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: CHAINING SYMBOL APPLICATION COLON SYMBOL COLON
+##
+## Ends in an error in state: 552.
+##
+## chaining -> CHAINING symbol_with_pos application_reference . SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## CHAINING symbol_with_pos application_reference
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 99, spurious reduction of production separated_nonempty_list(COMMA,symbol_with_pos) -> symbol_with_pos
+## In state 262, spurious reduction of production symbol_enumeration -> separated_nonempty_list(COMMA,symbol_with_pos)
+## In state 551, spurious reduction of production application_reference -> APPLICATION COLON symbol_enumeration
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: APPLICATION WITH
+##
+## Ends in an error in state: 554.
+##
+## application -> APPLICATION . SYMBOL SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## APPLICATION
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: APPLICATION SYMBOL WITH
+##
+## Ends in an error in state: 555.
+##
+## application -> APPLICATION SYMBOL . SEMICOLON [ VERIFICATION VARIABLE TARGET SYMBOL RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## APPLICATION SYMBOL
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN VERIFICATION SYMBOL SEMICOLON WITH
+##
+## Ends in an error in state: 561.
+##
+## verif_domain_decl_etc -> verif_domain_decl . list(with_pos(symbol_colon_etc)) [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## verif_domain_decl
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: VARIABLE COMPUTED COLON ATTRIBUT SYMBOL SEMICOLON WITH
+##
+## Ends in an error in state: 564.
+##
+## var_category_decl_etc -> var_category_decl . list(with_pos(symbol_colon_etc)) [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## var_category_decl
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: DOMAIN RULE SYMBOL SEMICOLON WITH
+##
+## Ends in an error in state: 570.
+##
+## rule_domain_decl_etc -> rule_domain_decl . list(with_pos(symbol_colon_etc)) [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## rule_domain_decl
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: OUTPUT LPAREN SYMBOL RPAREN SEMICOLON WITH
+##
+## Ends in an error in state: 573.
+##
+## output_etc -> output . list(with_pos(symbol_colon_etc)) [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## output
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: CHAINING SYMBOL APPLICATION COLON SYMBOL SEMICOLON WITH
+##
+## Ends in an error in state: 577.
+##
+## chaining_etc -> chaining . list(with_pos(symbol_colon_etc)) [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## chaining
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+source_file: APPLICATION SYMBOL SEMICOLON WITH
+##
+## Ends in an error in state: 580.
+##
+## application_etc -> application . list(with_pos(symbol_colon_etc)) [ VERIFICATION VARIABLE TARGET RULE OUTPUT FONCTION EOF DOMAIN CHAINING APPLICATION ]
+##
+## The known suffix of the stack is as follows:
+## application
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
