@@ -2,7 +2,7 @@
 
 (menhir
  (modules mparser)
- (flags --explain))
+ (flags --dump --explain --table))
 
 ;; This section deals with the .messages file.
 
