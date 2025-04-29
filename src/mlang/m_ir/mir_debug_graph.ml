@@ -36,7 +36,8 @@ let get_variable_def (files : string list) (var : Com.Var.t) =
           if List.mem var_name [ "VARTMP1"; "VARTMP2" ] then
             Some "Variable def not supported for VARTMP* at the moment"
           else begin
-            Format.eprintf "%s defined in %s@." var_name t;
+            (* TODO do something proper *)
+            Cli.warning_print "%s defined in %s@." var_name t;
             aux l
           end
       | _ -> assert false
@@ -132,7 +133,7 @@ let to_dot (fmt : Format.formatter) (g : Mir_interpreter.DBGGRAPH.t) : unit =
   end) in
   GPr.fprint_graph fmt g
 
-(* TODO add to a formatter rather than stdout *)
+(* TODO add to a formatter rather than stderr *)
 let output_dot_eval_program (files : string list) (p : Mir.program)
     (inputs : Com.literal Com.Var.Map.t) (sort : Cli.value_sort)
     (roundops : Cli.round_ops) : unit -> unit =
@@ -148,4 +149,4 @@ let output_dot_eval_program (files : string list) (p : Mir.program)
   Format.printf "out_graph : %d vertices -- %d edges@."
     (Mir_interpreter.DBGGRAPH.nb_vertex out_graph)
     (Mir_interpreter.DBGGRAPH.nb_edges out_graph);
-  fun () -> to_dot Format.err_formatter out_graph
+  fun () -> Format.eprintf "%a@." to_dot out_graph
