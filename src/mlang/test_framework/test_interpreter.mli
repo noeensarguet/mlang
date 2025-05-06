@@ -17,7 +17,7 @@ val check_test :
   ?files:string list ->
   Mir.program ->
   (* test file name *) string ->
-  (* out_graph *) bool ->
+  (* dbg_graph_file *) string option ->
   Cli.value_sort ->
   Cli.round_ops ->
   unit

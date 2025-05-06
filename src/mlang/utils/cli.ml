@@ -52,12 +52,11 @@ let display_time =
   Arg.(
     value & flag
     & info [ "display_time"; "t" ]
-        ~doc:"Displays timing information (use with --debug)")
+        ~doc:"Displays timing information (use with --deb ug)")
 
 let dbg_graph_file =
   let doc =
-    "Name of the file where the debug graph should be output \
-     (use with --debug)"
+    "Name of the file where the debug graph should be output (use with --debug)"
   in
   Arg.(
     value & opt file "dbg_graph.dot"

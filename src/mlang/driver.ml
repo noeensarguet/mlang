@@ -214,11 +214,10 @@ let driver (files : string list) (application_names : string list)
       let test : string =
         match run_test with Some s -> s | _ -> assert false
       in
-      (* TODO add argument in driver and cli *)
-      let out_graph = true in
       ignore
         (Test_interpreter.check_test ?files:(Some files) m_program test
-           out_graph value_sort round_ops);
+           (if debug then Some dbg_graph_file else None)
+           value_sort round_ops);
       Cli.result_print "Test passed!"
     end
     else begin

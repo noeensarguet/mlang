@@ -52,16 +52,20 @@ let to_MIR_function_and_inputs (program : Mir.program) (t : Irj_ast.irj_file) :
 exception InterpError of int
 
 let check_test ?(files : string list option) (program : Mir.program)
-    (test_name : string) (out_graph : bool) (value_sort : Cli.value_sort)
-    (round_ops : Cli.round_ops) : unit =
+    (test_name : string) (dep_graph_file : string option)
+    (value_sort : Cli.value_sort) (round_ops : Cli.round_ops) : unit =
   Cli.debug_print "Parsing %s..." test_name;
   let t = Irj_file.parse_file test_name in
   Cli.debug_print "Running test %s..." t.nom;
   let expVars, expAnos, input_file = to_MIR_function_and_inputs program t in
-  (if out_graph then
-   let files = match files with Some files -> files | None -> assert false in
-   Mir_debug_graph.output_dot_eval_program files program input_file value_sort
-     round_ops "demo_oc.dot" ());
+  (match dep_graph_file with
+  | None -> ()
+  | Some dep_graph_file ->
+      let files =
+        match files with Some files -> files | None -> assert false
+      in
+      Mir_debug_graph.output_dot_eval_program files program input_file
+        value_sort round_ops dep_graph_file ());
   Cli.debug_print "Executing program";
   (* Cli.debug_print "Combined Program (w/o verif conds):@.%a@."
      Format_bir.format_program program; *)
@@ -126,7 +130,7 @@ let check_all_tests (p : Mir.program) (test_dir : string)
     in
     try
       Cli.debug_flag := false;
-      check_test p (test_dir ^ name) false value_sort round_ops;
+      check_test p (test_dir ^ name) None value_sort round_ops;
       Cli.debug_flag := true;
       Cli.result_print "%s" name;
       failures
