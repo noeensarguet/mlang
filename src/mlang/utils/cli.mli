@@ -75,8 +75,8 @@ val source_files : string list ref
 
 val application_names : string list ref
 
-val dep_graph_file : string ref
-(** Prefix for dependency graph output files *)
+val dbg_graph_file : string ref
+(** Prefix for debug graph output files *)
 
 val verify_flag : bool ref
 (** Use Z3 to check if verif rules hold all the time *)
@@ -123,7 +123,7 @@ val set_all_arg_refs :
   (* debug *) bool ->
   (* var_info_debug *) string list ->
   (* display_time *) bool ->
-  (* dep_graph_file *) string ->
+  (* dbg_graph_file *) string ->
   (* prints_cycles *) bool ->
   (* output_file *) string option ->
   (* optimize_unsafe_float *) bool ->

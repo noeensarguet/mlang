@@ -54,14 +54,14 @@ let display_time =
     & info [ "display_time"; "t" ]
         ~doc:"Displays timing information (use with --debug)")
 
-let dep_graph_file =
+let dbg_graph_file =
   let doc =
-    "Name of the file where the variable dependency graph should be output \
+    "Name of the file where the debug graph should be output \
      (use with --debug)"
   in
   Arg.(
-    value & opt file "dep_graph.dot"
-    & info [ "dep_graph_file"; "g" ] ~docv:"DEP_GRAPH" ~doc)
+    value & opt file "dbg_graph.dot"
+    & info [ "dbg_graph_file"; "g" ] ~docv:"DEBUG_GRAPH" ~doc)
 
 let no_print_cycles =
   let doc = "If set, disable the eventual circular dependencies repport" in
@@ -185,7 +185,7 @@ let dgfip_options =
 let mlang_t f =
   Term.(
     const f $ files $ applications $ without_dgfip_m $ debug $ var_info_debug
-    $ display_time $ dep_graph_file $ no_print_cycles $ backend $ output
+    $ display_time $ dbg_graph_file $ no_print_cycles $ backend $ output
     $ run_all_tests $ dgfip_test_filter $ run_test $ mpp_function
     $ optimize_unsafe_float $ precision $ roundops $ comparison_error_margin_cli
     $ income_year_cli $ m_clean_calls $ dgfip_options)
@@ -248,7 +248,7 @@ let application_names : string list ref = ref []
 
 let without_dgfip_m = ref false
 
-let dep_graph_file : string ref = ref "dep_graph.dot"
+let dbg_graph_file : string ref = ref "dbg_graph.dot"
 
 let verify_flag = ref false
 
@@ -282,7 +282,7 @@ let income_year = ref 0
 
 let set_all_arg_refs (files_ : string list) applications_
     (without_dgfip_m_ : bool) (debug_ : bool) (var_info_debug_ : string list)
-    (display_time_ : bool) (dep_graph_file_ : string) (no_print_cycles_ : bool)
+    (display_time_ : bool) (dbg_graph_file_ : string) (no_print_cycles_ : bool)
     (output_file_ : string option) (optimize_unsafe_float_ : bool)
     (m_clean_calls_ : bool) (comparison_error_margin_ : float option)
     (income_year_ : int option) (value_sort_ : value_sort)
@@ -294,7 +294,7 @@ let set_all_arg_refs (files_ : string list) applications_
   var_info_debug := var_info_debug_;
   var_info_flag := !var_info_debug <> [];
   display_time := display_time_;
-  dep_graph_file := dep_graph_file_;
+  dbg_graph_file := dbg_graph_file_;
   no_print_cycles_flag := no_print_cycles_;
   optimize_unsafe_float := optimize_unsafe_float_;
   m_clean_calls := m_clean_calls_;
