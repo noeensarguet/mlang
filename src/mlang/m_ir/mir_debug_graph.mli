@@ -15,12 +15,12 @@
 
 val get_variable_def : string list -> Com.Var.t -> string option
 
-(* TODO add to a formatter rather than stdout *)
 val output_dot_eval_program :
   string list ->
   Mir.program ->
   Com.literal Com.Var.Map.t ->
   Cli.value_sort ->
   Cli.round_ops ->
+  string ->
   unit ->
   unit

@@ -133,10 +133,9 @@ let to_dot (fmt : Format.formatter) (g : Mir_interpreter.DBGGRAPH.t) : unit =
   end) in
   GPr.fprint_graph fmt g
 
-(* TODO add to a formatter rather than stderr *)
 let output_dot_eval_program (files : string list) (p : Mir.program)
     (inputs : Com.literal Com.Var.Map.t) (sort : Cli.value_sort)
-    (roundops : Cli.round_ops) : unit -> unit =
+    (roundops : Cli.round_ops) (file : string) : unit -> unit =
   let dbg, ctxd =
     Mir_interpreter.evaluate_program_dbg p inputs sort roundops ()
   in
@@ -149,4 +148,8 @@ let output_dot_eval_program (files : string list) (p : Mir.program)
   Format.printf "out_graph : %d vertices -- %d edges@."
     (Mir_interpreter.DBGGRAPH.nb_vertex out_graph)
     (Mir_interpreter.DBGGRAPH.nb_edges out_graph);
-  fun () -> Format.eprintf "%a@." to_dot out_graph
+  fun () ->
+    let oc = open_out file in
+    let fmt = Format.formatter_of_out_channel oc in
+    Format.fprintf fmt "%a@." to_dot out_graph;
+    close_out oc

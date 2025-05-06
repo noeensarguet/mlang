@@ -61,7 +61,7 @@ let check_test ?(files : string list option) (program : Mir.program)
   (if out_graph then
    let files = match files with Some files -> files | None -> assert false in
    Mir_debug_graph.output_dot_eval_program files program input_file value_sort
-     round_ops ());
+     round_ops "demo_oc.dot" ());
   Cli.debug_print "Executing program";
   (* Cli.debug_print "Combined Program (w/o verif conds):@.%a@."
      Format_bir.format_program program; *)
