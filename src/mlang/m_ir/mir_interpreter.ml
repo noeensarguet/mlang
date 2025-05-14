@@ -693,47 +693,6 @@ struct
     match Pos.unmark stmt with
     | Com.Affectation (Com.SingleFormula (m_var, vidx_opt, vexpr), _) -> (
         let vari = get_var ctx (Pos.unmark m_var) in
-        let var, _idx = vari in
-        (* Format.eprintf "idx = %d@." _idx; *)
-        let res = get_var_value ctx var 0 in
-        let vdef = get_var_def var vexpr in
-        if Pos.unmark var.name = "APPLI_ILIAD" then Format.eprintf "cas 4@.";
-        let vertex = DBGGRAPH.V.create (var, Some vdef, value_to_literal res) in
-        dbg :=
-          Option.map
-            (fun (g, vdef_map) ->
-              let vl = Com.get_used_variables (Pos.unmark vexpr) in
-              ( List.fold_left
-                  (fun g v ->
-                    let resv = get_var_value ctx var 0 in
-                    let dep_vertex =
-                      try
-                        StrMap.find
-                          (Pos.unmark v.Com.Var.name)
-                          (Option.get !ctxd).ctxd_tgv
-                        (* TODO couple dbg and ctxd under the same option *)
-                      with Not_found ->
-                        if Pos.unmark var.name = "APPLI_ILIAD" then
-                          Format.eprintf "cas 5@.";
-                        let new_vertex =
-                          DBGGRAPH.V.create (v, None, value_to_literal resv)
-                        in
-                        ctxd :=
-                          Option.map
-                            (fun ctxd ->
-                              {
-                                ctxd with
-                                ctxd_tgv =
-                                  StrMapOverride.add (Pos.unmark v.name)
-                                    new_vertex ctxd.ctxd_tgv;
-                              })
-                            !ctxd;
-                        new_vertex
-                    in
-                    DBGGRAPH.add_edge g vertex dep_vertex)
-                  g vl,
-                Com.Var.Map.add var (Pos.unmark vexpr) vdef_map ))
-            !dbg;
         match vidx_opt with
         | None -> set_var_value ~dbg ~ctxd p ctx vari vexpr
         | Some ei -> set_var_value_tab ~dbg ~ctxd p ctx vari ei vexpr)
