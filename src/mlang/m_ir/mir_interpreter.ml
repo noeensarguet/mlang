@@ -31,12 +31,13 @@ end
 
 module DBGGRAPH = struct
   include Graph.Persistent.Digraph.Abstract (struct
-    type t = string * string option * Com.literal
+    type t = Com.Var.t * string option * Com.literal
   end)
 
   let pp_vertex fmt (v : vertex) =
-    let vn, vdef, lit = V.label v in
-    Format.fprintf fmt "%s - %a@,%a" vn Com.format_literal lit
+    let var, vdef, lit = V.label v in
+    Format.fprintf fmt "%s - %a@,%a" (Pos.unmark var.name) Com.format_literal
+      lit
       (Format.pp_print_option
          ~none:(fun fmt () -> Format.fprintf fmt "input var")
          (fun fmt s -> Format.fprintf fmt "%s" s))
@@ -56,9 +57,9 @@ module StrMapOverride = struct
 end
 
 type ctx_dbg = {
-  ctxd_tgv : TRYGRAPH.vertex StrMapOverride.t;
+  ctxd_tgv : DBGGRAPH.vertex StrMapOverride.t;
   (* StrMap because we're only keeping track of the last vertex seen with a given name for now *)
-  ctxd_tmps : TRYGRAPH.vertex StrMapOverride.t;
+  ctxd_tmps : DBGGRAPH.vertex StrMapOverride.t;
 }
 
 let empty_ctxd =
@@ -104,7 +105,7 @@ module type S = sig
   val update_ctx_with_inputs : ctx -> Com.literal Com.Var.Map.t -> unit
 
   val update_ctxd_with_inputs :
-    ctx_dbg -> Com.literal Com.Var.Map.t -> ctx_dbg * TRYGRAPH.t
+    ctx_dbg -> Com.literal Com.Var.Map.t -> ctx_dbg * DBGGRAPH.t
 
   type run_error =
     | NanOrInf of string * Mir.expression Pos.marked
@@ -118,7 +119,7 @@ module type S = sig
   val compare_numbers : Com.comp_op -> custom_float -> custom_float -> bool
 
   val evaluate_expr :
-    ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    ?dbg:(DBGGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
     ?ctxd:ctx_dbg option ref ->
     ctx ->
     Mir.program ->
@@ -126,7 +127,7 @@ module type S = sig
     value
 
   val evaluate_program :
-    ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    ?dbg:(DBGGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
     ?ctxd:ctx_dbg option ref ->
     Mir.program ->
     ctx ->
@@ -240,15 +241,19 @@ struct
         (string * (string option * Pos.t) list * (unit -> unit) option)
 
   let update_ctxd_with_inputs (ctxd : ctx_dbg)
-      (inputs : Com.literal Com.Var.Map.t) : ctx_dbg * TRYGRAPH.t =
-    let dbg = ref TRYGRAPH.empty in
+      (inputs : Com.literal Com.Var.Map.t) : ctx_dbg * DBGGRAPH.t =
+    let dbg = ref DBGGRAPH.empty in
     ( {
         ctxd with
         ctxd_tgv =
           Com.Var.Map.fold
             (fun var value ctxd_vars ->
-              let vertex = TRYGRAPH.V.create (var, value_to_literal value) in
-              dbg := TRYGRAPH.add_vertex !dbg vertex;
+              let vertex =
+                DBGGRAPH.V.create (var, None, value_to_literal value)
+              in
+              if Pos.unmark var.name = "APPLI_ILIAD" then
+                Format.eprintf "cas 1@.";
+              dbg := DBGGRAPH.add_vertex !dbg vertex;
               StrMapOverride.add (Pos.unmark var.name) vertex ctxd_vars)
             (Com.Var.Map.map
                (fun l ->
@@ -321,6 +326,17 @@ struct
           get_var_value ctx var i
 
   exception BlockingError
+
+  let get_var_def (var : Com.Var.t) (vexpr : Mir.expression Pos.marked) : string
+      =
+    let def_expr = Pos.retrieve_raw_text (Pos.get_position vexpr) in
+    let vdef = Pos.unmark var.name ^ " = " ^ def_expr in
+    let vdef = String.split_on_char '\n' vdef in
+    List.fold_left
+      (fun str1 str2 ->
+        if String.length str2 > 0 && str2.[0] = '#' then String.trim str1
+        else String.trim str1 ^ " " ^ String.trim str2)
+      "" vdef
 
   let rec evaluate_expr ?(dbg = ref None) ?(ctxd = ref None) (ctx : ctx)
       (p : Mir.program) (e : Mir.expression Pos.marked) : value =
@@ -569,10 +585,12 @@ struct
       (ctx : ctx) ((var, vi) : Com.Var.t * int)
       (vexpr : Mir.expression Pos.marked) : unit =
     let value = evaluate_expr ~dbg ~ctxd ctx p vexpr in
-    let vertex = TRYGRAPH.V.create (var, value_to_literal value) in
+    let vdef = get_var_def var vexpr in
+    if Pos.unmark var.name = "APPLI_ILIAD" then Format.eprintf "cas 2@.";
+    let vertex = DBGGRAPH.V.create (var, Some vdef, value_to_literal value) in
     dbg :=
       Option.map
-        (fun (g, vdef_map) -> (TRYGRAPH.add_vertex g vertex, vdef_map))
+        (fun (g, vdef_map) -> (DBGGRAPH.add_vertex g vertex, vdef_map))
         !dbg;
     (match Com.Var.is_table var with
     | None -> (
@@ -630,8 +648,11 @@ struct
                       (Option.get !ctxd).ctxd_tgv
                   with Not_found ->
                     let resv = get_var_value ctx v 0 in
+                    if Pos.unmark var.name = "APPLI_ILIAD" then
+                      Format.eprintf "cas 3@.";
                     let new_vertex =
-                      TRYGRAPH.V.create (v, value_to_literal resv)
+                      DBGGRAPH.V.create (v, None, value_to_literal resv)
+                      (* TODO check where None would come from here *)
                     in
                     ctxd :=
                       Option.map
@@ -645,7 +666,7 @@ struct
                         !ctxd;
                     new_vertex
                 in
-                TRYGRAPH.add_edge g vertex dep_vertex)
+                DBGGRAPH.add_edge g vertex dep_vertex)
               vl g,
             Com.Var.Map.add var (Pos.unmark vexpr) vdef_map ))
         !dbg
@@ -675,7 +696,9 @@ struct
         let var, _idx = vari in
         (* Format.eprintf "idx = %d@." _idx; *)
         let res = get_var_value ctx var 0 in
-        let vertex = TRYGRAPH.V.create (var, value_to_literal res) in
+        let vdef = get_var_def var vexpr in
+        if Pos.unmark var.name = "APPLI_ILIAD" then Format.eprintf "cas 4@.";
+        let vertex = DBGGRAPH.V.create (var, Some vdef, value_to_literal res) in
         dbg :=
           Option.map
             (fun (g, vdef_map) ->
@@ -690,8 +713,10 @@ struct
                           (Option.get !ctxd).ctxd_tgv
                         (* TODO couple dbg and ctxd under the same option *)
                       with Not_found ->
+                        if Pos.unmark var.name = "APPLI_ILIAD" then
+                          Format.eprintf "cas 5@.";
                         let new_vertex =
-                          TRYGRAPH.V.create (v, value_to_literal resv)
+                          DBGGRAPH.V.create (v, None, value_to_literal resv)
                         in
                         ctxd :=
                           Option.map
@@ -705,7 +730,7 @@ struct
                             !ctxd;
                         new_vertex
                     in
-                    TRYGRAPH.add_edge g vertex dep_vertex)
+                    DBGGRAPH.add_edge g vertex dep_vertex)
                   g vl,
                 Com.Var.Map.add var (Pos.unmark vexpr) vdef_map ))
             !dbg;
@@ -1052,7 +1077,7 @@ let prepare_interp (sort : Cli.value_sort) (roundops : Cli.round_ops) : unit =
 
 let evaluate_program_dbg (p : Mir.program) (inputs : Com.literal Com.Var.Map.t)
     (sort : Cli.value_sort) (roundops : Cli.round_ops) :
-    unit -> TRYGRAPH.t * ctx_dbg =
+    unit -> DBGGRAPH.t * ctx_dbg =
   prepare_interp sort roundops;
   let module Interp = (val get_interp sort roundops : S) in
   let ctx = Interp.empty_ctx p in

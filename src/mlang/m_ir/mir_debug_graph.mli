@@ -13,10 +13,9 @@
 (* module TRYGRAPH : Graph.Sig.P with type V.t = Bir.variable *
    Bir_interpreter.var_literal *)
 
-val get_variable_def : string list -> Com.Var.t -> string option
+(* val get_variable_def : string list -> Com.Var.t -> string option *)
 
 val output_dot_eval_program :
-  string list ->
   Mir.program ->
   Com.literal Com.Var.Map.t ->
   Cli.value_sort ->

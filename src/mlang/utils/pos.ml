@@ -129,6 +129,25 @@ let indent_number (s : string) : int =
     aux 0
   with Invalid_argument _ -> String.length s
 
+let retrieve_raw_text (pos : t) : string =
+  let filename = get_file pos in
+  if filename = "" then "No position information"
+  else
+    let start_pos, end_pos = pos.pos_loc in
+    let filename = start_pos.pos_fname in
+    let start_offset = start_pos.pos_cnum in
+    let end_offset = end_pos.pos_cnum in
+    let len = end_offset - start_offset in
+    if len < 0 then
+      invalid_arg
+        "Invalid position for retrieve_raw_text: the start of the region is \
+         after the end";
+    let oc = open_in filename in
+    seek_in oc start_offset;
+    let buffer = really_input_string oc len in
+    close_in oc;
+    buffer
+
 let retrieve_loc_text (pos : t) : string =
   let filename = get_file pos in
   let blue_style = [ ANSITerminal.Bold; ANSITerminal.blue ] in

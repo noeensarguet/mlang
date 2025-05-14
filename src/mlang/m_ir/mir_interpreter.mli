@@ -33,11 +33,11 @@ val repl_debug : bool ref
 module TRYGRAPH : Graph.Sig.P with type V.label = Com.Var.t * Com.literal
 
 module DBGGRAPH :
-  Graph.Sig.P with type V.label = string * string option * Com.literal
+  Graph.Sig.P with type V.label = Com.Var.t * string option * Com.literal
 
 type ctx_dbg = {
-  ctxd_tgv : TRYGRAPH.vertex StrMap.t;
-  ctxd_tmps : TRYGRAPH.vertex StrMap.t;
+  ctxd_tgv : DBGGRAPH.vertex StrMap.t;
+  ctxd_tmps : DBGGRAPH.vertex StrMap.t;
 }
 
 val empty_ctxd : ctx_dbg
@@ -92,7 +92,7 @@ module type S = sig
   val update_ctx_with_inputs : ctx -> Com.literal Com.Var.Map.t -> unit
 
   val update_ctxd_with_inputs :
-    ctx_dbg -> Com.literal Com.Var.Map.t -> ctx_dbg * TRYGRAPH.t
+    ctx_dbg -> Com.literal Com.Var.Map.t -> ctx_dbg * DBGGRAPH.t
 
   (** Interpreter runtime errors *)
   type run_error =
@@ -110,7 +110,7 @@ module type S = sig
       context of the interpreter. *)
 
   val evaluate_expr :
-    ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    ?dbg:(DBGGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
     ?ctxd:ctx_dbg option ref ->
     ctx ->
     Mir.program ->
@@ -118,7 +118,7 @@ module type S = sig
     value
 
   val evaluate_program :
-    ?dbg:(TRYGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    ?dbg:(DBGGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
     ?ctxd:ctx_dbg option ref ->
     Mir.program ->
     ctx ->
@@ -186,7 +186,7 @@ val evaluate_program_dbg :
   Cli.value_sort ->
   Cli.round_ops ->
   unit ->
-  TRYGRAPH.t * ctx_dbg
+  DBGGRAPH.t * ctx_dbg
 
 val evaluate_program :
   Mir.program ->
