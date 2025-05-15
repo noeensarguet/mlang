@@ -33,9 +33,6 @@ let to_dot (fmt : Format.formatter) (g : Mir_interpreter.DBGGRAPH.t) : unit =
 
     let default_vertex_attributes (_ : t) = []
 
-    let var_value_to_int (vv : Com.literal) =
-      match vv with Float f -> int_of_float f | Undefined -> 0
-
     let vertex_name (v : vertex) =
       let vhash = DBGGRAPH.V.hash v in
       Format.asprintf "%d" vhash

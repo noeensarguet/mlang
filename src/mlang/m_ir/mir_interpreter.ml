@@ -18,30 +18,19 @@ let exit_on_rte = ref true
 
 let repl_debug = ref false
 
-module TRYGRAPH = struct
-  include Graph.Persistent.Digraph.Abstract (struct
-    type t = Com.Var.t * Com.literal
-  end)
-
-  let pp_vertex fmt (v : vertex) =
-    let var, lit = V.label v in
-    let var_name = Pos.unmark var.Com.Var.name in
-    Format.fprintf fmt "%s - %a" var_name Com.format_literal lit
-end
-
 module DBGGRAPH = struct
   include Graph.Persistent.Digraph.Abstract (struct
     type t = Com.Var.t * string option * Com.literal
   end)
 
-  let pp_vertex fmt (v : vertex) =
-    let var, vdef, lit = V.label v in
-    Format.fprintf fmt "%s - %a@,%a" (Pos.unmark var.name) Com.format_literal
-      lit
-      (Format.pp_print_option
-         ~none:(fun fmt () -> Format.fprintf fmt "input var")
-         (fun fmt s -> Format.fprintf fmt "%s" s))
-      vdef
+  (* let pp_vertex fmt (v : vertex) =
+     let var, vdef, lit = V.label v in
+     Format.fprintf fmt "%s - %a@,%a" (Pos.unmark var.name) Com.format_literal
+       lit
+       (Format.pp_print_option
+          ~none:(fun fmt () -> Format.fprintf fmt "input var")
+          (fun fmt s -> Format.fprintf fmt "%s" s))
+       vdef *)
 end
 
 module StrMapOverride = struct

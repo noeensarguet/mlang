@@ -30,8 +30,6 @@ val exit_on_rte : bool ref
 val repl_debug : bool ref
 (** If set to true, prints the REPL debugger in case of runtime error *)
 
-module TRYGRAPH : Graph.Sig.P with type V.label = Com.Var.t * Com.literal
-
 module DBGGRAPH :
   Graph.Sig.P with type V.label = Com.Var.t * string option * Com.literal
 
