@@ -31,7 +31,7 @@ let to_dot (fmt : Format.formatter) (g : Mir_interpreter.DBGGRAPH.t) : unit =
 
     let graph_attributes (_ : t) = []
 
-    let default_vertex_attributes (_ : t) = []
+    let default_vertex_attributes (_ : t) = [ `Style `Filled ]
 
     let vertex_name (v : vertex) =
       let vhash = DBGGRAPH.V.hash v in
@@ -41,6 +41,12 @@ let to_dot (fmt : Format.formatter) (g : Mir_interpreter.DBGGRAPH.t) : unit =
       [
         `Label (Format.asprintf "%a" Mir_interpreter.DBGGRAPH.pp_vertex v);
         `Shape `Box;
+        `Style `Filled;
+        (let var, _, _ = DBGGRAPH.V.label v in
+         `Fillcolor
+           (match Com.Var.cat_var_loc var with
+           | Some Com.CatVar.LocInput -> 0xadd8e6
+           | _ -> if Com.Var.is_given_back var then 0xffa500 else 0xffffff));
       ]
 
     let get_subgraph (_ : vertex) = None
