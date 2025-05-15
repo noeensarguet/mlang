@@ -142,6 +142,8 @@ module Var = struct
         Errors.raise_error
           (Format.sprintf "%s is not a TGV variable" (Pos.unmark v.name))
 
+  let tgv_opt v = match v.scope with Tgv s -> Some s | _ -> None
+
   let name v = v.name
 
   let name_str v = Pos.unmark v.name
@@ -175,7 +177,8 @@ module Var = struct
 
   let cat v = (tgv v).cat
 
-  let is_given_back v = (tgv v).is_given_back
+  let is_given_back v =
+    match tgv_opt v with Some s -> s.is_given_back | None -> false
 
   let loc_tgv v =
     match v.loc with
