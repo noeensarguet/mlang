@@ -52,7 +52,7 @@ let display_time =
   Arg.(
     value & flag
     & info [ "display_time"; "t" ]
-        ~doc:"Displays timing information (use with --deb ug)")
+        ~doc:"Displays timing information (use with --debug)")
 
 let dbg_graph_file =
   let doc =
