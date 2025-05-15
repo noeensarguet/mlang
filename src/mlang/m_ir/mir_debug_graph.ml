@@ -38,27 +38,8 @@ let to_dot (fmt : Format.formatter) (g : Mir_interpreter.DBGGRAPH.t) : unit =
       Format.asprintf "%d" vhash
 
     let vertex_attributes (v : vertex) =
-      let var, vdef, vval = DBGGRAPH.V.label v in
       [
-        `Label
-          (Format.asprintf "@[<v>%s = %a@,@,@]@[<hov>%a@]" (Pos.unmark var.name)
-             Com.format_literal vval
-             (Format.pp_print_option
-                ~none:(fun fmt () ->
-                  let descr =
-                    match Com.Var.cat_var_loc var with
-                    | Some Com.CatVar.LocInput -> "input var"
-                    | _ ->
-                        "undefined at that point (probably not live in the \
-                         current domain)"
-                  in
-                  Format.fprintf fmt "%s" descr)
-                (fun fmt s ->
-                  let units = String.split_on_char ' ' s in
-                  Format.pp_print_list ~pp_sep:Format.pp_print_space
-                    (fun fmt s -> Format.fprintf fmt "%s" s)
-                    fmt units))
-             vdef);
+        `Label (Format.asprintf "%a" Mir_interpreter.DBGGRAPH.pp_vertex v);
         `Shape `Box;
       ]
 

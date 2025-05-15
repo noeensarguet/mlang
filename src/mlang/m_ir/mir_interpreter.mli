@@ -30,8 +30,12 @@ val exit_on_rte : bool ref
 val repl_debug : bool ref
 (** If set to true, prints the REPL debugger in case of runtime error *)
 
-module DBGGRAPH :
-  Graph.Sig.P with type V.label = Com.Var.t * string option * Com.literal
+module DBGGRAPH : sig
+  include
+    Graph.Sig.P with type V.label = Com.Var.t * string option * Com.literal
+
+  val pp_vertex : Format.formatter -> vertex -> unit
+end
 
 type ctx_dbg = {
   ctxd_tgv : DBGGRAPH.vertex StrMap.t;

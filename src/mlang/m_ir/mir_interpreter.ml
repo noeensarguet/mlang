@@ -23,14 +23,26 @@ module DBGGRAPH = struct
     type t = Com.Var.t * string option * Com.literal
   end)
 
-  (* let pp_vertex fmt (v : vertex) =
-     let var, vdef, lit = V.label v in
-     Format.fprintf fmt "%s - %a@,%a" (Pos.unmark var.name) Com.format_literal
-       lit
-       (Format.pp_print_option
-          ~none:(fun fmt () -> Format.fprintf fmt "input var")
-          (fun fmt s -> Format.fprintf fmt "%s" s))
-       vdef *)
+  let pp_vertex fmt (v : vertex) =
+    let var, vdef, vval = V.label v in
+    Format.fprintf fmt "@[<v>%s = %a@,@,@]@[<hov>%a@]" (Pos.unmark var.name)
+      Com.format_literal vval
+      (Format.pp_print_option
+         ~none:(fun fmt () ->
+           let descr =
+             match Com.Var.cat_var_loc var with
+             | Some Com.CatVar.LocInput -> "input var"
+             | _ ->
+                 "undefined at that point (probably not live in the current \
+                  domain)"
+           in
+           Format.fprintf fmt "%s" descr)
+         (fun fmt s ->
+           let units = String.split_on_char ' ' s in
+           Format.pp_print_list ~pp_sep:Format.pp_print_space
+             (fun fmt s -> Format.fprintf fmt "%s" s)
+             fmt units))
+      vdef
 end
 
 module StrMapOverride = struct
