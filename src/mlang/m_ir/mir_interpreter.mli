@@ -37,10 +37,7 @@ module DBGGRAPH : sig
   val pp_vertex : Format.formatter -> vertex -> unit
 end
 
-type ctx_dbg = {
-  ctxd_tgv : DBGGRAPH.vertex StrMap.t;
-  ctxd_tmps : DBGGRAPH.vertex StrMap.t;
-}
+type ctx_dbg = DBGGRAPH.vertex StrMap.t
 
 val empty_ctxd : ctx_dbg
 
@@ -112,19 +109,14 @@ module type S = sig
       context of the interpreter. *)
 
   val evaluate_expr :
-    ?dbg:DBGGRAPH.t option ref ->
-    ?ctxd:ctx_dbg option ref ->
+    ?dbg_info:(DBGGRAPH.t * ctx_dbg) option ref ->
     ctx ->
     Mir.program ->
     Mir.expression Pos.marked ->
     value
 
   val evaluate_program :
-    ?dbg:DBGGRAPH.t option ref ->
-    ?ctxd:ctx_dbg option ref ->
-    Mir.program ->
-    ctx ->
-    unit
+    ?dbg_info:(DBGGRAPH.t * ctx_dbg) option ref -> Mir.program -> ctx -> unit
 end
 
 module FloatDefInterp :

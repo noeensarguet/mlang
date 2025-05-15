@@ -71,12 +71,10 @@ let output_dot_eval_program (p : Mir.program)
            Format.eprintf "weird stuff on %s@." (Pos.unmark var.name)
        | _ -> ())
      dbg; *)
-  let v_annee = StrMap.find "V_ANCSDED" ctxd.ctxd_tgv in
+  let v_annee = StrMap.find "V_ANCSDED" ctxd in
   let _, _, annee = Mir_interpreter.DBGGRAPH.V.label v_annee in
   let annee = match annee with Float f -> int_of_float f | Undefined -> 0 in
-  let v =
-    StrMap.find (if annee = 2051 then "VARC" else "NAPTIR") ctxd.ctxd_tgv
-  in
+  let v = StrMap.find (if annee = 2051 then "VARC" else "NAPTIR") ctxd in
   let subdbg = if annee = 2051 then dbg else subgraph_depth 3 dbg v in
   Format.printf "subdbg : %d vertices -- %d edges@."
     (Mir_interpreter.DBGGRAPH.nb_vertex subdbg)
