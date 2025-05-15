@@ -14,7 +14,6 @@
    this program. If not, see <https://www.gnu.org/licenses/>. *)
 
 val check_test :
-  ?files:string list ->
   Mir.program ->
   (* test file name *) string ->
   (* dbg_graph_file *) string option ->

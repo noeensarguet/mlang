@@ -215,7 +215,7 @@ let driver (files : string list) (application_names : string list)
         match run_test with Some s -> s | _ -> assert false
       in
       ignore
-        (Test_interpreter.check_test ?files:(Some files) m_program test
+        (Test_interpreter.check_test m_program test
            (if debug then Some dbg_graph_file else None)
            value_sort round_ops);
       Cli.result_print "Test passed!"

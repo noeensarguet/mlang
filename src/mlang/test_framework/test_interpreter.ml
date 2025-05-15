@@ -51,9 +51,9 @@ let to_MIR_function_and_inputs (program : Mir.program) (t : Irj_ast.irj_file) :
 
 exception InterpError of int
 
-let check_test ?(files : string list option) (program : Mir.program)
-    (test_name : string) (dep_graph_file : string option)
-    (value_sort : Cli.value_sort) (round_ops : Cli.round_ops) : unit =
+let check_test (program : Mir.program) (test_name : string)
+    (dep_graph_file : string option) (value_sort : Cli.value_sort)
+    (round_ops : Cli.round_ops) : unit =
   Cli.debug_print "Parsing %s..." test_name;
   let t = Irj_file.parse_file test_name in
   Cli.debug_print "Running test %s..." t.nom;
@@ -61,9 +61,6 @@ let check_test ?(files : string list option) (program : Mir.program)
   (match dep_graph_file with
   | None -> ()
   | Some dep_graph_file ->
-      let files =
-        match files with Some files -> files | None -> assert false
-      in
       Mir_debug_graph.output_dot_eval_program program input_file value_sort
         round_ops dep_graph_file ());
   Cli.debug_print "Executing program";

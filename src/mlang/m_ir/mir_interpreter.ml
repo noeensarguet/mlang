@@ -251,8 +251,6 @@ struct
               let vertex =
                 DBGGRAPH.V.create (var, None, value_to_literal value)
               in
-              if Pos.unmark var.name = "APPLI_ILIAD" then
-                Format.eprintf "cas 1@.";
               dbg := DBGGRAPH.add_vertex !dbg vertex;
               StrMapOverride.add (Pos.unmark var.name) vertex ctxd_vars)
             (Com.Var.Map.map
@@ -338,6 +336,7 @@ struct
         else String.trim str1 ^ " " ^ String.trim str2)
       "" vdef
 
+  (* TODO couple dbg and ctxd under the same option *)
   let rec evaluate_expr ?(dbg = ref None) ?(ctxd = ref None) (ctx : ctx)
       (p : Mir.program) (e : Mir.expression Pos.marked) : value =
     let comparison op new_e1 new_e2 =
@@ -586,7 +585,6 @@ struct
       (vexpr : Mir.expression Pos.marked) : unit =
     let value = evaluate_expr ~dbg ~ctxd ctx p vexpr in
     let vdef = get_var_def var vexpr in
-    if Pos.unmark var.name = "APPLI_ILIAD" then Format.eprintf "cas 2@.";
     let vertex = DBGGRAPH.V.create (var, Some vdef, value_to_literal value) in
     dbg :=
       Option.map
@@ -648,11 +646,9 @@ struct
                       (Option.get !ctxd).ctxd_tgv
                   with Not_found ->
                     let resv = get_var_value ctx v 0 in
-                    if Pos.unmark var.name = "APPLI_ILIAD" then
-                      Format.eprintf "cas 3@.";
                     let new_vertex =
                       DBGGRAPH.V.create (v, None, value_to_literal resv)
-                      (* TODO check where None would come from here *)
+                      (* Either input vars or variables whose definition isn't in the current domains, typically *)
                     in
                     ctxd :=
                       Option.map
@@ -1055,28 +1051,7 @@ let evaluate_program (p : Mir.program) (inputs : Com.literal Com.Var.Map.t)
   let module Interp = (val get_interp sort roundops : S) in
   let ctx = Interp.empty_ctx p in
   Interp.update_ctx_with_inputs ctx inputs;
-  let dbg = ref (Some (TRYGRAPH.empty, Com.Var.Map.empty)) in
   let () = Interp.evaluate_program p ctx in
-
-  (* let dbg, vdef_map = Option.get !dbg in
-        TRYGRAPH.fold_edges
-          (fun (v1, vv1) (v2, vv2) () ->
-            Format.printf "%a = %a -- %a = %a@." Format_mir.format_variable v1
-              Com.format_literal vv1 Format_mir.format_variable v2 Com.format_literal
-              vv2)
-          dbg ();
-        Format.printf "dbg : %d sommets et %d arêtes\n" (TRYGRAPH.nb_vertex dbg)
-          (TRYGRAPH.nb_edges dbg);
-        let dbg =
-          TRYGRAPH.fold_edges
-            (fun (v1, vv1) (v2, vv2) g ->
-              DBGGRAPH.add_edge g
-                (v1, Com.Var.Map.find_opt v1 vdef_map, vv1)
-                (v2, Com.Var.Map.find_opt v2 vdef_map, vv2))
-            dbg DBGGRAPH.empty
-        in
-     Format.printf "dbg : %d sommets et %d arêtes\n" (DBGGRAPH.nb_vertex dbg)
-       (DBGGRAPH.nb_edges dbg); *)
   let varMap =
     let fold name (var : Com.Var.t) res =
       if Com.Var.is_given_back var then
