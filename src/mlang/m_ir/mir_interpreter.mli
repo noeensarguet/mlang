@@ -112,7 +112,7 @@ module type S = sig
       context of the interpreter. *)
 
   val evaluate_expr :
-    ?dbg:(DBGGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    ?dbg:DBGGRAPH.t option ref ->
     ?ctxd:ctx_dbg option ref ->
     ctx ->
     Mir.program ->
@@ -120,7 +120,7 @@ module type S = sig
     value
 
   val evaluate_program :
-    ?dbg:(DBGGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    ?dbg:DBGGRAPH.t option ref ->
     ?ctxd:ctx_dbg option ref ->
     Mir.program ->
     ctx ->

@@ -120,7 +120,7 @@ module type S = sig
   val compare_numbers : Com.comp_op -> custom_float -> custom_float -> bool
 
   val evaluate_expr :
-    ?dbg:(DBGGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    ?dbg:DBGGRAPH.t option ref ->
     ?ctxd:ctx_dbg option ref ->
     ctx ->
     Mir.program ->
@@ -128,7 +128,7 @@ module type S = sig
     value
 
   val evaluate_program :
-    ?dbg:(DBGGRAPH.t * Mir.expression Com.Var.Map.t) option ref ->
+    ?dbg:DBGGRAPH.t option ref ->
     ?ctxd:ctx_dbg option ref ->
     Mir.program ->
     ctx ->
@@ -587,10 +587,7 @@ struct
     let value = evaluate_expr ~dbg ~ctxd ctx p vexpr in
     let vdef = get_var_def var vexpr in
     let vertex = DBGGRAPH.V.create (var, Some vdef, value_to_literal value) in
-    dbg :=
-      Option.map
-        (fun (g, vdef_map) -> (DBGGRAPH.add_vertex g vertex, vdef_map))
-        !dbg;
+    dbg := Option.map (fun g -> DBGGRAPH.add_vertex g vertex) !dbg;
     (match Com.Var.is_table var with
     | None -> (
         match var.scope with
@@ -636,36 +633,35 @@ struct
         | Com.Var.Res -> ctx.ctx_res <- value :: List.tl ctx.ctx_res));
     dbg :=
       Option.map
-        (fun (g, vdef_map) ->
+        (fun g ->
           let vl = Com.get_used_variables (Pos.unmark vexpr) in
-          ( List.fold_right
-              (fun v g ->
-                let dep_vertex =
-                  try
-                    StrMapOverride.find
-                      (Pos.unmark v.Com.Var.name)
-                      (Option.get !ctxd).ctxd_tgv
-                  with Not_found ->
-                    let resv = get_var_value ctx v 0 in
-                    let new_vertex =
-                      DBGGRAPH.V.create (v, None, value_to_literal resv)
-                      (* Either input vars or variables whose definition isn't in the current domains, typically *)
-                    in
-                    ctxd :=
-                      Option.map
-                        (fun ctxd ->
-                          {
-                            ctxd with
-                            ctxd_tgv =
-                              StrMapOverride.add (Pos.unmark v.name) new_vertex
-                                ctxd.ctxd_tgv;
-                          })
-                        !ctxd;
-                    new_vertex
-                in
-                DBGGRAPH.add_edge g vertex dep_vertex)
-              vl g,
-            Com.Var.Map.add var (Pos.unmark vexpr) vdef_map ))
+          List.fold_right
+            (fun v g ->
+              let dep_vertex =
+                try
+                  StrMapOverride.find
+                    (Pos.unmark v.Com.Var.name)
+                    (Option.get !ctxd).ctxd_tgv
+                with Not_found ->
+                  let resv = get_var_value ctx v 0 in
+                  let new_vertex =
+                    DBGGRAPH.V.create (v, None, value_to_literal resv)
+                    (* Either input vars or variables whose definition isn't in the current domains, typically *)
+                  in
+                  ctxd :=
+                    Option.map
+                      (fun ctxd ->
+                        {
+                          ctxd with
+                          ctxd_tgv =
+                            StrMapOverride.add (Pos.unmark v.name) new_vertex
+                              ctxd.ctxd_tgv;
+                        })
+                      !ctxd;
+                  new_vertex
+              in
+              DBGGRAPH.add_edge g vertex dep_vertex)
+            vl g)
         !dbg
 
   and set_var_value_tab ?(dbg = ref None) ?(ctxd = ref None) (p : Mir.program)
@@ -1040,9 +1036,9 @@ let evaluate_program_dbg (p : Mir.program) (inputs : Com.literal Com.Var.Map.t)
   Interp.update_ctx_with_inputs ctx inputs;
   let ctxd, g = Interp.update_ctxd_with_inputs empty_ctxd inputs in
   let ctxd = ref (Some ctxd) in
-  let dbg = ref (Some (g, Com.Var.Map.empty)) in
+  let dbg = ref (Some g) in
   let () = Interp.evaluate_program ~dbg ~ctxd p ctx in
-  let dbg, _vdef_map = Option.get !dbg in
+  let dbg = Option.get !dbg in
   fun () -> (dbg, Option.get !ctxd)
 
 let evaluate_program (p : Mir.program) (inputs : Com.literal Com.Var.Map.t)
