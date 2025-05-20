@@ -57,12 +57,8 @@ let to_dot (fmt : Format.formatter) (g : Mir_interpreter.DBGGRAPH.t) : unit =
   end) in
   GPr.fprint_graph fmt g
 
-let output_dot_eval_program (p : Mir.program)
-    (inputs : Com.literal Com.Var.Map.t) (sort : Cli.value_sort)
-    (roundops : Cli.round_ops) (file : string) : unit -> unit =
-  let dbg, ctxd =
-    Mir_interpreter.evaluate_program_dbg p inputs sort roundops ()
-  in
+let output_dot_eval_program (dbg : Mir_interpreter.DBGGRAPH.t)
+    (ctxd : Mir_interpreter.ctx_dbg) (file : string) : unit -> unit =
   (* Mir_interpreter.DBGGRAPH.iter_vertex
      (fun v ->
        let var, vdef, _vval = Mir_interpreter.DBGGRAPH.V.label v in

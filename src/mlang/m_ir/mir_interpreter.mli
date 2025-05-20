@@ -173,21 +173,13 @@ module RatMfInterp : S with type custom_float = Mir_number.RationalNumber.t
 
 val get_interp : Cli.value_sort -> Cli.round_ops -> (module S)
 
-(* TODO ideally not duplicate the evaluate_program function *)
-val evaluate_program_dbg :
-  Mir.program ->
-  Com.literal Com.Var.Map.t ->
-  Cli.value_sort ->
-  Cli.round_ops ->
-  unit ->
-  DBGGRAPH.t * ctx_dbg
-
 val evaluate_program :
   Mir.program ->
   Com.literal Com.Var.Map.t ->
   Cli.value_sort ->
   Cli.round_ops ->
-  Com.literal StrMap.t * StrSet.t
+  bool (* dbg_flag *) ->
+  Com.literal StrMap.t * StrSet.t * (DBGGRAPH.t * ctx_dbg) option
 (** Main interpreter function *)
 
 val evaluate_expr :

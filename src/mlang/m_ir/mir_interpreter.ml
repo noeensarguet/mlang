@@ -979,27 +979,20 @@ let prepare_interp (sort : Cli.value_sort) (roundops : Cli.round_ops) : unit =
       MainframeLongSize.max_long := max_long
   | _ -> ()
 
-let evaluate_program_dbg (p : Mir.program) (inputs : Com.literal Com.Var.Map.t)
-    (sort : Cli.value_sort) (roundops : Cli.round_ops) :
-    unit -> DBGGRAPH.t * ctx_dbg =
-  prepare_interp sort roundops;
-  let module Interp = (val get_interp sort roundops : S) in
-  let ctx = Interp.empty_ctx p in
-  Interp.update_ctx_with_inputs ctx inputs;
-  let ctxd, g = Interp.update_ctxd_with_inputs empty_ctxd inputs in
-  let dbg_info = ref (Some (g, ctxd)) in
-  let () = Interp.evaluate_program ~dbg_info p ctx in
-  let dbg, ctxd = Option.get !dbg_info in
-  fun () -> (dbg, ctxd)
-
 let evaluate_program (p : Mir.program) (inputs : Com.literal Com.Var.Map.t)
-    (sort : Cli.value_sort) (roundops : Cli.round_ops) :
-    Com.literal StrMap.t * StrSet.t =
+    (sort : Cli.value_sort) (roundops : Cli.round_ops) (dbg_flag : bool) :
+    Com.literal StrMap.t * StrSet.t * (DBGGRAPH.t * ctx_dbg) option =
   prepare_interp sort roundops;
   let module Interp = (val get_interp sort roundops : S) in
   let ctx = Interp.empty_ctx p in
   Interp.update_ctx_with_inputs ctx inputs;
-  let () = Interp.evaluate_program p ctx in
+  let dbg_info =
+    if dbg_flag then
+      let ctxd, g = Interp.update_ctxd_with_inputs empty_ctxd inputs in
+      ref (Some (g, ctxd))
+    else ref None
+  in
+  let () = Interp.evaluate_program ~dbg_info p ctx in
   let varMap =
     let fold name (var : Com.Var.t) res =
       if Com.Var.is_given_back var then
@@ -1016,7 +1009,7 @@ let evaluate_program (p : Mir.program) (inputs : Com.literal Com.Var.Map.t)
     let fold res (e, _) = StrSet.add (Pos.unmark e.Com.Error.name) res in
     List.fold_left fold StrSet.empty ctx.ctx_exported_anos
   in
-  (varMap, anoSet)
+  (varMap, anoSet, !dbg_info)
 
 let evaluate_expr (p : Mir.program) (e : Mir.expression Pos.marked)
     (sort : Cli.value_sort) (roundops : Cli.round_ops) : Com.literal =
