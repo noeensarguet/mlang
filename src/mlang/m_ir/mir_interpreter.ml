@@ -45,22 +45,10 @@ module DBGGRAPH = struct
       vdef
 end
 
-module StrMapOverride = struct
-  include StrMap
-
-  let add key data m =
-    (match find_opt key m with
-    | Some _ when not (String.length key >= 6 && String.sub key 0 6 = "VARTMP")
-      ->
-        Cli.warning_print "Overriding with a new vertex on variable %s" key
-    | _ -> ());
-    add key data m
-end
-
-type ctx_dbg = DBGGRAPH.vertex StrMapOverride.t
+type ctx_dbg = DBGGRAPH.vertex StrMap.t
 (* StrMap because we're only keeping track of the last vertex seen with a given name for now *)
 
-let empty_ctxd = StrMapOverride.empty
+let empty_ctxd = StrMap.empty
 
 module type S = sig
   type custom_float
@@ -239,7 +227,7 @@ struct
         (fun var value ctxd ->
           let vertex = DBGGRAPH.V.create (var, None, value_to_literal value) in
           dbg := DBGGRAPH.add_vertex !dbg vertex;
-          StrMapOverride.add (Pos.unmark var.name) vertex ctxd)
+          StrMap.add (Pos.unmark var.name) vertex ctxd)
         (Com.Var.Map.map
            (fun l ->
              match l with
@@ -594,22 +582,21 @@ struct
     match !dbg_info with
     | Some (dbg, ctxd) ->
         let dbg = DBGGRAPH.add_vertex dbg vertex in
-        let ctxd = StrMapOverride.add (Pos.unmark var.name) vertex ctxd in
+        let ctxd = StrMap.add (Pos.unmark var.name) vertex ctxd in
 
         let vl = Com.get_used_variables (Pos.unmark vexpr) in
         let dbg, ctxd =
           List.fold_right
             (fun v (g, ctxd) ->
               let dep_vertex, vmap =
-                try (StrMapOverride.find (Pos.unmark v.Com.Var.name) ctxd, ctxd)
+                try (StrMap.find (Pos.unmark v.Com.Var.name) ctxd, ctxd)
                 with Not_found ->
                   let resv = get_var_value ctx v 0 in
                   let new_vertex =
                     DBGGRAPH.V.create (v, None, value_to_literal resv)
                     (* Either input vars or variables whose definition isn't in the current domains, typically *)
                   in
-                  ( new_vertex,
-                    StrMapOverride.add (Pos.unmark v.name) new_vertex ctxd )
+                  (new_vertex, StrMap.add (Pos.unmark v.name) new_vertex ctxd)
               in
               (DBGGRAPH.add_edge g vertex dep_vertex, vmap))
             vl (dbg, ctxd)
