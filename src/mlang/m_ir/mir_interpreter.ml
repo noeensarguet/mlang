@@ -271,14 +271,20 @@ struct
 
   let get_var_def (var : Com.Var.t) (vexpr : Mir.expression Pos.marked) : string
       =
-    let def_expr = Pos.retrieve_raw_text (Pos.get_position vexpr) in
-    let vdef = Pos.unmark var.name ^ " = " ^ def_expr in
-    let vdef = String.split_on_char '\n' vdef in
-    List.fold_left
-      (fun str1 str2 ->
-        if String.length str2 > 0 && str2.[0] = '#' then String.trim str1
-        else String.trim str1 ^ " " ^ String.trim str2)
-      "" vdef
+    let def_expr_opt = Pos.retrieve_raw_text (Pos.get_position vexpr) in
+    match def_expr_opt with
+    | None ->
+        let str = "No position information" in
+        Cli.warning_print "%s on var %s" str (Pos.unmark var.name);
+        str
+    | Some def_expr ->
+        let vdef = Pos.unmark var.name ^ " = " ^ def_expr in
+        let vdef = String.split_on_char '\n' vdef in
+        List.fold_left
+          (fun str1 str2 ->
+            if String.length str2 > 0 && str2.[0] = '#' then String.trim str1
+            else String.trim str1 ^ " " ^ String.trim str2)
+          "" vdef
 
   let rec evaluate_expr ?(dbg_info = ref None) (ctx : ctx) (p : Mir.program)
       (e : Mir.expression Pos.marked) : value =

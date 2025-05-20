@@ -62,7 +62,7 @@ val get_file : t -> string
 
 val indent_number : string -> int
 
-val retrieve_raw_text : t -> string
+val retrieve_raw_text : t -> string option
 
 val retrieve_loc_text : t -> string
 (** Given a source code position, retrieves the content of the code by acessing
