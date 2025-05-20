@@ -23,23 +23,14 @@
 (** The BIR interpreter can be instrumented to record which program locations
     have been executed. *)
 
+module G = Dbggraph_types
+
 val exit_on_rte : bool ref
 (** If set to true, the interpreter exits the whole process in case of runtime
     error *)
 
 val repl_debug : bool ref
 (** If set to true, prints the REPL debugger in case of runtime error *)
-
-module DBGGRAPH : sig
-  include
-    Graph.Sig.P with type V.label = Com.Var.t * string option * Com.literal
-
-  val pp_vertex : Format.formatter -> vertex -> unit
-end
-
-type ctx_dbg = DBGGRAPH.vertex StrMap.t
-
-val empty_ctxd : ctx_dbg
 
 (** {1 The interpreter functor}*)
 
@@ -91,7 +82,7 @@ module type S = sig
   val update_ctx_with_inputs : ctx -> Com.literal Com.Var.Map.t -> unit
 
   val update_ctxd_with_inputs :
-    ctx_dbg -> Com.literal Com.Var.Map.t -> ctx_dbg * DBGGRAPH.t
+    G.ctx_dbg -> Com.literal Com.Var.Map.t -> G.ctx_dbg * G.t
 
   (** Interpreter runtime errors *)
   type run_error =
@@ -109,14 +100,14 @@ module type S = sig
       context of the interpreter. *)
 
   val evaluate_expr :
-    ?dbg_info:(DBGGRAPH.t * ctx_dbg) option ref ->
+    ?dbg_info:(G.t * G.ctx_dbg) option ref ->
     ctx ->
     Mir.program ->
     Mir.expression Pos.marked ->
     value
 
   val evaluate_program :
-    ?dbg_info:(DBGGRAPH.t * ctx_dbg) option ref -> Mir.program -> ctx -> unit
+    ?dbg_info:(G.t * G.ctx_dbg) option ref -> Mir.program -> ctx -> unit
 end
 
 module FloatDefInterp :
@@ -179,7 +170,7 @@ val evaluate_program :
   Cli.value_sort ->
   Cli.round_ops ->
   bool (* dbg_flag *) ->
-  Com.literal StrMap.t * StrSet.t * (DBGGRAPH.t * ctx_dbg) option
+  Com.literal StrMap.t * StrSet.t * (G.t * G.ctx_dbg) option
 (** Main interpreter function *)
 
 val evaluate_expr :

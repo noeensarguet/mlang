@@ -13,8 +13,4 @@
 (* val get_variable_def : string list -> Com.Var.t -> string option *)
 
 val output_dot_eval_program :
-  Mir_interpreter.DBGGRAPH.t ->
-  Mir_interpreter.ctx_dbg ->
-  string ->
-  unit ->
-  unit
+  Dbggraph_types.t -> Dbggraph_types.ctx_dbg -> string -> unit -> unit

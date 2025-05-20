@@ -10,39 +10,37 @@
   You should have received a copy of the GNU General Public License along with
   this program. If not, see <https://www.gnu.org/licenses/>. *)
 
-let rec subgraph_depth n (g : Mir_interpreter.DBGGRAPH.t)
-    (v : Mir_interpreter.DBGGRAPH.vertex) =
-  let open Mir_interpreter in
-  let module O = Graph.Oper.P (DBGGRAPH) in
+module G = Dbggraph_types
+
+let rec subgraph_depth n (g : G.t) (v : G.vertex) =
+  let module O = Graph.Oper.P (G) in
   match n with
-  | 0 -> DBGGRAPH.add_vertex DBGGRAPH.empty v
+  | 0 -> G.add_vertex G.empty v
   | n ->
-      DBGGRAPH.fold_succ
+      G.fold_succ
         (fun v2 sg ->
           let comp = subgraph_depth (n - 1) g v2 in
-          DBGGRAPH.add_edge (O.union comp sg) v v2)
-        g v
-        (DBGGRAPH.add_vertex DBGGRAPH.empty v)
+          G.add_edge (O.union comp sg) v v2)
+        g v (G.add_vertex G.empty v)
 
-let to_dot (fmt : Format.formatter) (g : Mir_interpreter.DBGGRAPH.t) : unit =
-  let open Mir_interpreter in
+let to_dot (fmt : Format.formatter) (g : G.t) : unit =
   let module GPr = Graph.Graphviz.Dot (struct
-    include DBGGRAPH
+    include G
 
     let graph_attributes (_ : t) = []
 
     let default_vertex_attributes (_ : t) = [ `Style `Filled ]
 
     let vertex_name (v : vertex) =
-      let vhash = DBGGRAPH.V.hash v in
+      let vhash = G.V.hash v in
       Format.asprintf "%d" vhash
 
     let vertex_attributes (v : vertex) =
       [
-        `Label (Format.asprintf "%a" Mir_interpreter.DBGGRAPH.pp_vertex v);
+        `Label (Format.asprintf "%a" G.pp_vertex v);
         `Shape `Box;
         `Style `Filled;
-        (let var, _, _ = DBGGRAPH.V.label v in
+        (let var, _, _ = G.V.label v in
          `Fillcolor
            (match Com.Var.cat_var_loc var with
            | Some Com.CatVar.LocInput -> 0xadd8e6
@@ -57,30 +55,23 @@ let to_dot (fmt : Format.formatter) (g : Mir_interpreter.DBGGRAPH.t) : unit =
   end) in
   GPr.fprint_graph fmt g
 
-let output_dot_eval_program (dbg : Mir_interpreter.DBGGRAPH.t)
-    (ctxd : Mir_interpreter.ctx_dbg) (file : string) : unit -> unit =
-  (* Mir_interpreter.DBGGRAPH.iter_vertex
+let output_dot_eval_program (dbg : G.t) (ctxd : G.ctx_dbg) (file : string) :
+    unit -> unit =
+  (* G.iter_vertex
      (fun v ->
-       let var, vdef, _vval = Mir_interpreter.DBGGRAPH.V.label v in
+       let var, vdef, _vval = G.V.label v in
        match vdef with
        | None when Com.Var.cat_var_loc var = Some Com.CatVar.LocInput ->
-           Format.eprintf "weird stuff on %s@." (Pos.unmark var.name)
+           Cli.warning_print "weird stuff on %s@." (Pos.unmark var.name)
        | _ -> ())
      dbg; *)
   let v_annee = StrMap.find "V_ANCSDED" ctxd in
-  let _, _, annee = Mir_interpreter.DBGGRAPH.V.label v_annee in
+  let _, _, annee = G.V.label v_annee in
   let annee = match annee with Float f -> int_of_float f | Undefined -> 0 in
   let v = StrMap.find (if annee = 2051 then "VARC" else "NAPTIR") ctxd in
   let subdbg = if annee = 2051 then dbg else subgraph_depth 3 dbg v in
-  Format.printf "subdbg : %d vertices -- %d edges@."
-    (Mir_interpreter.DBGGRAPH.nb_vertex subdbg)
-    (Mir_interpreter.DBGGRAPH.nb_edges subdbg);
-  (* let out_graph =
-       dbg_to_out_graph files (if annee = 2051 then dbg else subdbg)
-     in
-     Format.printf "out_graph : %d vertices -- %d edges@."
-       (Mir_interpreter.DBGGRAPH.nb_vertex out_graph)
-       (Mir_interpreter.DBGGRAPH.nb_edges out_graph); *)
+  Format.printf "subdbg : %d vertices -- %d edges@." (G.nb_vertex subdbg)
+    (G.nb_edges subdbg);
   fun () ->
     let oc = open_out file in
     let fmt = Format.formatter_of_out_channel oc in

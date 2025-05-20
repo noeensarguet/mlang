@@ -14,41 +14,11 @@
    You should have received a copy of the GNU General Public License along with
    this program. If not, see <https://www.gnu.org/licenses/>. *)
 
+module G = Dbggraph_types
+
 let exit_on_rte = ref true
 
 let repl_debug = ref false
-
-module DBGGRAPH = struct
-  include Graph.Persistent.Digraph.Abstract (struct
-    type t = Com.Var.t * string option * Com.literal
-  end)
-
-  let pp_vertex fmt (v : vertex) =
-    let var, vdef, vval = V.label v in
-    Format.fprintf fmt "@[<v>%s = %a@,@,@]@[<hov>%a@]" (Pos.unmark var.name)
-      Com.format_literal vval
-      (Format.pp_print_option
-         ~none:(fun fmt () ->
-           let descr =
-             match Com.Var.cat_var_loc var with
-             | Some Com.CatVar.LocInput -> "input var"
-             | _ ->
-                 "undefined at that point (probably not live in the current \
-                  domain)"
-           in
-           Format.fprintf fmt "%s" descr)
-         (fun fmt s ->
-           let units = String.split_on_char ' ' s in
-           Format.pp_print_list ~pp_sep:Format.pp_print_space
-             (fun fmt s -> Format.fprintf fmt "%s" s)
-             fmt units))
-      vdef
-end
-
-type ctx_dbg = DBGGRAPH.vertex StrMap.t
-(* StrMap because we're only keeping track of the last vertex seen with a given name for now *)
-
-let empty_ctxd = StrMap.empty
 
 module type S = sig
   type custom_float
@@ -90,7 +60,7 @@ module type S = sig
   val update_ctx_with_inputs : ctx -> Com.literal Com.Var.Map.t -> unit
 
   val update_ctxd_with_inputs :
-    ctx_dbg -> Com.literal Com.Var.Map.t -> ctx_dbg * DBGGRAPH.t
+    G.ctx_dbg -> Com.literal Com.Var.Map.t -> G.ctx_dbg * G.t
 
   type run_error =
     | NanOrInf of string * Mir.expression Pos.marked
@@ -104,14 +74,14 @@ module type S = sig
   val compare_numbers : Com.comp_op -> custom_float -> custom_float -> bool
 
   val evaluate_expr :
-    ?dbg_info:(DBGGRAPH.t * ctx_dbg) option ref ->
+    ?dbg_info:(G.t * G.ctx_dbg) option ref ->
     ctx ->
     Mir.program ->
     Mir.expression Pos.marked ->
     value
 
   val evaluate_program :
-    ?dbg_info:(DBGGRAPH.t * ctx_dbg) option ref -> Mir.program -> ctx -> unit
+    ?dbg_info:(G.t * G.ctx_dbg) option ref -> Mir.program -> ctx -> unit
 end
 
 module Make (N : Mir_number.NumberInterface) (RF : Mir_roundops.RoundOpsFunctor) =
@@ -220,13 +190,13 @@ struct
     | StructuredError of
         (string * (string option * Pos.t) list * (unit -> unit) option)
 
-  let update_ctxd_with_inputs (ctxd : ctx_dbg)
-      (inputs : Com.literal Com.Var.Map.t) : ctx_dbg * DBGGRAPH.t =
-    let dbg = ref DBGGRAPH.empty in
+  let update_ctxd_with_inputs (ctxd : G.ctx_dbg)
+      (inputs : Com.literal Com.Var.Map.t) : G.ctx_dbg * G.t =
+    let dbg = ref G.empty in
     ( Com.Var.Map.fold
         (fun var value ctxd ->
-          let vertex = DBGGRAPH.V.create (var, None, value_to_literal value) in
-          dbg := DBGGRAPH.add_vertex !dbg vertex;
+          let vertex = G.V.create (var, None, value_to_literal value) in
+          dbg := G.add_vertex !dbg vertex;
           StrMap.add (Pos.unmark var.name) vertex ctxd)
         (Com.Var.Map.map
            (fun l ->
@@ -557,7 +527,7 @@ struct
       ((var, vi) : Com.Var.t * int) (vexpr : Mir.expression Pos.marked) : unit =
     let value = evaluate_expr ~dbg_info ctx p vexpr in
     let vdef = get_var_def var vexpr in
-    let vertex = DBGGRAPH.V.create (var, Some vdef, value_to_literal value) in
+    let vertex = G.V.create (var, Some vdef, value_to_literal value) in
     (match Com.Var.is_table var with
     | None -> (
         match var.scope with
@@ -581,7 +551,7 @@ struct
         | Com.Var.Res -> ctx.ctx_res <- value :: List.tl ctx.ctx_res));
     match !dbg_info with
     | Some (dbg, ctxd) ->
-        let dbg = DBGGRAPH.add_vertex dbg vertex in
+        let dbg = G.add_vertex dbg vertex in
         let ctxd = StrMap.add (Pos.unmark var.name) vertex ctxd in
 
         let vl = Com.get_used_variables (Pos.unmark vexpr) in
@@ -593,15 +563,15 @@ struct
                 with Not_found ->
                   let resv = get_var_value ctx v 0 in
                   let new_vertex =
-                    DBGGRAPH.V.create (v, None, value_to_literal resv)
+                    G.V.create (v, None, value_to_literal resv)
                     (* Either input vars or variables whose definition isn't in the current domains, typically *)
                   in
                   (new_vertex, StrMap.add (Pos.unmark v.name) new_vertex ctxd)
               in
-              (DBGGRAPH.add_edge g vertex dep_vertex, vmap))
+              (G.add_edge g vertex dep_vertex, vmap))
             vl (dbg, ctxd)
         in
-        dbg_info := Some (DBGGRAPH.add_vertex dbg vertex, ctxd)
+        dbg_info := Some (G.add_vertex dbg vertex, ctxd)
     | None -> ()
 
   and set_var_value_tab ?(dbg_info = ref None) (p : Mir.program) (ctx : ctx)
@@ -968,14 +938,14 @@ let prepare_interp (sort : Cli.value_sort) (roundops : Cli.round_ops) : unit =
 
 let evaluate_program (p : Mir.program) (inputs : Com.literal Com.Var.Map.t)
     (sort : Cli.value_sort) (roundops : Cli.round_ops) (dbg_flag : bool) :
-    Com.literal StrMap.t * StrSet.t * (DBGGRAPH.t * ctx_dbg) option =
+    Com.literal StrMap.t * StrSet.t * (G.t * G.ctx_dbg) option =
   prepare_interp sort roundops;
   let module Interp = (val get_interp sort roundops : S) in
   let ctx = Interp.empty_ctx p in
   Interp.update_ctx_with_inputs ctx inputs;
   let dbg_info =
     if dbg_flag then
-      let ctxd, g = Interp.update_ctxd_with_inputs empty_ctxd inputs in
+      let ctxd, g = Interp.update_ctxd_with_inputs G.empty_ctxd inputs in
       ref (Some (g, ctxd))
     else ref None
   in
