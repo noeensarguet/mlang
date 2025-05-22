@@ -195,7 +195,7 @@ struct
     let dbg = ref G.empty in
     ( Com.Var.Map.fold
         (fun var value ctxd ->
-          let vertex = G.V.create (var, None, value_to_literal value) in
+          let vertex = G.V.create ((var, None), None, value_to_literal value) in
           dbg := G.add_vertex !dbg vertex;
           StrMap.add (Pos.unmark var.name) vertex ctxd)
         (Com.Var.Map.map
@@ -269,6 +269,7 @@ struct
 
   exception BlockingError
 
+  (* TODO change the No position information bit to say sensible stuff about patch_rule_1 *)
   let get_var_def (var : Com.Var.t) (vexpr : Mir.expression Pos.marked) : string
       =
     let def_expr_opt = Pos.retrieve_raw_text (Pos.get_position vexpr) in
@@ -532,8 +533,6 @@ struct
   and set_var_value ?(dbg_info = ref None) (p : Mir.program) (ctx : ctx)
       ((var, vi) : Com.Var.t * int) (vexpr : Mir.expression Pos.marked) : unit =
     let value = evaluate_expr ~dbg_info ctx p vexpr in
-    let vdef = get_var_def var vexpr in
-    let vertex = G.V.create (var, Some vdef, value_to_literal value) in
     (match Com.Var.is_table var with
     | None -> (
         match var.scope with
@@ -557,8 +556,33 @@ struct
         | Com.Var.Res -> ctx.ctx_res <- value :: List.tl ctx.ctx_res));
     match !dbg_info with
     | Some (dbg, ctxd) ->
-        let dbg = G.add_vertex dbg vertex in
-        let ctxd = StrMap.add (Pos.unmark var.name) vertex ctxd in
+        let vdef = get_var_def var vexpr in
+        let vertex_list =
+          match Com.Var.is_table var with
+          | None ->
+              [ G.V.create ((var, None), Some vdef, value_to_literal value) ]
+          | Some sz ->
+              let rec aux = function
+                | 0 -> []
+                | n ->
+                    let idx = float_of_int (n - 1) in
+                    G.V.create
+                      ( (var, Some (Com.Float idx)),
+                        Some vdef,
+                        value_to_literal value )
+                    :: aux (n - 1)
+              in
+              aux sz
+        in
+
+        let dbg, ctxd =
+          List.fold_left
+            (fun (dbg, ctxd) vertex ->
+              let dbg = G.add_vertex dbg vertex
+              and ctxd = StrMap.add (Pos.unmark var.name) vertex ctxd in
+              (dbg, ctxd))
+            (dbg, ctxd) vertex_list
+        in
 
         let vl = Com.get_used_variables (Pos.unmark vexpr) in
         let dbg, ctxd =
@@ -569,21 +593,27 @@ struct
                 with Not_found ->
                   let resv = get_var_value ctx v 0 in
                   let new_vertex =
-                    G.V.create (v, None, value_to_literal resv)
-                    (* Either input vars or variables whose definition isn't in the current domains, typically *)
+                    G.V.create ((v, None), None, value_to_literal resv)
+                    (* Variables whose definition isn't in the current domains, typically *)
                   in
                   (new_vertex, StrMap.add (Pos.unmark v.name) new_vertex ctxd)
               in
-              (G.add_edge g vertex dep_vertex, vmap))
+              let graph =
+                List.fold_left
+                  (fun g vertex -> G.add_edge g vertex dep_vertex)
+                  g vertex_list
+              in
+              (graph, vmap))
             vl (dbg, ctxd)
         in
-        dbg_info := Some (G.add_vertex dbg vertex, ctxd)
+        dbg_info := Some (dbg, ctxd)
     | None -> ()
 
   and set_var_value_tab ?(dbg_info = ref None) (p : Mir.program) (ctx : ctx)
       ((var, vi) : Com.Var.t * int) (ei : Mir.expression Pos.marked)
       (vexpr : Mir.expression Pos.marked) : unit =
-    match evaluate_expr ~dbg_info ctx p ei with
+    let index = evaluate_expr ~dbg_info ctx p ei in
+    match index with
     | Undefined -> ()
     | Number f -> (
         let i = int_of_float (N.to_float f) in

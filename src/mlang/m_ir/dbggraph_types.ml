@@ -11,13 +11,17 @@
   this program. If not, see <https://www.gnu.org/licenses/>. *)
 
 include Graph.Persistent.Digraph.Abstract (struct
-  type t = Com.Var.t * string option * Com.literal
+  type t = (Com.Var.t * Com.literal option) * string option * Com.literal
+  (* The literal option is an optional index in the table. It should be set to Some _ only if the Com.Var.t is a table *)
 end)
 
 let pp_vertex fmt (v : vertex) =
-  let var, vdef, vval = V.label v in
-  Format.fprintf fmt "@[<v>%s = %a@,@,@]@[<hov>%a@]" (Pos.unmark var.name)
-    Com.format_literal vval
+  let (var, idx_opt), vdef, vval = V.label v in
+  Format.fprintf fmt "@[<v>%s%a = %a@,@,@]@[<hov>%a@]" (Pos.unmark var.name)
+    (Format.pp_print_option
+       ~none:(fun _ () -> ())
+       (fun fmt idx -> Format.fprintf fmt "[%a]" Com.format_literal idx))
+    idx_opt Com.format_literal vval
     (Format.pp_print_option
        ~none:(fun fmt () ->
          let descr =

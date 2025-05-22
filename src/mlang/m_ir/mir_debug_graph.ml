@@ -40,7 +40,7 @@ let to_dot (fmt : Format.formatter) (g : G.t) : unit =
         `Label (Format.asprintf "%a" G.pp_vertex v);
         `Shape `Box;
         `Style `Filled;
-        (let var, _, _ = G.V.label v in
+        (let (var, _), _, _ = G.V.label v in
          `Fillcolor
            (match Com.Var.cat_var_loc var with
            | Some Com.CatVar.LocInput -> 0xadd8e6
