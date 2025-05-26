@@ -1347,9 +1347,9 @@ let check_variable (var : Mast.variable Pos.marked)
   | OneOf idx, OneOf decl_size -> (
       match (idx, decl_size) with
       | None, None -> (name, var_pos)
-      | None, Some _ -> Err.variable_used_as_table decl_pos var_pos
+      | None, Some _ -> Err.table_used_as_variable decl_pos var_pos
       | Some _, Some _ -> (name, var_pos)
-      | Some _, None -> Err.table_used_as_variable decl_pos var_pos)
+      | Some _, None -> Err.variable_used_as_table decl_pos var_pos)
 
 let check_expression (is_filter : bool) (m_expr : Mast.expression Pos.marked)
     (env : var_env) : MarkedVarNames.Set.t =
