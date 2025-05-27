@@ -267,7 +267,7 @@ type 'v expression =
 
 and 'v m_expression = 'v expression Pos.marked
 
-val get_used_variables : 'v expression -> 'v list
+val get_used_variables : 'v expression -> ('v * 'v expression option) list
 
 module Error : sig
   type typ = Anomaly | Discordance | Information

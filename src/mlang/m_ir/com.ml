@@ -414,8 +414,9 @@ type 'v expression =
 
 and 'v m_expression = 'v expression Pos.marked
 
-let get_used_variables (e : 'v expression) : 'v list =
-  let rec get_used_variables_ (e : 'v expression) (acc : 'v list) =
+let get_used_variables (e : 'v expression) : ('v * 'v expression option) list =
+  let rec get_used_variables_ (e : 'v expression)
+      (acc : ('v * 'v expression option) list) =
     match e with
     | TestInSet (_, (e, _), _) | Unop (_, (e, _)) ->
         let acc = get_used_variables_ e acc in
@@ -425,7 +426,7 @@ let get_used_variables (e : 'v expression) : 'v list =
         let acc = get_used_variables_ e2 acc in
         acc
     | Index ((var, _), (e, _)) ->
-        let acc = var :: acc in
+        let acc = (var, Some e) :: acc in
         let acc = get_used_variables_ e acc in
         acc
     | Conditional ((e1, _), (e2, _), e3) -> (
@@ -437,7 +438,7 @@ let get_used_variables (e : 'v expression) : 'v list =
           (fun acc (arg, _) -> get_used_variables_ arg acc)
           acc args
     | FuncCallLoop _ | Loop _ -> assert false
-    | Var var | Size (var, _) | Attribut ((var, _), _) -> var :: acc
+    | Var var | Size (var, _) | Attribut ((var, _), _) -> (var, None) :: acc
     | Literal _ | NbCategory _ | NbAnomalies | NbDiscordances | NbInformatives
     | NbBloquantes ->
         acc
